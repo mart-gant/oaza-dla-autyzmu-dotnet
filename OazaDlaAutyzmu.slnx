@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/OazaDlaAutyzmu.Application/OazaDlaAutyzmu.Application.csproj" />
+    <Project Path="src/OazaDlaAutyzmu.Domain/OazaDlaAutyzmu.Domain.csproj" />
+    <Project Path="src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj" />
+    <Project Path="src/OazaDlaAutyzmu.Web/OazaDlaAutyzmu.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/OazaDlaAutyzmu.Tests/OazaDlaAutyzmu.Tests.csproj" />
+  </Folder>
+</Solution>
