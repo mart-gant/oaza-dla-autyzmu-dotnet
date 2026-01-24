@@ -1,0 +1,225 @@
+@model OazaDlaAutyzmu.Application.Common.PagedResult<OazaDlaAutyzmu.Application.DTOs.FacilityDto>
+@{
+    ViewData["Title"] = "Placówki dla osób z autyzmem";
+}
+
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+        <div>
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+                Placówki dla osób z autyzmem
+            </h1>
+            <p class="text-gray-600 dark:text-gray-400">
+                Znaleziono: <strong>@Model.TotalCount</strong> placówek (strona @Model.PageNumber z @Model.TotalPages)
+            </p>
+        </div>
+        
+        @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+        {
+            <a asp-action="Create" class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                Dodaj placówkę
+            </a>
+        }
+    </div>
+
+    <!-- Filters -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+        <form method="get" asp-action="Index" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Miasto</label>
+                <select name="city" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                    <option value="">Wszystkie miasta</option>
+                    @foreach (var city in ViewBag.Cities)
+                    {
+                        <option value="@city" selected="@(city == ViewBag.CurrentCity)">@city</option>
+                    }
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Typ</label>
+                <select name="type" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                    <option value="">Wszystkie typy</option>
+                    <option value="Therapy">Terapia</option>
+                    <option value="School">Szkoła</option>
+                    <option value="SupportCenter">Centrum wsparcia</option>
+                    <option value="Clinic">Przychodnia</option>
+                    <option value="Other">Inne</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Status</label>
+                <select name="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                    <option value="">Wszystkie statusy</option>
+                    <option value="Certified">Certyfikowane</option>
+                    <option value="Verified">Zweryfikowane</option>
+                    <option value="Unverified">Niezweryfikowane</option>
+                    <option value="Flagged">Wymaga sprawdzenia</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Szukaj</label>
+                <div class="flex gap-2">
+                    <input type="text" name="search" value="@ViewBag.CurrentSearch" 
+                           placeholder="Nazwa, adres..." 
+                           class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                    <button type="submit" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition">
+                        Filtruj
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Facilities Grid -->
+    @if (Model.TotalCount == 0)
+    {
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-12 text-center">
+            <svg class="mx-auto h-16 w-16 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+            </svg>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Brak placówek</h3>
+            <p class="text-gray-600 dark:text-gray-400">Nie znaleziono placówek spełniających kryteria wyszukiwania.</p>
+        </div>
+    }
+    else
+    {
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            @foreach (var facility in Model.Items)
+            {
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden">
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white flex-1">
+                                @facility.Name
+                            </h3>
+                            <span class="@GetVerificationBadgeClass(facility.VerificationStatus) ml-2 flex-shrink-0">
+                                @GetVerificationLabel(facility.VerificationStatus)
+                            </span>
+                        </div>
+                        
+                        <div class="space-y-2 mb-4">
+                            <p class="text-gray-600 dark:text-gray-400 flex items-center">
+                                <svg class="w-5 h-5 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                @facility.City
+                            </p>
+                            
+                            <p class="text-gray-600 dark:text-gray-400 flex items-center">
+                                <svg class="w-5 h-5 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                                </svg>
+                                @GetFacilityTypeLabel(facility.Type)
+                            </p>
+
+                            @if (facility.AverageRating.HasValue)
+                            {
+                                <p class="text-gray-600 dark:text-gray-400 flex items-center">
+                                    <svg class="w-5 h-5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                    </svg>
+                                    @facility.AverageRating.Value.ToString("0.0") (@facility.ReviewCount opinie)
+                                </p>
+                            }
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(facility.Description))
+                        {
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-3">
+                                @facility.Description
+                            </p>
+                        }
+                        
+                        <a asp-action="Details" asp-route-id="@facility.Id" 
+                           class="inline-flex items-center text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 font-medium">
+                            Zobacz szczegóły
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+        
+        <!-- Pagination -->
+        @if (Model.TotalPages > 1)
+        {
+            <div class="flex justify-center items-center space-x-2">
+                @if (Model.HasPreviousPage)
+                {
+                    <a asp-action="Index" 
+                       asp-route-pageNumber="@(Model.PageNumber - 1)"
+                       asp-route-city="@ViewBag.CurrentCity"
+                       asp-route-type="@ViewBag.CurrentType"
+                       asp-route-status="@ViewBag.CurrentStatus"
+                       asp-route-search="@ViewBag.CurrentSearch"
+                       class="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                        « Poprzednia
+                    </a>
+                }
+
+                @for (int i = Math.Max(1, Model.PageNumber - 2); i <= Math.Min(Model.TotalPages, Model.PageNumber + 2); i++)
+                {
+                    <a asp-action="Index" 
+                       asp-route-pageNumber="@i"
+                       asp-route-city="@ViewBag.CurrentCity"
+                       asp-route-type="@ViewBag.CurrentType"
+                       asp-route-status="@ViewBag.CurrentStatus"
+                       asp-route-search="@ViewBag.CurrentSearch"
+                       class="@(i == Model.PageNumber ? "px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold" : "px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300")">
+                        @i
+                    </a>
+                }
+
+                @if (Model.HasNextPage)
+                {
+                    <a asp-action="Index" 
+                       asp-route-pageNumber="@(Model.PageNumber + 1)"
+                       asp-route-city="@ViewBag.CurrentCity"
+                       asp-route-type="@ViewBag.CurrentType"
+                       asp-route-status="@ViewBag.CurrentStatus"
+                       asp-route-search="@ViewBag.CurrentSearch"
+                       class="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                        Następna »
+                    </a>
+                }
+            </div>
+        }
+    }
+</div>
+
+@functions {
+    string GetVerificationBadgeClass(string status) => status switch
+    {
+        "Certified" => "px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-semibold",
+        "Verified" => "px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-semibold",
+        "Flagged" => "px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-semibold",
+        _ => "px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-xs font-semibold"
+    };
+
+    string GetVerificationLabel(string status) => status switch
+    {
+        "Certified" => "✓ Certyfikat",
+        "Verified" => "✓ Zweryfikowana",
+        "Flagged" => "⚠ Sprawdzanie",
+        _ => "Niezweryfikowana"
+    };
+
+    string GetFacilityTypeLabel(string type) => type switch
+    {
+        "Therapy" => "Terapia",
+        "School" => "Szkoła",
+        "SupportCenter" => "Centrum wsparcia",
+        "Clinic" => "Przychodnia",
+        _ => "Inne"
+    };
+}

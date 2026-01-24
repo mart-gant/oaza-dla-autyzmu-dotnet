@@ -23,6 +23,7 @@ public class Facility : BaseEntity
     
     // Navigation properties
     public ApplicationUser? VerifiedBy { get; set; }
+    public ICollection<Review> Reviews { get; set; } = new List<Review>();
     
     // Helper methods
     public bool IsVerified() => VerificationStatus == VerificationStatus.Verified || VerificationStatus == VerificationStatus.Certified;

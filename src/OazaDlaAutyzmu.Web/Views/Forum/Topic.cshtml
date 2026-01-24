@@ -1,0 +1,141 @@
+@model OazaDlaAutyzmu.Application.DTOs.ForumTopicDto
+@{
+    ViewData["Title"] = Model.Title;
+    var posts = ViewBag.Posts as List<OazaDlaAutyzmu.Application.DTOs.ForumPostDto>;
+}
+
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <nav class="mb-6 text-sm text-gray-600 dark:text-gray-400">
+        <a asp-action="Index" class="hover:text-indigo-600">Forum</a>
+        <span class="mx-2">/</span>
+        <a asp-action="Category" asp-route-id="@Model.CategoryId" class="hover:text-indigo-600">@Model.CategoryName</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900 dark:text-white">@Model.Title</span>
+    </nav>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+                @if (Model.IsPinned)
+                {
+                    <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-semibold rounded">
+                        📌 Przypięty
+                    </span>
+                }
+                @if (Model.IsLocked)
+                {
+                    <span class="px-2 py-1 bg-gray-100 text-gray-800 text-xs font-semibold rounded">
+                        🔒 Zamknięty
+                    </span>
+                }
+            </div>
+            
+            @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                <div class="flex gap-2">
+                    <form asp-controller="Moderator" asp-action="ToggleTopicPin" asp-route-id="@Model.Id" asp-route-categoryId="@Model.CategoryId" method="post" class="inline">
+                        <button type="submit" class="px-3 py-1 bg-yellow-100 hover:bg-yellow-200 text-yellow-800 text-sm rounded transition">
+                            @(Model.IsPinned ? "Odepnij" : "Przypnij")
+                        </button>
+                    </form>
+                    <form asp-controller="Moderator" asp-action="ToggleTopicLock" asp-route-id="@Model.Id" method="post" class="inline">
+                        <button type="submit" class="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm rounded transition">
+                            @(Model.IsLocked ? "Odblokuj" : "Zablokuj")
+                        </button>
+                    </form>
+                </div>
+            }
+        </div>
+
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            @Model.Title
+        </h1>
+        
+        <div class="text-sm text-gray-600 dark:text-gray-400">
+            <span>Utworzył: <span class="font-medium">@Model.UserName</span></span>
+            <span class="mx-2">•</span>
+            <span>@Model.CreatedAt.ToString("dd.MM.yyyy HH:mm")</span>
+            <span class="mx-2">•</span>
+            <span>@Model.ViewCount wyświetleń</span>
+        </div>
+    </div>
+
+    <div class="space-y-4 mb-6">
+        @if (posts != null)
+        {
+            @foreach (var post in posts)
+            {
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center text-white text-xl font-bold">
+                                @post.UserName.Substring(0, 1).ToUpper()
+                            </div>
+                            <div class="text-center mt-2 text-sm font-medium text-gray-900 dark:text-white">
+                                @post.UserName
+                            </div>
+                        </div>
+
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start mb-3">
+                                <div class="text-sm text-gray-600 dark:text-gray-400">
+                                    @post.CreatedAt.ToString("dd.MM.yyyy HH:mm")
+                                    @if (post.UpdatedAt.HasValue)
+                                    {
+                                        <span class="ml-2">(edytowano: @post.UpdatedAt.Value.ToString("dd.MM.yyyy HH:mm"))</span>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="prose dark:prose-invert max-w-none">
+                                @Html.Raw(System.Net.WebUtility.HtmlEncode(post.Content).Replace("\n", "<br />"))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    @if (!Model.IsLocked)
+    {
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Dodaj odpowiedź</h2>
+                
+                <form asp-action="CreatePost" method="post">
+                    <input type="hidden" name="topicId" value="@Model.Id" />
+                    
+                    <div class="mb-4">
+                        <textarea name="content" rows="6" required
+                                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-900 dark:text-white"
+                                  placeholder="Twoja odpowiedź..."></textarea>
+                    </div>
+
+                    <button type="submit" 
+                            class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition">
+                        Wyślij odpowiedź
+                    </button>
+                </form>
+            </div>
+        }
+        else
+        {
+            <div class="bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-700 rounded-lg p-6">
+                <p class="text-blue-800 dark:text-blue-200">
+                    <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Context.Request.Path" 
+                       class="font-semibold hover:underline">Zaloguj się</a>, aby dodać odpowiedź.
+                </p>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-6">
+            <p class="text-gray-800 dark:text-gray-200">
+                Ten temat został zamknięty przez moderatora. Nie można dodawać nowych odpowiedzi.
+            </p>
+        </div>
+    }
+</div>

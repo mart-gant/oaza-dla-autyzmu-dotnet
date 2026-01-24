@@ -1,0 +1,52 @@
+@{
+    ViewData["Title"] = "Nowy temat";
+}
+
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <nav class="mb-6 text-sm text-gray-600 dark:text-gray-400">
+        <a asp-action="Index" class="hover:text-indigo-600">Forum</a>
+        <span class="mx-2">/</span>
+        <a asp-action="Category" asp-route-id="@ViewBag.CategoryId" class="hover:text-indigo-600">@ViewBag.CategoryName</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900 dark:text-white">Nowy temat</span>
+    </nav>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+            Utwórz nowy temat
+        </h1>
+
+        <form asp-action="CreateTopic" method="post">
+            <input type="hidden" name="categoryId" value="@ViewBag.CategoryId" />
+            
+            <div class="mb-6">
+                <label class="block text-gray-700 dark:text-gray-300 font-medium mb-2">
+                    Tytuł tematu
+                </label>
+                <input type="text" name="title" required
+                       class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-900 dark:text-white"
+                       placeholder="Wpisz tytuł tematu..." />
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-gray-700 dark:text-gray-300 font-medium mb-2">
+                    Treść pierwszego postu
+                </label>
+                <textarea name="content" rows="10" required
+                          class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-900 dark:text-white"
+                          placeholder="Opisz swoje pytanie lub rozpocznij dyskusję..."></textarea>
+            </div>
+
+            <div class="flex gap-4">
+                <button type="submit" 
+                        class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition">
+                    Utwórz temat
+                </button>
+                <a asp-action="Category" asp-route-id="@ViewBag.CategoryId" 
+                   class="px-6 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-lg transition">
+                    Anuluj
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,143 @@
+@model OazaDlaAutyzmu.Application.Commands.Facilities.UpdateFacilityCommand
+@{
+    ViewData["Title"] = "Edytuj placówkę";
+}
+
+<div class="max-w-3xl mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-8">
+        Edytuj placówkę
+    </h1>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8">
+        <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.Id)
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Name -->
+                <div class="md:col-span-2">
+                    <label asp-for="Name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Nazwa placówki <span class="text-red-500">*</span>
+                    </label>
+                    <input asp-for="Name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" required />
+                    <span asp-validation-for="Name" class="text-red-500 text-sm"></span>
+                </div>
+
+                <!-- Type -->
+                <div>
+                    <label asp-for="Type" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Typ placówki <span class="text-red-500">*</span>
+                    </label>
+                    <select asp-for="Type" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" required>
+                        <option value="">Wybierz typ</option>
+                        <option value="Therapy">Terapia</option>
+                        <option value="School">Szkoła</option>
+                        <option value="SupportCenter">Centrum wsparcia</option>
+                        <option value="Clinic">Przychodnia</option>
+                        <option value="Other">Inne</option>
+                    </select>
+                    <span asp-validation-for="Type" class="text-red-500 text-sm"></span>
+                </div>
+
+                <!-- City -->
+                <div>
+                    <label asp-for="City" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Miasto <span class="text-red-500">*</span>
+                    </label>
+                    <input asp-for="City" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" required />
+                    <span asp-validation-for="City" class="text-red-500 text-sm"></span>
+                </div>
+
+                <!-- Address -->
+                <div>
+                    <label asp-for="Address" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Adres <span class="text-red-500">*</span>
+                    </label>
+                    <input asp-for="Address" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" required />
+                    <span asp-validation-for="Address" class="text-red-500 text-sm"></span>
+                </div>
+
+                <!-- Postal Code -->
+                <div>
+                    <label asp-for="PostalCode" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Kod pocztowy
+                    </label>
+                    <input asp-for="PostalCode" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" />
+                    <span asp-validation-for="PostalCode" class="text-red-500 text-sm"></span>
+                </div>
+
+                <!-- Phone -->
+                <div>
+                    <label asp-for="PhoneNumber" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Telefon
+                    </label>
+                    <input asp-for="PhoneNumber" type="tel" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" />
+                    <span asp-validation-for="PhoneNumber" class="text-red-500 text-sm"></span>
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label asp-for="Email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Email
+                    </label>
+                    <input asp-for="Email" type="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" />
+                    <span asp-validation-for="Email" class="text-red-500 text-sm"></span>
+                </div>
+
+                <!-- Website -->
+                <div>
+                    <label asp-for="Website" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Strona www
+                    </label>
+                    <input asp-for="Website" type="url" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" />
+                    <span asp-validation-for="Website" class="text-red-500 text-sm"></span>
+                </div>
+
+                <!-- Latitude -->
+                <div>
+                    <label asp-for="Latitude" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Szerokość geograficzna
+                    </label>
+                    <input asp-for="Latitude" type="number" step="0.000001" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" />
+                    <span asp-validation-for="Latitude" class="text-red-500 text-sm"></span>
+                </div>
+
+                <!-- Longitude -->
+                <div>
+                    <label asp-for="Longitude" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Długość geograficzna
+                    </label>
+                    <input asp-for="Longitude" type="number" step="0.000001" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" />
+                    <span asp-validation-for="Longitude" class="text-red-500 text-sm"></span>
+                </div>
+
+                <!-- Description -->
+                <div class="md:col-span-2">
+                    <label asp-for="Description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Opis
+                    </label>
+                    <textarea asp-for="Description" rows="5" 
+                              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500"></textarea>
+                    <span asp-validation-for="Description" class="text-red-500 text-sm"></span>
+                </div>
+            </div>
+
+            <div asp-validation-summary="ModelOnly" class="text-red-500 mt-4"></div>
+
+            <div class="flex gap-4 mt-8">
+                <button type="submit" 
+                        class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition">
+                    Zapisz zmiany
+                </button>
+                <a asp-action="Details" asp-route-id="@Model.Id" 
+                   class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium rounded-lg transition">
+                    Anuluj
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
