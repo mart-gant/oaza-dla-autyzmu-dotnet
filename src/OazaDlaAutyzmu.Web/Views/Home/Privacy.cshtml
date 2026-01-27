@@ -1,6 +1,215 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Polityka Prywatności";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-16">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                📄 Polityka Prywatności
+            </h1>
+            <p class="text-xl text-indigo-100">
+                Ochrona Twoich danych osobowych jest dla nas priorytetem
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Content Section -->
+<section class="py-12 bg-gray-50 dark:bg-gray-900">
+    <div class="max-w-4xl mx-auto px-4">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 md:p-12">
+            
+            <div class="prose prose-lg dark:prose-invert max-w-none">
+                
+                <p class="text-gray-600 dark:text-gray-400 mb-8">
+                    <strong>Ostatnia aktualizacja:</strong> @DateTime.Now.ToString("dd.MM.yyyy")
+                </p>
+
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4 mt-8">
+                    1. Administrator danych
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    Administratorem Twoich danych osobowych jest platforma <strong>Oaza dla Autyzmu</strong>.
+                    W sprawach związanych z ochroną danych osobowych możesz skontaktować się z nami pod adresem:
+                    <a href="mailto:kontakt@oazadlaautyzmu.pl" class="text-indigo-600 dark:text-indigo-400 hover:underline">kontakt@oazadlaautyzmu.pl</a>
+                </p>
+
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4 mt-8">
+                    2. Jakie dane zbieramy
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    W ramach korzystania z platformy możemy zbierać następujące kategorie danych:
+                </p>
+                <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-2 mb-6 ml-4">
+                    <li><strong>Dane rejestracyjne:</strong> imię, nazwisko, adres e-mail, hasło (zaszyfrowane)</li>
+                    <li><strong>Dane profilowe:</strong> zdjęcie profilowe, informacje biograficzne (opcjonalnie)</li>
+                    <li><strong>Dane aktywności:</strong> opinie o placówkach, posty na forum, komentarze</li>
+                    <li><strong>Dane techniczne:</strong> adres IP, typ przeglądarki, system operacyjny</li>
+                    <li><strong>Dane cookies:</strong> preferencje użytkownika, sesja logowania</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4 mt-8">
+                    3. Cele przetwarzania danych
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    Twoje dane osobowe przetwarzamy w następujących celach:
+                </p>
+                <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-2 mb-6 ml-4">
+                    <li>Umożliwienie rejestracji i korzystania z konta użytkownika</li>
+                    <li>Świadczenie usług dostępnych na platformie (opinie, forum, galerie)</li>
+                    <li>Komunikacja z użytkownikami (powiadomienia, wiadomości)</li>
+                    <li>Moderacja treści i zapewnienie bezpieczeństwa platformy</li>
+                    <li>Analiza statystyk i ulepszanie funkcjonalności serwisu</li>
+                    <li>Realizacja obowiązków prawnych (np. przechowywanie logów)</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4 mt-8">
+                    4. Podstawa prawna przetwarzania
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    Przetwarzamy Twoje dane na podstawie:
+                </p>
+                <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-2 mb-6 ml-4">
+                    <li><strong>Zgody</strong> - dla danych opcjonalnych (np. newsletter, zdjęcie profilowe)</li>
+                    <li><strong>Wykonania umowy</strong> - dla danych niezbędnych do świadczenia usług</li>
+                    <li><strong>Prawnie uzasadnionego interesu</strong> - dla analizy statystyk i bezpieczeństwa</li>
+                    <li><strong>Obowiązku prawnego</strong> - dla przechowywania logów (zgodnie z ustawą o świadczeniu usług drogą elektroniczną)</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4 mt-8">
+                    5. Okres przechowywania danych
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    Twoje dane osobowe przechowujemy przez okres:
+                </p>
+                <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-2 mb-6 ml-4">
+                    <li><strong>Konto aktywne:</strong> do czasu usunięcia konta przez użytkownika</li>
+                    <li><strong>Opinie i posty:</strong> do 10 lat od publikacji (wymóg prawny) lub usunięcia konta</li>
+                    <li><strong>Logi systemowe:</strong> 12 miesięcy (wymóg ustawy)</li>
+                    <li><strong>Cookies:</strong> do 12 miesięcy lub do momentu wycofania zgody</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4 mt-8">
+                    6. Udostępnianie danych osobom trzecim
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    Twoje dane możemy udostępniać następującym kategoriom odbiorców:
+                </p>
+                <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-2 mb-6 ml-4">
+                    <li><strong>Dostawcy usług hostingowych</strong> - przechowywanie danych na serwerach</li>
+                    <li><strong>Dostawcy usług analitycznych</strong> - analiza ruchu i statystyk (anonimowo)</li>
+                    <li><strong>Dostawcy usług email</strong> - wysyłka powiadomień</li>
+                    <li><strong>Organy państwowe</strong> - na żądanie uprawnione przepisami prawa</li>
+                </ul>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    <strong>Nie sprzedajemy</strong> Twoich danych osobowych podmiotom trzecim w celach marketingowych.
+                </p>
+
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4 mt-8">
+                    7. Twoje prawa (RODO)
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    Zgodnie z RODO przysługują Ci następujące prawa:
+                </p>
+                <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-2 mb-6 ml-4">
+                    <li><strong>Prawo dostępu</strong> - możesz uzyskać kopię swoich danych</li>
+                    <li><strong>Prawo do sprostowania</strong> - możesz poprawić nieprawidłowe dane</li>
+                    <li><strong>Prawo do usunięcia</strong> - możesz zażądać usunięcia swoich danych ("prawo do bycia zapomnianym")</li>
+                    <li><strong>Prawo do ograniczenia przetwarzania</strong> - możesz zażądać wstrzymania przetwarzania</li>
+                    <li><strong>Prawo do przenoszenia danych</strong> - możesz otrzymać dane w formacie CSV/JSON</li>
+                    <li><strong>Prawo sprzeciwu</strong> - możesz sprzeciwić się przetwarzaniu w celach marketingowych</li>
+                    <li><strong>Prawo do cofnięcia zgody</strong> - w każdej chwili bez wpływu na zgodność z prawem</li>
+                </ul>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    Aby skorzystać z powyższych praw, skontaktuj się z nami: 
+                    <a href="mailto:kontakt@oazadlaautyzmu.pl" class="text-indigo-600 dark:text-indigo-400 hover:underline">kontakt@oazadlaautyzmu.pl</a>
+                </p>
+
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4 mt-8">
+                    8. Pliki cookies
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-4">
+                    Nasza platforma wykorzystuje pliki cookies w następujących celach:
+                </p>
+                <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-2 mb-6 ml-4">
+                    <li><strong>Cookies niezbędne:</strong> obsługa sesji logowania, bezpieczeństwo (wymagane)</li>
+                    <li><strong>Cookies funkcjonalne:</strong> zapamiętywanie preferencji (tryb ciemny, język)</li>
+                    <li><strong>Cookies analityczne:</strong> analiza ruchu i zachowań użytkowników (opcjonalne, wymaga zgody)</li>
+                </ul>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    Możesz zarządzać cookies w ustawieniach swojej przeglądarki. Wyłączenie cookies może ograniczyć funkcjonalność platformy.
+                </p>
+
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4 mt-8">
+                    9. Bezpieczeństwo danych
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    Stosujemy szereg środków technicznych i organizacyjnych w celu ochrony Twoich danych:
+                </p>
+                <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-2 mb-6 ml-4">
+                    <li>Szyfrowanie połączenia (HTTPS/TLS)</li>
+                    <li>Hashowanie haseł algorytmem bcrypt</li>
+                    <li>Dwuskładnikowe uwierzytelnianie (2FA)</li>
+                    <li>Regularne kopie zapasowe</li>
+                    <li>Monitorowanie bezpieczeństwa i logowanie zdarzeń</li>
+                    <li>Ograniczenie dostępu do danych osobowych (zasada minimalnych uprawnień)</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4 mt-8">
+                    10. Zmiany w polityce prywatności
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    Zastrzegamy sobie prawo do wprowadzania zmian w niniejszej Polityce Prywatności.
+                    O wszelkich istotnych zmianach poinformujemy użytkowników za pośrednictwem:
+                </p>
+                <ul class="list-disc list-inside text-gray-600 dark:text-gray-400 space-y-2 mb-6 ml-4">
+                    <li>Powiadomienia na platformie</li>
+                    <li>Wiadomości e-mail</li>
+                    <li>Informacji w panelu użytkownika</li>
+                </ul>
+
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4 mt-8">
+                    11. Kontakt
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    W przypadku pytań dotyczących ochrony danych osobowych lub niniejszej Polityki Prywatności
+                    skontaktuj się z nami:
+                </p>
+                <div class="bg-indigo-50 dark:bg-indigo-900/20 rounded-lg p-6 mb-6">
+                    <p class="text-gray-700 dark:text-gray-300 mb-2">
+                        <strong>Email:</strong> <a href="mailto:kontakt@oazadlaautyzmu.pl" class="text-indigo-600 dark:text-indigo-400 hover:underline">kontakt@oazadlaautyzmu.pl</a>
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300 mb-2">
+                        <strong>Telefon:</strong> +48 123 456 789
+                    </p>
+                    <p class="text-gray-700 dark:text-gray-300">
+                        <strong>Adres:</strong> ul. Przykładowa 1, 00-001 Warszawa
+                    </p>
+                </div>
+
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white mb-4 mt-8">
+                    12. Prawo do skargi
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-6">
+                    Jeśli uważasz, że przetwarzanie Twoich danych osobowych narusza przepisy RODO,
+                    przysługuje Ci prawo do wniesienia skargi do organu nadzorczego:
+                </p>
+                <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-6">
+                    <p class="text-gray-700 dark:text-gray-300 mb-2">
+                        <strong>Urząd Ochrony Danych Osobowych (UODO)</strong>
+                    </p>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">
+                        ul. Stawki 2, 00-193 Warszawa<br />
+                        Tel: 22 531 03 00<br />
+                        Email: kancelaria@uodo.gov.pl<br />
+                        <a href="https://uodo.gov.pl" target="_blank" class="text-indigo-600 dark:text-indigo-400 hover:underline">www.uodo.gov.pl</a>
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
