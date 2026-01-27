@@ -207,6 +207,7 @@
                     Dodaj opinię
                 </h3>
                 <form asp-controller="Reviews" asp-action="Create" method="post">
+                    @Html.AntiForgeryToken()
                     <input type="hidden" name="facilityId" value="@Model.Id" />
                     
                     <div class="mb-4">

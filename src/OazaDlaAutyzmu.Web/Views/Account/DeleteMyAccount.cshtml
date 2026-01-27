@@ -1,0 +1,65 @@
+@{
+    ViewData["Title"] = "Usuń konto";
+}
+
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl w-full space-y-8">
+        <div>
+            <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                Usunięcie konta
+            </h2>
+        </div>
+
+        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <div class="rounded-md bg-red-50 p-4 mb-6">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-red-800">
+                            Ostrzeżenie - Akcja nieodwracalna
+                        </h3>
+                        <div class="mt-2 text-sm text-red-700">
+                            <p>Usunięcie konta jest <strong>trwałe i nieodwracalne</strong>. Spowoduje to:</p>
+                            <ul class="list-disc list-inside mt-2 space-y-1">
+                                <li>Trwałe usunięcie wszystkich Twoich danych osobowych</li>
+                                <li>Usunięcie wszystkich dodanych przez Ciebie opinii</li>
+                                <li>Usunięcie Twoich postów i tematów na forum</li>
+                                <li>Utratę dostępu do konta - nie będzie możliwości odzyskania</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <p class="text-sm text-gray-600">
+                    Zgodnie z GDPR (RODO), masz prawo do trwałego usunięcia swoich danych osobowych z naszego systemu.
+                </p>
+
+                <p class="text-sm text-gray-600">
+                    Przed usunięciem konta, możesz <a asp-action="DownloadMyData" class="text-indigo-600 hover:text-indigo-500 font-medium">pobrać kopię swoich danych</a>.
+                </p>
+
+                <form asp-action="DeleteMyAccountConfirmed" method="post" 
+                      onsubmit="return confirm('Czy na pewno chcesz TRWALE usunąć swoje konto? Ta operacja jest NIEODWRACALNA.');">
+                    @Html.AntiForgeryToken()
+
+                    <div class="flex space-x-4 mt-6">
+                        <button type="submit"
+                                class="flex-1 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                            Usuń moje konto na zawsze
+                        </button>
+                        <a asp-action="Index" asp-controller="Home"
+                           class="flex-1 inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Anuluj
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

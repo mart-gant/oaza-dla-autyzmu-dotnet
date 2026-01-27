@@ -105,6 +105,7 @@
                 <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Dodaj odpowiedź</h2>
                 
                 <form asp-action="CreatePost" method="post">
+                    @Html.AntiForgeryToken()
                     <input type="hidden" name="topicId" value="@Model.Id" />
                     
                     <div class="mb-4">

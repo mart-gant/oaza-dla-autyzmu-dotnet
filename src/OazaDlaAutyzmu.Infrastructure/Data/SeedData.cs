@@ -13,8 +13,16 @@ public static class SeedData
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
-        // Ensure database is created
-        await context.Database.MigrateAsync();
+        // Ensure database is created (use EnsureCreated for InMemory, Migrate for relational)
+        var databaseProvider = context.Database.ProviderName;
+        if (databaseProvider == "Microsoft.EntityFrameworkCore.InMemory")
+        {
+            await context.Database.EnsureCreatedAsync();
+        }
+        else
+        {
+            await context.Database.MigrateAsync();
+        }
 
         // Check if data already exists
         if (await context.Users.AnyAsync())

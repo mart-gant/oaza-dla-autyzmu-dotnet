@@ -21,6 +21,10 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
     public DbSet<ForumTopic> ForumTopics { get; set; }
     public DbSet<ForumPost> ForumPosts { get; set; }
     public DbSet<Event> Events { get; set; }
+    public DbSet<AuditLog> AuditLogs { get; set; }
+    public DbSet<Notification> Notifications { get; set; }
+    public DbSet<FacilityImage> FacilityImages { get; set; }
+    public DbSet<ContactMessage> ContactMessages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -130,6 +134,12 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
                 .WithMany()
                 .HasForeignKey(e => e.ApprovedById)
                 .OnDelete(DeleteBehavior.SetNull);
+            
+            // Performance indexes
+            entity.HasIndex(e => e.FacilityId);
+            entity.HasIndex(e => e.IsApproved);
+            entity.HasIndex(e => e.CreatedAt);
+            entity.HasIndex(e => new { e.FacilityId, e.IsApproved });
         });
 
         // Article configuration
@@ -293,6 +303,40 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
             entity.HasIndex(e => e.IsApproved);
         });
 
+        // Notification configuration
+        modelBuilder.Entity<Notification>(entity =>
+        {
+            entity.ToTable("notifications");
+            
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.UserId)
+                .IsRequired();
+            
+            entity.Property(e => e.Type)
+                .IsRequired()
+                .HasMaxLength(50);
+            
+            entity.Property(e => e.Title)
+                .IsRequired()
+                .HasMaxLength(255);
+            
+            entity.Property(e => e.Message)
+                .IsRequired();
+            
+            entity.Property(e => e.Url)
+                .HasMaxLength(500);
+            
+            entity.HasOne(e => e.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            entity.HasIndex(e => e.UserId);
+            entity.HasIndex(e => e.IsRead);
+            entity.HasIndex(e => e.CreatedAt);
+        });
+
         // Seed data (using static dates to avoid model changes warning)
         var seedDate = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc);
         
@@ -311,5 +355,60 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityR
             new ForumCategory { Id = 4, Name = "Szkoła i edukacja", Slug = "szkola-edukacja", Description = "Edukacja dzieci z autyzmem", SortOrder = 4, CreatedAt = seedDate },
             new ForumCategory { Id = 5, Name = "Wsparcie", Slug = "wsparcie", Description = "Wsparcie dla rodziców i opiekunów", SortOrder = 5, CreatedAt = seedDate }
         );
+
+        // FacilityImage configuration
+        modelBuilder.Entity<FacilityImage>(entity =>
+        {
+            entity.ToTable("facility_images");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.ImageUrl)
+                .IsRequired()
+                .HasMaxLength(500);
+            
+            entity.Property(e => e.Caption)
+                .HasMaxLength(200);
+            
+            entity.HasOne(e => e.Facility)
+                .WithMany()
+                .HasForeignKey(e => e.FacilityId)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            entity.HasIndex(e => e.FacilityId);
+            entity.HasIndex(e => new { e.FacilityId, e.IsMain });
+            entity.HasIndex(e => new { e.FacilityId, e.DisplayOrder });
+        });
+
+        // ContactMessage configuration
+        modelBuilder.Entity<ContactMessage>(entity =>
+        {
+            entity.ToTable("contact_messages");
+            entity.HasKey(e => e.Id);
+            
+            entity.Property(e => e.SenderName)
+                .IsRequired()
+                .HasMaxLength(100);
+            
+            entity.Property(e => e.SenderEmail)
+                .IsRequired()
+                .HasMaxLength(255);
+            
+            entity.Property(e => e.Subject)
+                .IsRequired()
+                .HasMaxLength(200);
+            
+            entity.Property(e => e.Message)
+                .IsRequired()
+                .HasMaxLength(2000);
+            
+            entity.HasOne(e => e.Facility)
+                .WithMany()
+                .HasForeignKey(e => e.FacilityId)
+                .OnDelete(DeleteBehavior.Cascade);
+            
+            entity.HasIndex(e => e.FacilityId);
+            entity.HasIndex(e => e.IsRead);
+            entity.HasIndex(e => e.SentAt);
+        });
     }
 }

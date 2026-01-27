@@ -407,6 +407,104 @@ namespace OazaDlaAutyzmu.Infrastructure.Migrations
                     b.ToTable("article_tags", (string)null);
                 });
 
+            modelBuilder.Entity("OazaDlaAutyzmu.Domain.Entities.AuditLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("EntityId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("EntityType")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("IpAddress")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NewValues")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("OldValues")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserEmail")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuditLogs");
+                });
+
+            modelBuilder.Entity("OazaDlaAutyzmu.Domain.Entities.ContactMessage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("FacilityId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasMaxLength(2000)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SenderEmail")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("SenderName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FacilityId");
+
+                    b.HasIndex("IsRead");
+
+                    b.HasIndex("SentAt");
+
+                    b.ToTable("contact_messages", (string)null);
+                });
+
             modelBuilder.Entity("OazaDlaAutyzmu.Domain.Entities.Event", b =>
                 {
                     b.Property<int>("Id")
@@ -553,6 +651,47 @@ namespace OazaDlaAutyzmu.Infrastructure.Migrations
                     b.HasIndex("VerifiedById");
 
                     b.ToTable("facilities", (string)null);
+                });
+
+            modelBuilder.Entity("OazaDlaAutyzmu.Domain.Entities.FacilityImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Caption")
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("FacilityId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FacilityId");
+
+                    b.HasIndex("FacilityId", "DisplayOrder");
+
+                    b.HasIndex("FacilityId", "IsMain");
+
+                    b.ToTable("facility_images", (string)null);
                 });
 
             modelBuilder.Entity("OazaDlaAutyzmu.Domain.Entities.ForumCategory", b =>
@@ -752,6 +891,53 @@ namespace OazaDlaAutyzmu.Infrastructure.Migrations
                     b.ToTable("forum_topics", (string)null);
                 });
 
+            modelBuilder.Entity("OazaDlaAutyzmu.Domain.Entities.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsRead")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Url")
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("IsRead");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("notifications", (string)null);
+                });
+
             modelBuilder.Entity("OazaDlaAutyzmu.Domain.Entities.Review", b =>
                 {
                     b.Property<int>("Id")
@@ -789,9 +975,15 @@ namespace OazaDlaAutyzmu.Infrastructure.Migrations
 
                     b.HasIndex("ApprovedById");
 
+                    b.HasIndex("CreatedAt");
+
                     b.HasIndex("FacilityId");
 
+                    b.HasIndex("IsApproved");
+
                     b.HasIndex("UserId");
+
+                    b.HasIndex("FacilityId", "IsApproved");
 
                     b.ToTable("reviews", (string)null);
                 });
@@ -881,6 +1073,17 @@ namespace OazaDlaAutyzmu.Infrastructure.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("OazaDlaAutyzmu.Domain.Entities.ContactMessage", b =>
+                {
+                    b.HasOne("OazaDlaAutyzmu.Domain.Entities.Facility", "Facility")
+                        .WithMany()
+                        .HasForeignKey("FacilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Facility");
+                });
+
             modelBuilder.Entity("OazaDlaAutyzmu.Domain.Entities.Event", b =>
                 {
                     b.HasOne("OazaDlaAutyzmu.Domain.Entities.ApplicationUser", "CreatedBy")
@@ -900,6 +1103,17 @@ namespace OazaDlaAutyzmu.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("VerifiedBy");
+                });
+
+            modelBuilder.Entity("OazaDlaAutyzmu.Domain.Entities.FacilityImage", b =>
+                {
+                    b.HasOne("OazaDlaAutyzmu.Domain.Entities.Facility", "Facility")
+                        .WithMany()
+                        .HasForeignKey("FacilityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Facility");
                 });
 
             modelBuilder.Entity("OazaDlaAutyzmu.Domain.Entities.ForumPost", b =>
@@ -952,6 +1166,17 @@ namespace OazaDlaAutyzmu.Infrastructure.Migrations
                     b.Navigation("Category");
 
                     b.Navigation("LastPostUser");
+                });
+
+            modelBuilder.Entity("OazaDlaAutyzmu.Domain.Entities.Notification", b =>
+                {
+                    b.HasOne("OazaDlaAutyzmu.Domain.Entities.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("OazaDlaAutyzmu.Domain.Entities.Review", b =>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Oaza dla Autyzmu</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body class="bg-gray-50 dark:bg-gray-900">
@@ -34,13 +35,42 @@
                     </a>
                 </div>
 
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2 md:space-x-4">
+                    <!-- Dark Mode Toggle -->
+                    <label for="darkModeToggle" class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" id="darkModeToggle" class="sr-only peer">
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
+                        <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">🌙</span>
+                    </label>
+
                     @if (User.Identity?.IsAuthenticated == true)
                     {
-                        <span class="text-gray-700 dark:text-gray-300">
+                        <!-- Notifications Bell -->
+                        <a asp-controller="Notifications" asp-action="Index" class="relative text-gray-700 dark:text-gray-300 hover:text-indigo-600">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                            </svg>
+                            <span id="notification-badge" class="hidden absolute -top-1 -right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full"></span>
+                        </a>
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-controller="Admin" asp-action="Dashboard" 
+                               class="hidden md:inline-block px-3 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition text-sm font-medium">
+                                Panel Admin
+                            </a>
+                        }
+                        @if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+                        {
+                            <a asp-controller="Moderator" asp-action="PendingReviews" 
+                               class="hidden md:inline-block px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition text-sm font-medium">
+                                Moderacja
+                            </a>
+                        }
+                        <span class="hidden md:inline text-gray-700 dark:text-gray-300">
                             Witaj, @User.Identity.Name!
                         </span>
-                        <form asp-controller="Account" asp-action="Logout" method="post" class="inline">
+                        <form asp-controller="Account" asp-action="Logout" method="post" class="hidden md:inline">
                             @Html.AntiForgeryToken()
                             <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition">
                                 Wyloguj
@@ -50,11 +80,61 @@
                     else
                     {
                         <a asp-controller="Account" asp-action="Login" 
-                           class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition">
+                           class="hidden md:inline-block px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition">
                             Zaloguj się
                         </a>
                     }
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobileMenuButton" class="md:hidden p-2 text-gray-700 dark:text-gray-300">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
                 </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4 space-y-2">
+                <a asp-controller="Home" asp-action="Index" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
+                    Strona główna
+                </a>
+                <a asp-controller="Facilities" asp-action="Index" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
+                    Placówki
+                </a>
+                <a asp-controller="Forum" asp-action="Index" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
+                    Forum
+                </a>
+                <a asp-controller="Home" asp-action="Privacy" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
+                    Artykuły
+                </a>
+                @if (User.Identity?.IsAuthenticated == true)
+                {
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Admin" asp-action="Dashboard" class="block px-4 py-2 bg-purple-600 text-white rounded">
+                            Panel Admin
+                        </a>
+                    }
+                    @if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
+                    {
+                        <a asp-controller="Moderator" asp-action="PendingReviews" class="block px-4 py-2 bg-blue-600 text-white rounded">
+                            Moderacja
+                        </a>
+                    }
+                    <form asp-controller="Account" asp-action="Logout" method="post" class="px-4">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="w-full px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded">
+                            Wyloguj (@User.Identity.Name)
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" class="block px-4 py-2 bg-indigo-600 text-white rounded">
+                        Zaloguj się
+                    </a>
+                }
             </div>
         </nav>
     </header>
@@ -93,6 +173,75 @@
             </div>
         </div>
     </footer>
+
+    <!-- Cookie Consent Banner (GDPR) -->
+    <div id="cookieConsent" class="fixed bottom-0 left-0 right-0 bg-gray-900 text-white p-4 shadow-lg z-50" style="display:none;">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-sm">
+                <p>
+                    Ta strona używa plików cookie, aby zapewnić najlepszą jakość usług. 
+                    Korzystając z tej strony, wyrażasz zgodę na używanie cookies zgodnie z naszą 
+                    <a asp-controller="Home" asp-action="Privacy" class="underline hover:text-indigo-300">Polityką Prywatności</a>.
+                </p>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="acceptCookies()" class="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded text-sm font-medium">
+                    Akceptuję
+                </button>
+                <button onclick="declineCookies()" class="bg-gray-600 hover:bg-gray-700 px-4 py-2 rounded text-sm font-medium">
+                    Odrzuć
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cookie consent functionality
+        window.addEventListener('load', function() {
+            if (!localStorage.getItem('cookieConsent')) {
+                document.getElementById('cookieConsent').style.display = 'block';
+            }
+        });
+
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'accepted');
+            document.getElementById('cookieConsent').style.display = 'none';
+        }
+
+        function declineCookies() {
+            localStorage.setItem('cookieConsent', 'declined');
+            document.getElementById('cookieConsent').style.display = 'none';
+        }
+
+        // Notification badge update
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <text>
+            function updateNotificationBadge() {
+                fetch('/Notifications/GetUnreadCount')
+                    .then(response => response.json())
+                    .then(data => {
+                        const badge = document.getElementById('notification-badge');
+                        if (badge) {
+                            if (data.count > 0) {
+                                badge.textContent = data.count > 99 ? '99+' : data.count;
+                                badge.classList.remove('hidden');
+                            } else {
+                                badge.classList.add('hidden');
+                            }
+                        }
+                    })
+                    .catch(error => console.error('Error fetching notification count:', error));
+            }
+
+            // Update badge on page load
+            window.addEventListener('load', updateNotificationBadge);
+
+            // Update badge every 30 seconds
+            setInterval(updateNotificationBadge, 30000);
+            </text>
+        }
+    </script>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

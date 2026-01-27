@@ -17,6 +17,7 @@
         </h1>
 
         <form asp-action="CreateTopic" method="post">
+            @Html.AntiForgeryToken()
             <input type="hidden" name="categoryId" value="@ViewBag.CategoryId" />
             
             <div class="mb-6">

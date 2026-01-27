@@ -1,0 +1,110 @@
+@model OazaDlaAutyzmu.Domain.Entities.Facility
+@{
+    ViewData["Title"] = "Kontakt - " + Model.Name;
+}
+
+<div class="container mx-auto px-4 py-8 max-w-2xl">
+    <div class="mb-6">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Skontaktuj się z placówką</h1>
+        <p class="text-gray-600 dark:text-gray-400">@Model.Name</p>
+        <a asp-controller="Facilities" asp-action="Details" asp-route-id="@Model.Id" class="text-blue-600 hover:text-blue-800 dark:text-blue-400">
+            ← Powrót do placówki
+        </a>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <div class="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+            <p class="text-sm text-blue-800 dark:text-blue-200">
+                <svg class="inline w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Wypełnij formularz, a właściciel placówki odpowie na podany przez Ciebie adres email.
+            </p>
+        </div>
+
+        <form asp-action="Send" asp-route-facilityId="@Model.Id" method="post">
+            @Html.AntiForgeryToken()
+            
+            <div asp-validation-summary="ModelOnly" class="text-red-600 mb-4"></div>
+
+            <div class="mb-4">
+                <label for="senderName" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Imię i nazwisko *
+                </label>
+                <input type="text" 
+                       id="senderName" 
+                       name="senderName" 
+                       required 
+                       maxlength="100"
+                       class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                       placeholder="Jan Kowalski">
+            </div>
+
+            <div class="mb-4">
+                <label for="senderEmail" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Adres email *
+                </label>
+                <input type="email" 
+                       id="senderEmail" 
+                       name="senderEmail" 
+                       required 
+                       maxlength="255"
+                       class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                       placeholder="jan.kowalski@example.com">
+            </div>
+
+            <div class="mb-4">
+                <label for="subject" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Temat *
+                </label>
+                <input type="text" 
+                       id="subject" 
+                       name="subject" 
+                       required 
+                       maxlength="200"
+                       class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                       placeholder="Pytanie o dostępne terapie">
+            </div>
+
+            <div class="mb-6">
+                <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Wiadomość *
+                </label>
+                <textarea id="message" 
+                          name="message" 
+                          required 
+                          rows="6" 
+                          maxlength="2000"
+                          class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+                          placeholder="Opisz swoją sprawę lub pytanie..."></textarea>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    <span id="charCount">0</span> / 2000 znaków
+                </p>
+            </div>
+
+            <div class="flex gap-3">
+                <button type="submit" 
+                        class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                    Wyślij wiadomość
+                </button>
+                <a asp-controller="Facilities" asp-action="Details" asp-route-id="@Model.Id" 
+                   class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors font-medium text-center">
+                    Anuluj
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        // Character counter
+        const messageTextarea = document.getElementById('message');
+        const charCount = document.getElementById('charCount');
+        
+        messageTextarea.addEventListener('input', function() {
+            charCount.textContent = this.value.length;
+        });
+    </script>
+}

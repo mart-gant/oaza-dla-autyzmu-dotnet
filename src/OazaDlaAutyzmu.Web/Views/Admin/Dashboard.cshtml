@@ -1,0 +1,221 @@
+@model OazaDlaAutyzmu.Application.ViewModels.DashboardStatisticsViewModel
+@{
+    ViewData["Title"] = "Panel Administracyjny";
+}
+
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Panel Administracyjny</h1>
+            <p class="text-gray-600 mt-2">Witaj w panelu zarządzania Oaza dla Autyzmu</p>
+        </div>
+
+        <!-- Statistics Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Total Users -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-indigo-100 rounded-md p-3">
+                        <svg class="h-6 w-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">Użytkownicy</p>
+                        <p class="text-2xl font-bold text-gray-900">@Model.TotalUsers</p>
+                    </div>
+                </div>
+                <div class="mt-4 text-sm text-gray-500">
+                    <span class="text-green-600 font-medium">+@Model.NewUsersToday</span> dzisiaj
+                </div>
+            </div>
+
+            <!-- Total Facilities -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-green-100 rounded-md p-3">
+                        <svg class="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">Placówki</p>
+                        <p class="text-2xl font-bold text-gray-900">@Model.TotalFacilities</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Reviews -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-yellow-100 rounded-md p-3">
+                        <svg class="h-6 w-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">Opinie</p>
+                        <p class="text-2xl font-bold text-gray-900">@Model.TotalReviews</p>
+                    </div>
+                </div>
+                <div class="mt-4 text-sm text-gray-500">
+                    <span class="text-orange-600 font-medium">@Model.PendingReviews oczekujących</span>
+                </div>
+            </div>
+
+            <!-- Forum Activity -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 bg-purple-100 rounded-md p-3">
+                        <svg class="h-6 w-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-600">Forum</p>
+                        <p class="text-2xl font-bold text-gray-900">@Model.TotalForumTopics</p>
+                    </div>
+                </div>
+                <div class="mt-4 text-sm text-gray-500">
+                    @Model.TotalForumPosts postów
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- User Growth Chart -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Wzrost Użytkowników</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-gray-600">Dzisiaj</span>
+                            <span class="font-medium">@Model.NewUsersToday</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-indigo-600 h-2 rounded-full" style="width: @(Model.NewUsersThisWeek > 0 ? (Model.NewUsersToday * 100 / Model.NewUsersThisWeek) : 0)%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-gray-600">Ten tydzień</span>
+                            <span class="font-medium">@Model.NewUsersThisWeek</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-indigo-600 h-2 rounded-full" style="width: @(Model.NewUsersThisMonth > 0 ? (Model.NewUsersThisWeek * 100 / Model.NewUsersThisMonth) : 0)%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between text-sm mb-2">
+                            <span class="text-gray-600">Ten miesiąc</span>
+                            <span class="font-medium">@Model.NewUsersThisMonth</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-indigo-600 h-2 rounded-full" style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Rated Facilities -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Najlepiej Oceniane Placówki</h3>
+                <div class="space-y-3">
+                    @foreach (var facility in Model.TopRatedFacilities)
+                    {
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <a asp-controller="Facilities" asp-action="Details" asp-route-id="@facility.Id" 
+                                   class="text-sm font-medium text-gray-900 hover:text-indigo-600">
+                                    @facility.Name
+                                </a>
+                                <p class="text-xs text-gray-500">@facility.ReviewCount opinii</p>
+                            </div>
+                            <div class="flex items-center">
+                                <svg class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                </svg>
+                                <span class="ml-1 text-sm font-medium text-gray-900">@facility.AverageRating.ToString("0.0")</span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="bg-white rounded-lg shadow">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Ostatnia Aktywność</h3>
+            </div>
+            <div class="divide-y divide-gray-200">
+                @foreach (var activity in Model.RecentActivities)
+                {
+                    <div class="px-6 py-4 flex items-center justify-between hover:bg-gray-50">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0">
+                                @if (activity.Action.Contains("Login"))
+                                {
+                                    <div class="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center">
+                                        <svg class="h-4 w-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                                        </svg>
+                                    </div>
+                                }
+                                else if (activity.Action.Contains("Review"))
+                                {
+                                    <div class="h-8 w-8 rounded-full bg-yellow-100 flex items-center justify-center">
+                                        <svg class="h-4 w-4 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                                        </svg>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
+                                        <svg class="h-4 w-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </div>
+                                }
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-900">@activity.Action.Replace("_", " ")</p>
+                                <p class="text-xs text-gray-500">@activity.UserEmail • @activity.EntityType</p>
+                            </div>
+                        </div>
+                        <span class="text-xs text-gray-500">@activity.Timestamp.ToString("HH:mm")</span>
+                    </div>
+                }
+            </div>
+            <div class="px-6 py-3 bg-gray-50 text-center">
+                <a asp-action="AuditLogs" class="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
+                    Zobacz wszystkie logi →
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <a asp-controller="Moderator" asp-action="PendingReviews" class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+                <h4 class="text-lg font-semibold text-gray-900 mb-2">Moderacja Opinii</h4>
+                <p class="text-sm text-gray-600 mb-4">@Model.PendingReviews opinii oczekuje na zatwierdzenie</p>
+                <span class="text-indigo-600 font-medium">Przejdź do moderacji →</span>
+            </a>
+
+            <a asp-action="Users" class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+                <h4 class="text-lg font-semibold text-gray-900 mb-2">Zarządzaj Użytkownikami</h4>
+                <p class="text-sm text-gray-600 mb-4">Przeglądaj i zarządzaj kontami użytkowników</p>
+                <span class="text-indigo-600 font-medium">Zarządzaj →</span>
+            </a>
+
+            <a asp-action="Settings" class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+                <h4 class="text-lg font-semibold text-gray-900 mb-2">Ustawienia Systemu</h4>
+                <p class="text-sm text-gray-600 mb-4">Konfiguruj parametry aplikacji</p>
+                <span class="text-indigo-600 font-medium">Skonfiguruj →</span>
+            </a>
+        </div>
+    </div>
+</div>
