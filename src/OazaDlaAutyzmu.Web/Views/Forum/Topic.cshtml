@@ -6,9 +6,9 @@
 
 <div class="max-w-7xl mx-auto px-4 py-8">
     <nav class="mb-6 text-sm text-gray-600 dark:text-gray-400">
-        <a asp-action="Index" class="hover:text-indigo-600">Forum</a>
+        <a asp-action="Index" class="link-strong">Forum</a>
         <span class="mx-2">/</span>
-        <a asp-action="Category" asp-route-id="@Model.CategoryId" class="hover:text-indigo-600">@Model.CategoryName</a>
+        <a asp-action="Category" asp-route-id="@Model.CategoryId" class="link-strong">@Model.CategoryName</a>
         <span class="mx-2">/</span>
         <span class="text-gray-900 dark:text-white">@Model.Title</span>
     </nav>
@@ -34,12 +34,12 @@
             {
                 <div class="flex gap-2">
                     <form asp-controller="Moderator" asp-action="ToggleTopicPin" asp-route-id="@Model.Id" asp-route-categoryId="@Model.CategoryId" method="post" class="inline">
-                        <button type="submit" class="px-3 py-1 bg-yellow-100 hover:bg-yellow-200 text-yellow-800 text-sm rounded transition">
+                        <button type="submit" class="px-3 py-1 btn-warning text-sm rounded transition">
                             @(Model.IsPinned ? "Odepnij" : "Przypnij")
                         </button>
                     </form>
                     <form asp-controller="Moderator" asp-action="ToggleTopicLock" asp-route-id="@Model.Id" method="post" class="inline">
-                        <button type="submit" class="px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm rounded transition">
+                        <button type="submit" class="px-3 py-1 btn-neutral text-sm rounded transition">
                             @(Model.IsLocked ? "Odblokuj" : "Zablokuj")
                         </button>
                     </form>
@@ -109,13 +109,14 @@
                     <input type="hidden" name="topicId" value="@Model.Id" />
                     
                     <div class="mb-4">
-                        <textarea name="content" rows="6" required
+                        <label for="replyContent" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Treść odpowiedzi</label>
+                        <textarea id="replyContent" name="content" rows="6" required
                                   class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-900 dark:text-white"
                                   placeholder="Twoja odpowiedź..."></textarea>
                     </div>
 
                     <button type="submit" 
-                            class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition">
+                            class="px-6 py-2 btn-primary rounded-lg transition">
                         Wyślij odpowiedź
                     </button>
                 </form>
@@ -126,7 +127,7 @@
             <div class="bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-700 rounded-lg p-6">
                 <p class="text-blue-800 dark:text-blue-200">
                     <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Context.Request.Path" 
-                       class="font-semibold hover:underline">Zaloguj się</a>, aby dodać odpowiedź.
+                       class="inline-flex items-center px-3 py-2 btn-primary rounded-lg font-semibold">Zaloguj się</a>, aby dodać odpowiedź.
                 </p>
             </div>
         }

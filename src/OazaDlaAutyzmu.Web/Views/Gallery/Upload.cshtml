@@ -7,7 +7,7 @@
     <div class="mb-6">
         <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Dodaj zdjęcie</h1>
         <p class="text-gray-600 dark:text-gray-400">@Model.Name</p>
-        <a asp-action="Index" asp-route-facilityId="@Model.Id" class="text-blue-600 hover:text-blue-800 dark:text-blue-400">
+        <a asp-action="Index" asp-route-facilityId="@Model.Id" class="link-strong">
             ← Powrót do galerii
         </a>
     </div>
@@ -63,7 +63,7 @@
                     Prześlij zdjęcie
                 </button>
                 <a asp-action="Index" asp-route-facilityId="@Model.Id" 
-                   class="px-6 py-3 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors font-medium text-center">
+                   class="px-6 py-3 btn-secondary rounded-lg transition-colors font-medium text-center">
                     Anuluj
                 </a>
             </div>

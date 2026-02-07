@@ -15,7 +15,7 @@
                 <div class="flex justify-between items-start">
                     <div class="flex-1">
                         <a asp-action="Category" asp-route-id="@category.Id" 
-                           class="text-2xl font-bold text-indigo-600 hover:text-indigo-800 dark:text-indigo-400">
+                                    class="text-2xl font-bold link-strong">
                             @category.Name
                         </a>
                         
@@ -31,7 +31,7 @@
                             <div class="mt-4 text-sm text-gray-500 dark:text-gray-400">
                                 <span class="font-medium">Ostatni temat:</span>
                                 <a asp-action="Topic" asp-route-id="@category.LatestTopic.Id" 
-                                   class="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 ml-1">
+                                              class="link-strong ml-1">
                                     @category.LatestTopic.Title
                                 </a>
                                 <span class="ml-2">przez @category.LatestTopic.UserName</span>
@@ -46,6 +46,11 @@
                         <div class="text-sm text-gray-600 dark:text-gray-400">tematów</div>
                         <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">
                             @category.PostCount postów
+                        </div>
+                        <div class="mt-3">
+                            <a asp-action="Category" asp-route-id="@category.Id" class="inline-flex items-center px-3 py-2 btn-primary rounded-lg text-sm font-medium">
+                                Przejdź do kategorii
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -11,7 +11,7 @@
             {
                 <form asp-action="MarkAllAsRead" method="post" class="inline">
                     @Html.AntiForgeryToken()
-                    <button type="submit" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition">
+                    <button type="submit" class="px-4 py-2 btn-primary rounded-lg transition">
                         Oznacz wszystkie jako przeczytane
                     </button>
                 </form>
@@ -80,7 +80,7 @@
                                 <div class="ml-4 flex-shrink-0 flex items-center space-x-2">
                                     @if (!string.IsNullOrEmpty(notification.Url))
                                     {
-                                        <a href="@notification.Url" class="text-indigo-600 hover:text-indigo-800">
+                                        <a href="@notification.Url" class="link-strong" aria-label="Przejdź do powiadomienia">
                                             <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                                             </svg>
@@ -90,7 +90,7 @@
                                     {
                                         <form asp-action="MarkAsRead" asp-route-id="@notification.Id" method="post" class="inline">
                                             @Html.AntiForgeryToken()
-                                            <button type="submit" class="text-gray-400 hover:text-gray-600" title="Oznacz jako przeczytane">
+                                            <button type="submit" class="link-strong" title="Oznacz jako przeczytane">
                                                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                                 </svg>
@@ -99,7 +99,7 @@
                                     }
                                     <form asp-action="Delete" asp-route-id="@notification.Id" method="post" class="inline">
                                         @Html.AntiForgeryToken()
-                                        <button type="submit" class="text-red-400 hover:text-red-600" title="Usuń">
+                                        <button type="submit" class="text-red-600 hover:text-red-800" title="Usuń">
                                             <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                             </svg>
@@ -114,7 +114,7 @@
         }
 
         <div class="mt-6 text-center">
-            <a asp-controller="Home" asp-action="Index" class="text-indigo-600 hover:text-indigo-800 font-medium">
+            <a asp-controller="Home" asp-action="Index" class="inline-flex items-center px-3 py-2 btn-secondary rounded-lg font-medium">
                 ← Powrót do strony głównej
             </a>
         </div>

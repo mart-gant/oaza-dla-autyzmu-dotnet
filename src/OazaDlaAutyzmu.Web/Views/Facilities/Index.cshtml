@@ -30,8 +30,8 @@
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
         <form method="get" asp-action="Index" class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Miasto</label>
-                <select name="city" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                <label for="filterCity" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Miasto</label>
+                <select id="filterCity" name="city" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                     <option value="">Wszystkie miasta</option>
                     @foreach (var city in ViewBag.Cities)
                     {
@@ -41,8 +41,8 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Typ</label>
-                <select name="type" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                <label for="filterType" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Typ</label>
+                <select id="filterType" name="type" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                     <option value="">Wszystkie typy</option>
                     <option value="Therapy">Terapia</option>
                     <option value="School">Szkoła</option>
@@ -53,8 +53,8 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Status</label>
-                <select name="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                <label for="filterStatus" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Status</label>
+                <select id="filterStatus" name="status" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                     <option value="">Wszystkie statusy</option>
                     <option value="Certified">Certyfikowane</option>
                     <option value="Verified">Zweryfikowane</option>
@@ -64,9 +64,9 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Szukaj</label>
+                <label for="filterSearch" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Szukaj</label>
                 <div class="flex gap-2">
-                    <input type="text" name="search" value="@ViewBag.CurrentSearch" 
+                    <input id="filterSearch" type="text" name="search" value="@ViewBag.CurrentSearch" 
                            placeholder="Nazwa, adres..." 
                            class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
                     <button type="submit" class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition">
@@ -139,7 +139,7 @@
                         }
                         
                         <a asp-action="Details" asp-route-id="@facility.Id" 
-                           class="inline-flex items-center text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 font-medium">
+                           class="inline-flex items-center px-3 py-2 btn-primary rounded-lg font-medium">
                             Zobacz szczegóły
                             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -162,7 +162,7 @@
                        asp-route-type="@ViewBag.CurrentType"
                        asp-route-status="@ViewBag.CurrentStatus"
                        asp-route-search="@ViewBag.CurrentSearch"
-                       class="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                       class="px-4 py-2 btn-pagination rounded-lg">
                         « Poprzednia
                     </a>
                 }
@@ -175,7 +175,7 @@
                        asp-route-type="@ViewBag.CurrentType"
                        asp-route-status="@ViewBag.CurrentStatus"
                        asp-route-search="@ViewBag.CurrentSearch"
-                       class="@(i == Model.PageNumber ? "px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold" : "px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300")">
+                       class="@(i == Model.PageNumber ? "px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold" : "px-4 py-2 btn-pagination rounded-lg")">
                         @i
                     </a>
                 }
@@ -188,7 +188,7 @@
                        asp-route-type="@ViewBag.CurrentType"
                        asp-route-status="@ViewBag.CurrentStatus"
                        asp-route-search="@ViewBag.CurrentSearch"
-                       class="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300">
+                       class="px-4 py-2 btn-pagination rounded-lg">
                         Następna »
                     </a>
                 }

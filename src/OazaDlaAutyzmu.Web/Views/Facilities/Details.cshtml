@@ -6,7 +6,7 @@
 <div class="max-w-5xl mx-auto px-4 py-8">
     <!-- Breadcrumb -->
     <nav class="mb-6 text-sm text-gray-600 dark:text-gray-400">
-        <a asp-action="Index" class="hover:text-indigo-600">Placówki</a>
+        <a asp-action="Index" class="link-strong">Placówki</a>
         <span class="mx-2">/</span>
         <span class="text-gray-900 dark:text-white">@Model.Name</span>
     </nav>
@@ -104,7 +104,7 @@
                         </svg>
                         <div>
                             <p class="font-medium text-gray-900 dark:text-white">Telefon</p>
-                            <a href="tel:@Model.PhoneNumber" class="text-indigo-600 hover:text-indigo-800">@Model.PhoneNumber</a>
+                            <a href="tel:@Model.PhoneNumber" class="link-strong">@Model.PhoneNumber</a>
                         </div>
                     </div>
                 }
@@ -117,7 +117,7 @@
                         </svg>
                         <div>
                             <p class="font-medium text-gray-900 dark:text-white">Email</p>
-                            <a href="mailto:@Model.Email" class="text-indigo-600 hover:text-indigo-800">@Model.Email</a>
+                            <a href="mailto:@Model.Email" class="link-strong">@Model.Email</a>
                         </div>
                     </div>
                 }
@@ -130,7 +130,7 @@
                         </svg>
                         <div>
                             <p class="font-medium text-gray-900 dark:text-white">Strona www</p>
-                            <a href="@Model.Website" target="_blank" class="text-indigo-600 hover:text-indigo-800">
+                            <a href="@Model.Website" target="_blank" class="link-strong">
                                 @Model.Website
                             </a>
                         </div>
@@ -210,16 +210,15 @@
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="facilityId" value="@Model.Id" />
                     
-                    <div class="mb-4">
-                        <label class="block text-gray-700 dark:text-gray-300 font-medium mb-2">
-                            Ocena
-                        </label>
-                        <div class="flex gap-2">
+                    <fieldset class="mb-4">
+                        <legend class="block text-gray-700 dark:text-gray-300 font-medium mb-2">Ocena</legend>
+                        <p id="ratingHelp" class="text-sm text-gray-600 dark:text-gray-400 mb-2">Wybierz liczbę gwiazdek od 1 do 5.</p>
+                        <div class="flex gap-2" aria-describedby="ratingHelp">
                             @for (int i = 1; i <= 5; i++)
                             {
-                                var starId = $"star{i}";
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="rating" value="@i" class="hidden peer" required />
+                                var starId = $"star-{Model.Id}-{i}";
+                                <label class="cursor-pointer" for="@starId">
+                                    <input id="@starId" type="radio" name="rating" value="@i" class="hidden peer" required aria-label="Ocena @i" />
                                     <svg class="w-8 h-8 text-gray-300 peer-checked:text-yellow-500 hover:text-yellow-400" 
                                          fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
@@ -227,19 +226,20 @@
                                 </label>
                             }
                         </div>
-                    </div>
+                    </fieldset>
 
                     <div class="mb-4">
-                        <label class="block text-gray-700 dark:text-gray-300 font-medium mb-2">
+                        <label for="reviewComment" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">
                             Komentarz (opcjonalnie)
                         </label>
-                        <textarea name="comment" rows="4" 
+                        <textarea id="reviewComment" name="comment" rows="4" 
                                   class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-800 dark:text-white"
                                   placeholder="Podziel się swoją opinią..."></textarea>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Komentarz nie jest wymagany.</p>
                     </div>
 
                     <button type="submit" 
-                            class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition">
+                            class="px-6 py-2 btn-primary rounded-lg transition">
                         Dodaj opinię
                     </button>
                 </form>
@@ -250,7 +250,7 @@
             <div class="bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-700 rounded-lg p-4 mb-6">
                 <p class="text-blue-800 dark:text-blue-200">
                     <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Context.Request.Path" 
-                       class="font-semibold hover:underline">Zaloguj się</a>, aby dodać opinię.
+                      class="inline-flex items-center px-3 py-2 btn-primary rounded-lg font-semibold">Zaloguj się</a>, aby dodać opinię.
                 </p>
             </div>
         }
@@ -304,7 +304,7 @@
             <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                 Lokalizacja na mapie
             </h2>
-            <div class="bg-gray-200 dark:bg-gray-700 h-96 rounded-lg flex items-center justify-center">
+            <div class="bg-gray-200 dark:bg-gray-700 h-96 rounded-lg flex items-center justify-center" role="img" aria-label="Mapa lokalizacji placówki">
                 <p class="text-gray-600 dark:text-gray-400">
                     Mapa (Lat: @Model.Latitude, Lng: @Model.Longitude)
                     <br />

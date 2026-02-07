@@ -120,12 +120,109 @@ html[data-reduce-motion="true"] * {
   scroll-behavior: auto !important;
 }
 
+/* Improve contrast for light mode gray text utilities */
+html:not(.dark) .text-gray-400 {
+  color: #4b5563 !important; /* ~gray-600 */
+}
+
+html:not(.dark) .text-gray-500 {
+  color: #374151 !important; /* ~gray-700 */
+}
+
+html:not(.dark) .text-gray-300 {
+  color: #6b7280 !important; /* ~gray-500 */
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Buttons - improved contrast for secondary actions */
+.btn-secondary {
+  background-color: #e5e7eb;
+  color: #111827;
+  border: 1px solid #d1d5db;
+}
+
+.btn-secondary:hover {
+  background-color: #d1d5db;
+}
+
+html.dark .btn-secondary {
+  background-color: #374151;
+  color: #f9fafb;
+  border: 1px solid #4b5563;
+}
+
+html.dark .btn-secondary:hover {
+  background-color: #4b5563;
+}
+
+.btn-pagination {
+  background-color: #ffffff;
+  color: #111827;
+  border: 1px solid #d1d5db;
+}
+
+.btn-pagination:hover {
+  background-color: #f3f4f6;
+}
+
+html.dark .btn-pagination {
+  background-color: #1f2937;
+  color: #f9fafb;
+  border: 1px solid #374151;
+}
+
+html.dark .btn-pagination:hover {
+  background-color: #374151;
+}
+
+/* Moderation buttons */
+.btn-warning {
+  background-color: #d97706;
+  color: #ffffff;
+  border: 1px solid #b45309;
+}
+
+.btn-warning:hover {
+  background-color: #b45309;
+}
+
+.btn-neutral {
+  background-color: #374151;
+  color: #ffffff;
+  border: 1px solid #1f2937;
+}
+
+.btn-neutral:hover {
+  background-color: #1f2937;
+}
+
+/* Primary action buttons */
+.btn-primary {
+  background-color: #1d4ed8;
+  color: #ffffff;
+  border: 1px solid #1d4ed8;
+}
+
+.btn-primary:hover {
+  background-color: #1e40af;
+}
+
+/* High-contrast text links */
+.link-strong {
+  color: #1d4ed8;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+html.dark .link-strong {
+  color: #93c5fd;
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {

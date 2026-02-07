@@ -4,9 +4,9 @@
 
 <div class="max-w-4xl mx-auto px-4 py-8">
     <nav class="mb-6 text-sm text-gray-600 dark:text-gray-400">
-        <a asp-action="Index" class="hover:text-indigo-600">Forum</a>
+        <a asp-action="Index" class="link-strong">Forum</a>
         <span class="mx-2">/</span>
-        <a asp-action="Category" asp-route-id="@ViewBag.CategoryId" class="hover:text-indigo-600">@ViewBag.CategoryName</a>
+        <a asp-action="Category" asp-route-id="@ViewBag.CategoryId" class="link-strong">@ViewBag.CategoryName</a>
         <span class="mx-2">/</span>
         <span class="text-gray-900 dark:text-white">Nowy temat</span>
     </nav>
@@ -21,19 +21,19 @@
             <input type="hidden" name="categoryId" value="@ViewBag.CategoryId" />
             
             <div class="mb-6">
-                <label class="block text-gray-700 dark:text-gray-300 font-medium mb-2">
+                <label for="topicTitle" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">
                     Tytuł tematu
                 </label>
-                <input type="text" name="title" required
+                <input id="topicTitle" type="text" name="title" required
                        class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-900 dark:text-white"
                        placeholder="Wpisz tytuł tematu..." />
             </div>
 
             <div class="mb-6">
-                <label class="block text-gray-700 dark:text-gray-300 font-medium mb-2">
+                <label for="topicContent" class="block text-gray-700 dark:text-gray-300 font-medium mb-2">
                     Treść pierwszego postu
                 </label>
-                <textarea name="content" rows="10" required
+                <textarea id="topicContent" name="content" rows="10" required
                           class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:bg-gray-900 dark:text-white"
                           placeholder="Opisz swoje pytanie lub rozpocznij dyskusję..."></textarea>
             </div>
@@ -44,7 +44,7 @@
                     Utwórz temat
                 </button>
                 <a asp-action="Category" asp-route-id="@ViewBag.CategoryId" 
-                   class="px-6 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-lg transition">
+                   class="px-6 py-2 btn-secondary rounded-lg transition">
                     Anuluj
                 </a>
             </div>

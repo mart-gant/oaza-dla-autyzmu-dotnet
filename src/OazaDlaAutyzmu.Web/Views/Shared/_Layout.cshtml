@@ -18,20 +18,20 @@
                 </a>
                 
                 <div class="hidden md:flex space-x-6">
-                    <a asp-controller="Home" asp-action="Index" 
-                       class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+                          <a asp-controller="Home" asp-action="Index" 
+                              class="px-3 py-2 btn-secondary rounded-lg transition">
                         Strona główna
                     </a>
-                    <a asp-controller="Facilities" asp-action="Index" 
-                       class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+                          <a asp-controller="Facilities" asp-action="Index" 
+                              class="px-3 py-2 btn-secondary rounded-lg transition">
                         Placówki
                     </a>
-                    <a asp-controller="Forum" asp-action="Index" 
-                       class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+                          <a asp-controller="Forum" asp-action="Index" 
+                              class="px-3 py-2 btn-secondary rounded-lg transition">
                         Forum
                     </a>
-                    <a asp-controller="Home" asp-action="Privacy" 
-                       class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+                          <a asp-controller="Home" asp-action="Privacy" 
+                              class="px-3 py-2 btn-secondary rounded-lg transition">
                         Artykuły
                     </a>
                 </div>
@@ -74,7 +74,7 @@
                     @if (User.Identity?.IsAuthenticated == true)
                     {
                         <!-- Notifications Bell -->
-                        <a asp-controller="Notifications" asp-action="Index" class="relative text-gray-700 dark:text-gray-300 hover:text-indigo-600">
+                        <a asp-controller="Notifications" asp-action="Index" class="relative px-3 py-2 btn-secondary rounded-lg">
                             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                             </svg>
@@ -107,8 +107,8 @@
                     }
                     else
                     {
-                        <a asp-controller="Account" asp-action="Login" 
-                           class="hidden md:inline-block px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition">
+                                <a asp-controller="Account" asp-action="Login" 
+                                    class="hidden md:inline-block px-4 py-2 btn-primary rounded-lg transition">
                             Zaloguj się
                         </a>
                     }
@@ -145,16 +145,16 @@
                         </label>
                     </div>
                 </div>
-                <a asp-controller="Home" asp-action="Index" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
+                <a asp-controller="Home" asp-action="Index" class="block px-4 py-2 btn-secondary rounded">
                     Strona główna
                 </a>
-                <a asp-controller="Facilities" asp-action="Index" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
+                <a asp-controller="Facilities" asp-action="Index" class="block px-4 py-2 btn-secondary rounded">
                     Placówki
                 </a>
-                <a asp-controller="Forum" asp-action="Index" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
+                <a asp-controller="Forum" asp-action="Index" class="block px-4 py-2 btn-secondary rounded">
                     Forum
                 </a>
-                <a asp-controller="Home" asp-action="Privacy" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
+                <a asp-controller="Home" asp-action="Privacy" class="block px-4 py-2 btn-secondary rounded">
                     Artykuły
                 </a>
                 @if (User.Identity?.IsAuthenticated == true)
@@ -180,7 +180,7 @@
                 }
                 else
                 {
-                    <a asp-controller="Account" asp-action="Login" class="block px-4 py-2 bg-indigo-600 text-white rounded">
+                    <a asp-controller="Account" asp-action="Login" class="block px-4 py-2 btn-primary rounded">
                         Zaloguj się
                     </a>
                 }
@@ -204,9 +204,9 @@
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Linki</h4>
                     <ul class="space-y-2 text-gray-400">
-                        <li><a asp-controller="Facilities" asp-action="Index" class="hover:text-white transition">Placówki</a></li>
-                        <li><a asp-controller="Forum" asp-action="Index" class="hover:text-white transition">Forum</a></li>
-                        <li><a asp-controller="Home" asp-action="Privacy" class="hover:text-white transition">Artykuły</a></li>
+                        <li><a asp-controller="Facilities" asp-action="Index" class="inline-flex items-center px-3 py-2 btn-secondary rounded-lg transition">Placówki</a></li>
+                        <li><a asp-controller="Forum" asp-action="Index" class="inline-flex items-center px-3 py-2 btn-secondary rounded-lg transition">Forum</a></li>
+                        <li><a asp-controller="Home" asp-action="Privacy" class="inline-flex items-center px-3 py-2 btn-secondary rounded-lg transition">Artykuły</a></li>
                     </ul>
                 </div>
                 <div>
@@ -218,7 +218,7 @@
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-                &copy; @DateTime.Now.Year Oaza dla Autyzmu - <a asp-controller="Home" asp-action="Privacy" class="hover:text-white transition">Polityka prywatności</a>
+                &copy; @DateTime.Now.Year Oaza dla Autyzmu - <a asp-controller="Home" asp-action="Privacy" class="inline-flex items-center px-3 py-2 btn-secondary rounded-lg transition">Polityka prywatności</a>
             </div>
         </div>
     </footer>
@@ -230,7 +230,7 @@
                 <p>
                     Ta strona używa plików cookie, aby zapewnić najlepszą jakość usług. 
                     Korzystając z tej strony, wyrażasz zgodę na używanie cookies zgodnie z naszą 
-                    <a asp-controller="Home" asp-action="Privacy" class="underline hover:text-indigo-300">Polityką Prywatności</a>.
+                    <a asp-controller="Home" asp-action="Privacy" class="link-strong">Polityką Prywatności</a>.
                 </p>
             </div>
             <div class="flex gap-2">

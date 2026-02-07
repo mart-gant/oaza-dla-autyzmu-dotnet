@@ -9,7 +9,7 @@
     <div class="mb-6">
         <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Galeria</h1>
         <p class="text-gray-600 dark:text-gray-400">@facility.Name</p>
-        <a asp-controller="Facilities" asp-action="Details" asp-route-id="@facility.Id" class="text-blue-600 hover:text-blue-800 dark:text-blue-400">
+        <a asp-controller="Facilities" asp-action="Details" asp-route-id="@facility.Id" class="link-strong">
             ← Powrót do placówki
         </a>
     </div>
@@ -70,7 +70,7 @@
                             {
                                 <form asp-action="SetMain" asp-route-id="@image.Id" method="post" class="inline">
                                     @Html.AntiForgeryToken()
-                                    <button type="submit" class="text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400">
+                                    <button type="submit" class="text-sm link-strong">
                                         Ustaw jako główne
                                     </button>
                                 </form>
@@ -91,9 +91,9 @@
 </div>
 
 <!-- Lightbox Modal -->
-<div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center" onclick="closeLightbox()">
-    <div class="relative max-w-7xl max-h-screen p-4">
-        <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white text-4xl hover:text-gray-300">
+<div id="lightbox" class="fixed inset-0 bg-black bg-opacity-90 hidden z-50 flex items-center justify-center" onclick="closeLightbox()" role="dialog" aria-modal="true" aria-label="Podgląd zdjęcia" tabindex="-1">
+    <div class="relative max-w-7xl max-h-screen p-4" onclick="event.stopPropagation()">
+        <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white text-4xl hover:text-gray-300" aria-label="Zamknij podgląd">
             &times;
         </button>
         <img id="lightbox-img" src="" alt="" class="max-w-full max-h-screen object-contain">
@@ -106,7 +106,9 @@
     function openLightbox(imageUrl, caption) {
         document.getElementById('lightbox-img').src = imageUrl;
         document.getElementById('lightbox-caption').textContent = caption;
-        document.getElementById('lightbox').classList.remove('hidden');
+        const lightbox = document.getElementById('lightbox');
+        lightbox.classList.remove('hidden');
+        lightbox.focus();
     }
 
     function closeLightbox() {

@@ -249,5 +249,28 @@ dotnet run --project src\OazaDlaAutyzmu.Web
 
 ---
 
+## ✅ DODATKOWE WDROŻENIA (DOSTĘPNOŚĆ + PRODUKCJA)
+
+### Dostępność i przyjazność sensoryczna
+- Tryby dostępności: wysoki kontrast, większy tekst, mniej ruchu, tryb spokojny
+- Skip link do treści głównej + widoczny focus
+- Ujednolicone przyciski o wysokim kontraście (`btn-primary`, `btn-secondary`, `btn-pagination`)
+- Wzmocnione linki tekstowe (`link-strong`)
+- Lepsza dostępność formularzy (etykiety, podpowiedzi, `autocomplete`)
+
+### UI/UX
+- Spójne CTA na stronie głównej, forum, placówkach i panelach
+- Ujednolicone akcje w panelu admina i moderatora
+- Poprawiony kontrast w listach powiadomień i wiadomości
+
+### Produkcja i monitoring
+- Dodano Sentry (konfiguracja w `appsettings.json`)
+- Checklist produkcyjny w README
+- Audyt dostępności w `docs/ACCESSIBILITY_AUDIT.md`
+
+**Status:** ✅ Wdrożone
+
+---
+
 **Utworzono:** $(Get-Date -Format "yyyy-MM-dd HH:mm")  
 **Branch:** main (lub stwórz feature branch: `feature/identity-reviews-forum`)

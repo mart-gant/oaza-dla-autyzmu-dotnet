@@ -153,6 +153,25 @@
 
 ---
 
+## Dostępność i gotowość produkcyjna ✅
+
+### UI/UX dostępności
+- ✅ Tryby: wysoki kontrast, większy tekst, mniej ruchu, tryb spokojny
+- ✅ Skip link i widoczny fokus klawiatury
+- ✅ Ujednolicone przyciski o wysokim kontraście (`btn-primary`, `btn-secondary`, `btn-pagination`)
+- ✅ Wzmocnione linki tekstowe (`link-strong`)
+- ✅ Lepsze etykiety i podpowiedzi w formularzach
+
+### Kontrast i spójność akcji
+- ✅ CTA w stronach głównych, forum i placówek
+- ✅ Akcje w panelach admin/moderator
+- ✅ Powiadomienia i wiadomości z czytelnymi akcjami
+
+### Monitoring i produkcja
+- ✅ Sentry (konfiguracja w `appsettings.json`)
+- ✅ Checklist produkcyjny w README
+- ✅ Audyt dostępności w `docs/ACCESSIBILITY_AUDIT.md`
+
 ## Podsumowanie statystyk
 
 ### Pliki utworzone: 6

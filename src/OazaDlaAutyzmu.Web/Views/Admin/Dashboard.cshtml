@@ -128,7 +128,7 @@
                         <div class="flex items-center justify-between">
                             <div class="flex-1">
                                 <a asp-controller="Facilities" asp-action="Details" asp-route-id="@facility.Id" 
-                                   class="text-sm font-medium text-gray-900 hover:text-indigo-600">
+                                              class="text-sm link-strong">
                                     @facility.Name
                                 </a>
                                 <p class="text-xs text-gray-500">@facility.ReviewCount opinii</p>
@@ -191,7 +191,7 @@
                 }
             </div>
             <div class="px-6 py-3 bg-gray-50 text-center">
-                <a asp-action="AuditLogs" class="text-sm text-indigo-600 hover:text-indigo-800 font-medium">
+                <a asp-action="AuditLogs" class="inline-flex items-center px-4 py-2 btn-secondary rounded-lg text-sm font-medium">
                     Zobacz wszystkie logi →
                 </a>
             </div>
@@ -202,19 +202,19 @@
             <a asp-controller="Moderator" asp-action="PendingReviews" class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
                 <h4 class="text-lg font-semibold text-gray-900 mb-2">Moderacja Opinii</h4>
                 <p class="text-sm text-gray-600 mb-4">@Model.PendingReviews opinii oczekuje na zatwierdzenie</p>
-                <span class="text-indigo-600 font-medium">Przejdź do moderacji →</span>
+                <span class="inline-flex items-center px-3 py-2 btn-secondary rounded-lg text-sm font-medium">Przejdź do moderacji →</span>
             </a>
 
             <a asp-action="Users" class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
                 <h4 class="text-lg font-semibold text-gray-900 mb-2">Zarządzaj Użytkownikami</h4>
                 <p class="text-sm text-gray-600 mb-4">Przeglądaj i zarządzaj kontami użytkowników</p>
-                <span class="text-indigo-600 font-medium">Zarządzaj →</span>
+                <span class="inline-flex items-center px-3 py-2 btn-secondary rounded-lg text-sm font-medium">Zarządzaj →</span>
             </a>
 
             <a asp-action="Settings" class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
                 <h4 class="text-lg font-semibold text-gray-900 mb-2">Ustawienia Systemu</h4>
                 <p class="text-sm text-gray-600 mb-4">Konfiguruj parametry aplikacji</p>
-                <span class="text-indigo-600 font-medium">Skonfiguruj →</span>
+                <span class="inline-flex items-center px-3 py-2 btn-secondary rounded-lg text-sm font-medium">Skonfiguruj →</span>
             </a>
         </div>
     </div>
