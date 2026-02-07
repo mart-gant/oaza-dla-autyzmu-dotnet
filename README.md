@@ -18,6 +18,7 @@ Kompleksowa platforma wsparcia dla osób z autyzmem i ich rodzin. System umożli
 - 🔌 **REST API** - Pełne API z dokumentacją Swagger (v1)
 - 🎨 **Responsywny Design** - Dark mode, mobile menu, touch-friendly, Tailwind CSS
 - ⚡ **Performance** - Caching, compression, 19 database indexes, image optimization
+- ♿ **Dostępność** - Wysoki kontrast, większy tekst, mniej ruchu, tryb spokojny
 
 ### Security (14 Features ✅)
 CSRF • XSS • Rate Limiting • 2FA • Email Confirmation • Account Lockout • Security Headers • Audit Logging • Password Reset • Session Timeout • HTTPS + HSTS • Content Moderation • GDPR • reCAPTCHA
@@ -212,3 +213,29 @@ MIT License - see [LICENSE](LICENSE)
 ---
 
 Built with ❤️ for the autism community in Poland
+
+**Audyt dostępności:** szczegóły w [docs/ACCESSIBILITY_AUDIT.md](docs/ACCESSIBILITY_AUDIT.md)
+
+---
+
+## ✅ Checklist produkcyjny
+
+**Bezpieczeństwo i zgodność**
+- [ ] CSP, HSTS, X-Content-Type-Options, Referrer-Policy zweryfikowane
+- [ ] Skanowanie uploadów (AV) + walidacja MIME/rozmiarów
+- [ ] Polityka prywatności i zgody RODO w UI
+
+**Monitoring i niezawodność**
+- [ ] Centralne logi (strukturalne) i alerty błędów
+- [ ] Sentry skonfigurowany (DSN w ustawieniach środowiska)
+- [ ] Backup bazy + procedura odtworzeniowa
+- [ ] Health checks w środowisku produkcyjnym
+
+**Wydajność**
+- [ ] Cache dla list i detali, kompresja statycznych
+- [ ] Lazy-loading obrazów, optymalizacja rozmiarów
+
+**Operacje**
+- [ ] CI/CD: build + test + security scan
+- [ ] Sekrety w konfiguracji środowiska (nie w plikach)
+- [ ] Kontrolowany proces migracji bazy

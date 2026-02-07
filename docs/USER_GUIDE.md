@@ -8,6 +8,7 @@
 - [Formularze Kontaktowe](#formularze-kontaktowe)
 - [Forum Dyskusyjne](#forum-dyskusyjne)
 - [Panel Administracyjny](#panel-administracyjny)
+- [Dostępność i tryby wspierające](#dostępność-i-tryby-wspierające)
 
 ---
 
@@ -376,6 +377,25 @@ Przełączanie między trybem jasnym i ciemnym:
 1. Kliknij ikonę słońca/księżyca w menu
 2. Wybór zapisuje się automatycznie
 3. Działa na wszystkich urządzeniach
+
+---
+
+## Dostępność i tryby wspierające
+
+W menu dostępne są szybkie ustawienia ułatwiające korzystanie osobom w spektrum autyzmu, ich opiekunom i specjalistom.
+
+### Gdzie znaleźć ustawienia
+1. Na komputerze kliknij **Dostępność** w górnym pasku
+2. Na telefonie otwórz menu i wybierz **Dostępność**
+
+### Dostępne opcje
+- **Wysoki kontrast** – poprawia czytelność tekstu i elementów interfejsu
+- **Większy tekst** – zwiększa rozmiar czcionek i interlinię
+- **Mniej ruchu** – wyłącza animacje i przejścia
+- **Tryb spokojny** – ogranicza cienie i bodźce wizualne
+
+### Zapamiętywanie ustawień
+Wybrane opcje są zapisywane w przeglądarce i działają przy kolejnych wizytach.
 
 ---
 

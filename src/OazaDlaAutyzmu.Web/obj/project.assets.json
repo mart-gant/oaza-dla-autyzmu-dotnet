@@ -2145,6 +2145,57 @@
           "Microsoft.AspNetCore.App"
         ]
       },
+      "Sentry/4.10.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Sentry.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Sentry.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/Sentry.targets": {}
+        }
+      },
+      "Sentry.AspNetCore/4.10.0": {
+        "type": "package",
+        "dependencies": {
+          "Sentry.Extensions.Logging": "4.10.0"
+        },
+        "compile": {
+          "lib/net8.0/Sentry.AspNetCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Sentry.AspNetCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "Sentry.Extensions.Logging/4.10.0": {
+        "type": "package",
+        "dependencies": {
+          "Sentry": "4.10.0"
+        },
+        "compile": {
+          "lib/net8.0/Sentry.Extensions.Logging.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Sentry.Extensions.Logging.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "SixLabors.ImageSharp/3.1.12": {
         "type": "package",
         "compile": {
@@ -6365,6 +6416,92 @@
         "recaptcha.aspnetcore.nuspec"
       ]
     },
+    "Sentry/4.10.0": {
+      "sha512": "EbuvKhomo6++mU2Wh3xWcC4kfgVGFhuA3WmO/Z62ltoWBqupLodh5w0tdre0X1fKzsuR1QMjFEqGsiOHdj1DFw==",
+      "type": "package",
+      "path": "sentry/4.10.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "build/Sentry.Native.targets",
+        "build/Sentry.targets",
+        "buildTransitive/Sentry.Native.targets",
+        "buildTransitive/Sentry.targets",
+        "lib/net462/Sentry.dll",
+        "lib/net462/Sentry.xml",
+        "lib/net6.0/Sentry.dll",
+        "lib/net6.0/Sentry.xml",
+        "lib/net7.0-android33.0/Sentry.dll",
+        "lib/net7.0-android33.0/Sentry.xml",
+        "lib/net7.0-ios16.1/Sentry.dll",
+        "lib/net7.0-ios16.1/Sentry.xml",
+        "lib/net7.0-maccatalyst16.1/Sentry.dll",
+        "lib/net7.0-maccatalyst16.1/Sentry.xml",
+        "lib/net8.0-android34.0/Sentry.dll",
+        "lib/net8.0-android34.0/Sentry.xml",
+        "lib/net8.0-ios17.5/Sentry.dll",
+        "lib/net8.0-ios17.5/Sentry.xml",
+        "lib/net8.0-maccatalyst17.5/Sentry.dll",
+        "lib/net8.0-maccatalyst17.5/Sentry.xml",
+        "lib/net8.0/Sentry.dll",
+        "lib/net8.0/Sentry.xml",
+        "lib/netstandard2.0/Sentry.dll",
+        "lib/netstandard2.0/Sentry.xml",
+        "lib/netstandard2.1/Sentry.dll",
+        "lib/netstandard2.1/Sentry.xml",
+        "sentry-native/linux-x64/libsentry-native.a",
+        "sentry-native/osx/libsentry-native.a",
+        "sentry-native/win-x64/sentry-native.lib",
+        "sentry-nuget.png",
+        "sentry.4.10.0.nupkg.sha512",
+        "sentry.nuspec",
+        "tools/sentry-cli-Darwin-arm64",
+        "tools/sentry-cli-Darwin-x86_64",
+        "tools/sentry-cli-Linux-aarch64",
+        "tools/sentry-cli-Linux-i686",
+        "tools/sentry-cli-Linux-x86_64",
+        "tools/sentry-cli-Windows-i686.exe",
+        "tools/sentry-cli-Windows-x86_64.exe"
+      ]
+    },
+    "Sentry.AspNetCore/4.10.0": {
+      "sha512": "pIoIIb4HRb0rTlHLrzvJHOxj8o8m+25qDtoF+Sqf2oi61EC/lCvpkuQHEgsnc9FOlr8MhegSC62LOy1d63h+2Q==",
+      "type": "package",
+      "path": "sentry.aspnetcore/4.10.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net6.0/Sentry.AspNetCore.dll",
+        "lib/net6.0/Sentry.AspNetCore.xml",
+        "lib/net8.0/Sentry.AspNetCore.dll",
+        "lib/net8.0/Sentry.AspNetCore.xml",
+        "sentry-nuget.png",
+        "sentry.aspnetcore.4.10.0.nupkg.sha512",
+        "sentry.aspnetcore.nuspec"
+      ]
+    },
+    "Sentry.Extensions.Logging/4.10.0": {
+      "sha512": "dvHoRex4jj867r9ajtIgC+BLZXJBTE0prs/+3Yw8zWbUoS7o1FJ2UQHtXJ89VYPQeVIQ0QD+Ra+oXo7jtXu/pQ==",
+      "type": "package",
+      "path": "sentry.extensions.logging/4.10.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net6.0/Sentry.Extensions.Logging.dll",
+        "lib/net6.0/Sentry.Extensions.Logging.xml",
+        "lib/net8.0/Sentry.Extensions.Logging.dll",
+        "lib/net8.0/Sentry.Extensions.Logging.xml",
+        "lib/netstandard2.0/Sentry.Extensions.Logging.dll",
+        "lib/netstandard2.0/Sentry.Extensions.Logging.xml",
+        "sentry-nuget.png",
+        "sentry.extensions.logging.4.10.0.nupkg.sha512",
+        "sentry.extensions.logging.nuspec"
+      ]
+    },
     "SixLabors.ImageSharp/3.1.12": {
       "sha512": "iAg6zifihXEFS/t7fiHhZBGAdCp3FavsF4i2ZIDp0JfeYeDVzvmlbY1CNhhIKimaIzrzSi5M/NBFcWvZT2rB/A==",
       "type": "package",
@@ -6955,47 +7092,42 @@
       "OazaDlaAutyzmu.Application >= 1.0.0",
       "OazaDlaAutyzmu.Infrastructure >= 1.0.0",
       "QRCoder >= 1.7.0",
+      "Sentry.AspNetCore >= 4.10.0",
       "Swashbuckle.AspNetCore >= 10.1.0",
       "reCAPTCHA.AspNetCore >= 3.0.10"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\marty\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "/Users/marcingantkowski/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\marty\\Herd\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
+      "projectUniqueName": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Web/OazaDlaAutyzmu.Web.csproj",
       "projectName": "OazaDlaAutyzmu.Web",
-      "projectPath": "C:\\Users\\marty\\Herd\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
-      "packagesPath": "C:\\Users\\marty\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\marty\\Herd\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\obj\\",
+      "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Web/OazaDlaAutyzmu.Web.csproj",
+      "packagesPath": "/Users/marcingantkowski/.nuget/packages/",
+      "outputPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Web/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\marty\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/marcingantkowski/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "/usr/local/share/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\marty\\Herd\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj": {
-              "projectPath": "C:\\Users\\marty\\Herd\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj"
+            "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Application/OazaDlaAutyzmu.Application.csproj": {
+              "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Application/OazaDlaAutyzmu.Application.csproj"
             },
-            "C:\\Users\\marty\\Herd\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\marty\\Herd\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj"
+            "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj": {
+              "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj"
             }
           }
         }
@@ -7058,6 +7190,10 @@
             "target": "Package",
             "version": "[1.7.0, )"
           },
+          "Sentry.AspNetCore": {
+            "target": "Package",
+            "version": "[4.10.0, )"
+          },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[10.1.0, )"
@@ -7086,7 +7222,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.102/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
@@ -7503,5 +7639,17 @@
         }
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'HtmlSanitizer' 9.0.889 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-j92c-7v7g-gj3f",
+      "libraryId": "HtmlSanitizer",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
 }

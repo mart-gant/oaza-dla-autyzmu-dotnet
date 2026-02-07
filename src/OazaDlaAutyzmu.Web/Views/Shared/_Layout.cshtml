@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body class="bg-gray-50 dark:bg-gray-900">
+    <a href="#mainContent" class="skip-link">Przejdź do treści głównej</a>
     <header class="bg-white dark:bg-gray-800 shadow-md">
         <nav class="max-w-7xl mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
@@ -36,9 +37,36 @@
                 </div>
 
                 <div class="flex items-center space-x-2 md:space-x-4">
+                    <!-- Accessibility Controls -->
+                    <details class="relative hidden md:block">
+                        <summary class="cursor-pointer px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                            Dostępność
+                        </summary>
+                        <div class="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg p-4 z-50" role="group" aria-label="Ustawienia dostępności">
+                            <div class="space-y-3 text-sm">
+                                <label class="flex items-center justify-between">
+                                    <span class="text-gray-700 dark:text-gray-300">Wysoki kontrast</span>
+                                    <input type="checkbox" id="highContrastToggle" class="h-4 w-4" aria-label="Włącz wysoki kontrast">
+                                </label>
+                                <label class="flex items-center justify-between">
+                                    <span class="text-gray-700 dark:text-gray-300">Większy tekst</span>
+                                    <input type="checkbox" id="fontSizeToggle" class="h-4 w-4" aria-label="Włącz większy tekst">
+                                </label>
+                                <label class="flex items-center justify-between">
+                                    <span class="text-gray-700 dark:text-gray-300">Mniej ruchu</span>
+                                    <input type="checkbox" id="reducedMotionToggle" class="h-4 w-4" aria-label="Włącz ograniczenie ruchu">
+                                </label>
+                                <label class="flex items-center justify-between">
+                                    <span class="text-gray-700 dark:text-gray-300">Tryb spokojny</span>
+                                    <input type="checkbox" id="calmModeToggle" class="h-4 w-4" aria-label="Włącz tryb spokojny">
+                                </label>
+                            </div>
+                        </div>
+                    </details>
+
                     <!-- Dark Mode Toggle -->
                     <label for="darkModeToggle" class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" id="darkModeToggle" class="sr-only peer">
+                        <input type="checkbox" id="darkModeToggle" class="sr-only peer" aria-label="Przełącz tryb ciemny">
                         <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
                         <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">🌙</span>
                     </label>
@@ -86,7 +114,7 @@
                     }
 
                     <!-- Mobile Menu Button -->
-                    <button id="mobileMenuButton" class="md:hidden p-2 text-gray-700 dark:text-gray-300">
+                    <button id="mobileMenuButton" class="md:hidden p-2 text-gray-700 dark:text-gray-300" aria-label="Otwórz menu" aria-expanded="false" aria-controls="mobileMenu">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
@@ -96,6 +124,27 @@
 
             <!-- Mobile Menu -->
             <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4 space-y-2">
+                <div class="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded bg-gray-50 dark:bg-gray-900" role="group" aria-label="Ustawienia dostępności">
+                    <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Dostępność</p>
+                    <div class="space-y-2 text-sm">
+                        <label class="flex items-center justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Wysoki kontrast</span>
+                            <input type="checkbox" id="highContrastToggleMobile" class="h-4 w-4" aria-label="Włącz wysoki kontrast">
+                        </label>
+                        <label class="flex items-center justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Większy tekst</span>
+                            <input type="checkbox" id="fontSizeToggleMobile" class="h-4 w-4" aria-label="Włącz większy tekst">
+                        </label>
+                        <label class="flex items-center justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Mniej ruchu</span>
+                            <input type="checkbox" id="reducedMotionToggleMobile" class="h-4 w-4" aria-label="Włącz ograniczenie ruchu">
+                        </label>
+                        <label class="flex items-center justify-between">
+                            <span class="text-gray-700 dark:text-gray-300">Tryb spokojny</span>
+                            <input type="checkbox" id="calmModeToggleMobile" class="h-4 w-4" aria-label="Włącz tryb spokojny">
+                        </label>
+                    </div>
+                </div>
                 <a asp-controller="Home" asp-action="Index" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">
                     Strona główna
                 </a>
@@ -139,7 +188,7 @@
         </nav>
     </header>
     
-    <main class="min-h-screen">
+    <main id="mainContent" class="min-h-screen">
         @RenderBody()
     </main>
 

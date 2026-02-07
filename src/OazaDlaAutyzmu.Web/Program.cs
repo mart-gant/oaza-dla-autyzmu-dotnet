@@ -9,8 +9,18 @@ using OazaDlaAutyzmu.Web.Services;
 using OazaDlaAutyzmu.Web.Middleware;
 using AspNetCoreRateLimit;
 using reCAPTCHA.AspNetCore;
+using Sentry;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.WebHost.UseSentry(options =>
+{
+    options.Dsn = builder.Configuration["Sentry:Dsn"];
+    options.Environment = builder.Environment.EnvironmentName;
+    options.TracesSampleRate = builder.Configuration.GetValue<double>("Sentry:TracesSampleRate", 0.1);
+    options.SendDefaultPii = builder.Configuration.GetValue<bool>("Sentry:SendDefaultPii", false);
+    options.MaxBreadcrumbs = builder.Configuration.GetValue<int>("Sentry:MaxBreadcrumbs", 50);
+});
 
 // Add services to the container
 var useInMemory = builder.Configuration.GetValue<bool>("UseInMemoryDatabase");

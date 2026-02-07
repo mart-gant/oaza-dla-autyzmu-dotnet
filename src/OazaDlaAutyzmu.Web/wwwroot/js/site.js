@@ -26,6 +26,60 @@ function initDarkMode() {
     }
 }
 
+// Accessibility Preferences
+function initAccessibilityPreferences() {
+    const html = document.documentElement;
+
+    const toggleMap = [
+        { key: 'highContrast', attr: 'data-contrast', value: 'high', ids: ['highContrastToggle', 'highContrastToggleMobile'] },
+        { key: 'largeText', attr: 'data-font-size', value: 'large', ids: ['fontSizeToggle', 'fontSizeToggleMobile'] },
+        { key: 'reducedMotion', attr: 'data-reduce-motion', value: 'true', ids: ['reducedMotionToggle', 'reducedMotionToggleMobile'] },
+        { key: 'calmMode', attr: 'data-calm', value: 'true', ids: ['calmModeToggle', 'calmModeToggleMobile'] }
+    ];
+
+    toggleMap.forEach(setting => {
+        const saved = localStorage.getItem(setting.key);
+        if (saved === 'true') {
+            html.setAttribute(setting.attr, setting.value);
+        } else {
+            html.removeAttribute(setting.attr);
+        }
+
+        setting.ids.forEach(id => {
+            const toggle = document.getElementById(id);
+            if (!toggle) return;
+            toggle.checked = saved === 'true';
+            toggle.addEventListener('change', () => {
+                if (toggle.checked) {
+                    localStorage.setItem(setting.key, 'true');
+                    html.setAttribute(setting.attr, setting.value);
+                } else {
+                    localStorage.setItem(setting.key, 'false');
+                    html.removeAttribute(setting.attr);
+                }
+
+                // Sync paired mobile/desktop toggles
+                setting.ids.forEach(otherId => {
+                    const other = document.getElementById(otherId);
+                    if (other && other !== toggle) {
+                        other.checked = toggle.checked;
+                    }
+                });
+            });
+        });
+    });
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion && localStorage.getItem('reducedMotion') !== 'false') {
+        html.setAttribute('data-reduce-motion', 'true');
+        localStorage.setItem('reducedMotion', 'true');
+        ['reducedMotionToggle', 'reducedMotionToggleMobile'].forEach(id => {
+            const toggle = document.getElementById(id);
+            if (toggle) toggle.checked = true;
+        });
+    }
+}
+
 // Mobile Menu Toggle
 function initMobileMenu() {
     const mobileMenuButton = document.getElementById('mobileMenuButton');
@@ -34,6 +88,8 @@ function initMobileMenu() {
     if (mobileMenuButton && mobileMenu) {
         mobileMenuButton.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
+            const isExpanded = !mobileMenu.classList.contains('hidden');
+            mobileMenuButton.setAttribute('aria-expanded', isExpanded.toString());
         });
     }
 }
@@ -82,6 +138,8 @@ function initLazyLoading() {
 // Toast Notifications
 function showToast(message, type = 'info') {
     const toast = document.createElement('div');
+    toast.setAttribute('role', 'status');
+    toast.setAttribute('aria-live', 'polite');
     toast.className = `fixed bottom-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 ${
         type === 'success' ? 'bg-green-600 text-white' :
         type === 'error' ? 'bg-red-600 text-white' :
@@ -101,6 +159,7 @@ function showToast(message, type = 'info') {
 // Initialize on DOM load
 document.addEventListener('DOMContentLoaded', () => {
     initDarkMode();
+    initAccessibilityPreferences();
     initMobileMenu();
     addLoadingStates();
     initLazyLoading();
