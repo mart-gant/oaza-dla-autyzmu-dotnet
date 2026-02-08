@@ -1,17 +1,20 @@
 @model IEnumerable<OazaDlaAutyzmu.Domain.Entities.FacilityImage>
 @{
-    ViewData["Title"] = "Galeria - " + ViewBag.Facility.Name;
     var facility = ViewBag.Facility as OazaDlaAutyzmu.Domain.Entities.Facility;
+    ViewData["Title"] = "Galeria - " + (facility?.Name ?? "Placówka");
     var canEdit = (bool)ViewBag.CanEdit;
 }
 
 <div class="container mx-auto px-4 py-8">
     <div class="mb-6">
         <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Galeria</h1>
-        <p class="text-gray-600 dark:text-gray-400">@facility.Name</p>
-        <a asp-controller="Facilities" asp-action="Details" asp-route-id="@facility.Id" class="link-strong">
-            ← Powrót do placówki
-        </a>
+        <p class="text-gray-600 dark:text-gray-400">@(facility?.Name ?? "Placówka")</p>
+        @if (facility != null)
+        {
+            <a asp-controller="Facilities" asp-action="Details" asp-route-id="@facility.Id" class="link-strong">
+                ← Powrót do placówki
+            </a>
+        }
     </div>
 
     @if (canEdit)

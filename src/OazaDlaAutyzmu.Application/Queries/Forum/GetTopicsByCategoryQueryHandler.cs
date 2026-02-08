@@ -17,11 +17,10 @@ public class GetTopicsByCategoryQueryHandler : IRequestHandler<GetTopicsByCatego
     public async Task<List<ForumTopicDto>> Handle(GetTopicsByCategoryQuery request, CancellationToken cancellationToken)
     {
         return await _context.ForumTopics
-            .Include(t => t.Author)
-            .Include(t => t.Category)
-            .Include(t => t.Posts)
-                .ThenInclude(p => p.Author)
+            .AsNoTracking()
             .Where(t => t.CategoryId == request.CategoryId)
+            .OrderByDescending(t => t.IsPinned)
+            .ThenByDescending(t => t.Posts.Select(p => (DateTime?)p.CreatedAt).Max() ?? t.CreatedAt)
             .Select(t => new ForumTopicDto
             {
                 Id = t.Id,
@@ -50,8 +49,6 @@ public class GetTopicsByCategoryQueryHandler : IRequestHandler<GetTopicsByCatego
                     })
                     .FirstOrDefault()
             })
-            .OrderByDescending(t => t.IsPinned)
-            .ThenByDescending(t => t.LatestPost != null ? t.LatestPost.CreatedAt : t.CreatedAt)
             .ToListAsync(cancellationToken);
     }
 }
