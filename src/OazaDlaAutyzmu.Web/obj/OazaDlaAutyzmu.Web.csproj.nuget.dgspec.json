@@ -1123,7 +1123,7 @@
             },
             "HtmlSanitizer": {
               "target": "Package",
-              "version": "[9.1.878-beta, )"
+              "version": "[9.0.892, )"
             },
             "MediatR": {
               "target": "Package",

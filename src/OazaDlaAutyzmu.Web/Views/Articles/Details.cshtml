@@ -1,0 +1,99 @@
+@model OazaDlaAutyzmu.Domain.Entities.Article
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <!-- Breadcrumb -->
+    <nav class="mb-6 text-sm text-gray-600 dark:text-gray-400">
+        <a asp-action="Index" class="link-strong">Artykuły</a>
+        <span class="mx-2">/</span>
+        <a asp-action="Index" asp-route-categoryId="@Model.CategoryId" class="link-strong">@Model.Category?.Name</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-900 dark:text-white">@Model.Title</span>
+    </nav>
+
+    <!-- Article Header -->
+    <div class="mb-8">
+        <div class="mb-4">
+            <span class="inline-block px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 rounded-full text-sm font-semibold">
+                @Model.Category?.Name
+            </span>
+        </div>
+
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">@Model.Title</h1>
+
+        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mb-6">
+            <div class="flex items-center space-x-2">
+                <span>Autor:</span>
+                <strong class="text-gray-900 dark:text-white">@Model.Author?.UserName</strong>
+            </div>
+            <div class="flex items-center space-x-2">
+                <span>Data publikacji:</span>
+                <strong class="text-gray-900 dark:text-white">@Model.PublishedAt?.ToString("dd MMMM yyyy")</strong>
+            </div>
+            <div class="flex items-center space-x-2">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10.5 1.5H3.75A2.25 2.25 0 001.5 3.75v12.5A2.25 2.25 0 003.75 18.5h12.5a2.25 2.25 0 002.25-2.25V9.5m-15-4h12m-12 3h12m-12 3h6"></path>
+                </svg>
+                <span>@Model.ViewCount wyświetleń</span>
+            </div>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.FeaturedImage))
+    {
+        <div class="mb-8 rounded-lg overflow-hidden shadow-lg">
+            <img src="@Model.FeaturedImage" alt="@Model.Title" class="w-full object-cover">
+        </div>
+    }
+
+    <!-- Article Content -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mb-8">
+        <div class="prose dark:prose-invert max-w-none">
+            @Html.Raw(Model.Content)
+        </div>
+    </div>
+
+    <!-- Article Tags -->
+    @if (Model.Tags?.Any() == true)
+    {
+        <div class="mb-8">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Tags:</h3>
+            <div class="flex flex-wrap gap-2">
+                @foreach (var tag in Model.Tags)
+                {
+                    <span class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full text-sm">
+                        #@tag.Name
+                    </span>
+                }
+            </div>
+        </div>
+    }
+
+    <!-- Edit/Delete Buttons -->
+    @if (User.IsInRole("Admin") || (User.IsInRole("Moderator") && User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value == Model.AuthorId.ToString()))
+    {
+        <div class="flex gap-4 border-t border-gray-200 dark:border-gray-700 pt-8">
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="px-4 py-2 btn-secondary rounded-lg">
+                Edytuj artykuł
+            </a>
+            @if (User.IsInRole("Admin"))
+            {
+                <form asp-action="Delete" asp-route-id="@Model.Id" method="post" onsubmit="return confirm('Czy na pewno chcesz usunąć ten artykuł?');">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg">
+                        Usuń artykuł
+                    </button>
+                </form>
+            }
+        </div>
+    }
+
+    <!-- Back Link -->
+    <div class="mt-8">
+        <a asp-action="Index" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">
+            ← Wróć do listy artykułów
+        </a>
+    </div>
+</div>

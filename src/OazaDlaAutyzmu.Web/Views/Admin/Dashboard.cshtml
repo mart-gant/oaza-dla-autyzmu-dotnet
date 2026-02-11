@@ -198,11 +198,38 @@
         </div>
 
         <!-- Quick Actions -->
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <a asp-controller="Facilities" asp-action="Create" class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+                <h4 class="text-lg font-semibold text-gray-900 mb-2">Dodaj placówkę</h4>
+                <p class="text-sm text-gray-600 mb-4">Utwórz nową placówkę terapeutyczną lub edukacyjną</p>
+                <span class="inline-flex items-center px-3 py-2 btn-primary rounded-lg text-sm font-medium">Dodaj placówkę →</span>
+            </a>
+
+            <a asp-controller="Facilities" asp-action="Index" class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+                <h4 class="text-lg font-semibold text-gray-900 mb-2">Edytuj placówki</h4>
+                <p class="text-sm text-gray-600 mb-4">Zarządzaj wszystkimi placówkami</p>
+                <span class="inline-flex items-center px-3 py-2 btn-secondary rounded-lg text-sm font-medium">Zarządzaj placówkami →</span>
+            </a>
+
+            <a asp-controller="Forum" asp-action="CreateTopic" class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+                <h4 class="text-lg font-semibold text-gray-900 mb-2">Dodaj temat forum</h4>
+                <p class="text-sm text-gray-600 mb-4">Utwórz nowy temat dyskusji</p>
+                <span class="inline-flex items-center px-3 py-2 btn-primary rounded-lg text-sm font-medium">Dodaj temat →</span>
+            </a>
+
+            <a asp-controller="Articles" asp-action="Create" class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
+                <h4 class="text-lg font-semibold text-gray-900 mb-2">Dodaj artykuł</h4>
+                <p class="text-sm text-gray-600 mb-4">Opublikuj nowy artykuł informacyjny</p>
+                <span class="inline-flex items-center px-3 py-2 btn-primary rounded-lg text-sm font-medium">Dodaj artykuł →</span>
+            </a>
+        </div>
+
+        <!-- Management & Moderation -->
         <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
             <a asp-controller="Moderator" asp-action="PendingReviews" class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">
                 <h4 class="text-lg font-semibold text-gray-900 mb-2">Moderacja Opinii</h4>
                 <p class="text-sm text-gray-600 mb-4">@Model.PendingReviews opinii oczekuje na zatwierdzenie</p>
-                <span class="inline-flex items-center px-3 py-2 btn-secondary rounded-lg text-sm font-medium">Przejdź do moderacji →</span>
+                <span class="inline-flex items-center px-3 py-2 btn-warning rounded-lg text-sm font-medium">Przejdź do moderacji →</span>
             </a>
 
             <a asp-action="Users" class="bg-white rounded-lg shadow p-6 hover:shadow-lg transition">

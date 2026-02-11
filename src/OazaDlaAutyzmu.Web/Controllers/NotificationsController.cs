@@ -63,7 +63,13 @@ public class NotificationsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> MarkAsRead(int id)
     {
-        await _notificationService.MarkAsReadAsync(id);
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null)
+        {
+            return Unauthorized();
+        }
+
+        await _notificationService.MarkAsReadAsync(id, user.Id);
         return RedirectToAction(nameof(Index));
     }
 
@@ -85,7 +91,13 @@ public class NotificationsController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Delete(int id)
     {
-        await _notificationService.DeleteNotificationAsync(id);
+        var user = await _userManager.GetUserAsync(User);
+        if (user == null)
+        {
+            return Unauthorized();
+        }
+
+        await _notificationService.DeleteNotificationAsync(id, user.Id);
         return RedirectToAction(nameof(Index));
     }
 }

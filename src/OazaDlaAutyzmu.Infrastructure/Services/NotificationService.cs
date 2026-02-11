@@ -62,9 +62,10 @@ public class NotificationService : INotificationService
             .CountAsync(cancellationToken);
     }
 
-    public async Task MarkAsReadAsync(int notificationId, CancellationToken cancellationToken = default)
+    public async Task MarkAsReadAsync(int notificationId, int userId, CancellationToken cancellationToken = default)
     {
-        var notification = await _context.Notifications.FindAsync(new object[] { notificationId }, cancellationToken);
+        var notification = await _context.Notifications
+            .FirstOrDefaultAsync(n => n.Id == notificationId && n.UserId == userId, cancellationToken);
         if (notification != null)
         {
             notification.IsRead = true;
@@ -88,9 +89,10 @@ public class NotificationService : INotificationService
         await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task DeleteNotificationAsync(int notificationId, CancellationToken cancellationToken = default)
+    public async Task DeleteNotificationAsync(int notificationId, int userId, CancellationToken cancellationToken = default)
     {
-        var notification = await _context.Notifications.FindAsync(new object[] { notificationId }, cancellationToken);
+        var notification = await _context.Notifications
+            .FirstOrDefaultAsync(n => n.Id == notificationId && n.UserId == userId, cancellationToken);
         if (notification != null)
         {
             _context.Notifications.Remove(notification);

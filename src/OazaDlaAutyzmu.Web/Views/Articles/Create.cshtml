@@ -1,0 +1,83 @@
+@{
+    ViewData["Title"] = "Dodaj artykuł";
+    var categories = ViewBag.Categories as List<OazaDlaAutyzmu.Domain.Entities.ArticleCategory>;
+}
+
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Dodaj nowy artykuł</h1>
+
+    <form method="post" class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+        @Html.AntiForgeryToken()
+
+        <div class="mb-6">
+            <label for="title" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                Tytuł artykułu *
+            </label>
+            <input type="text" id="title" name="title" required class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Wpisz tytuł artykułu">
+        </div>
+
+        <div class="mb-6">
+            <label for="categoryId" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                Kategoria *
+            </label>
+            <select id="categoryId" name="categoryId" required class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <option value="">Wybierz kategorię</option>
+                @if (categories?.Any() == true)
+                {
+                    @foreach (var category in categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                }
+            </select>
+        </div>
+
+        <div class="mb-6">
+            <label for="excerpt" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                Streszczenie (opcjonalne)
+            </label>
+            <textarea id="excerpt" name="excerpt" rows="3" class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Krótkie streszczenie artykułu"></textarea>
+        </div>
+
+        <div class="mb-6">
+            <label for="content" class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                Treść artykułu *
+            </label>
+            <textarea id="content" name="content" rows="15" required class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-sm" placeholder="Wpisz treść artykułu (obsługiwane tagi HTML)"></textarea>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Możesz używać tagów HTML do formatowania tekstu</p>
+        </div>
+
+        <div class="mb-6">
+            <label class="flex items-center">
+                <input type="checkbox" id="publish" name="publish" class="w-4 h-4 rounded">
+                <span class="ml-3 text-sm font-semibold text-gray-700 dark:text-gray-300">Opublikuj artykuł</span>
+            </label>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Zaznacz, aby artykuł był widoczny dla użytkowników. Bez zaznaczenia artykuł będzie zapisany jako szkic.</p>
+        </div>
+
+        @if (ViewData.ModelState.Values.Any(x => x.Errors.Any()))
+        {
+            <div class="mb-6 p-4 bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 rounded-lg">
+                <h3 class="font-semibold text-red-800 dark:text-red-200 mb-2">Błędy:</h3>
+                <ul class="text-red-700 dark:text-red-300 text-sm space-y-1">
+                    @foreach (var modelState in ViewData.ModelState.Values)
+                    {
+                        @foreach (var error in modelState.Errors)
+                        {
+                            <li>• @error.ErrorMessage</li>
+                        }
+                    }
+                </ul>
+            </div>
+        }
+
+        <div class="flex gap-4">
+            <button type="submit" class="px-6 py-3 btn-primary rounded-lg font-semibold">
+                Dodaj artykuł
+            </button>
+            <a asp-action="Index" class="px-6 py-3 btn-secondary rounded-lg font-semibold">
+                Anuluj
+            </a>
+        </div>
+    </form>
+</div>

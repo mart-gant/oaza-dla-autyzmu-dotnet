@@ -1,0 +1,150 @@
+@model List<OazaDlaAutyzmu.Domain.Entities.Article>
+@{
+    ViewData["Title"] = "Artykuły";
+    var categories = ViewBag.Categories as List<OazaDlaAutyzmu.Domain.Entities.ArticleCategory>;
+    var pageNumber = ViewBag.PageNumber as int? ?? 1;
+    var totalPages = ViewBag.TotalPages as int? ?? 1;
+    var selectedCategory = ViewBag.SelectedCategory as int?;
+}
+
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Header -->
+    <div class="mb-8">
+        <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">Artykuły</h1>
+        <p class="text-gray-600 dark:text-gray-400">Przeczytaj artykuły informacyjne o autyzmie</p>
+    </div>
+
+    <!-- Category Filter -->
+    @if (categories?.Any() == true)
+    {
+        <div class="mb-8 flex flex-wrap gap-2">
+            <a asp-action="Index" class="px-4 py-2 btn-secondary rounded-lg @(selectedCategory == null ? "bg-indigo-600 text-white" : "")">
+                Wszystkie
+            </a>
+            @foreach (var category in categories)
+            {
+                <a asp-action="Index" asp-route-categoryId="@category.Id" 
+                   class="px-4 py-2 btn-secondary rounded-lg @(selectedCategory == category.Id ? "bg-indigo-600 text-white" : "")">
+                    @category.Name
+                </a>
+            }
+        </div>
+    }
+
+    @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+    {
+        <div class="mb-8">
+            <a asp-action="Create" class="px-4 py-2 btn-primary rounded-lg">
+                + Dodaj artykuł
+            </a>
+        </div>
+    }
+
+    <!-- Articles Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        @if (Model?.Any() == true)
+        {
+            @foreach (var article in Model)
+            {
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                    @if (!string.IsNullOrEmpty(article.FeaturedImage))
+                    {
+                        <img src="@article.FeaturedImage" alt="@article.Title" class="w-full h-48 object-cover">
+                    }
+                    else
+                    {
+                        <div class="w-full h-48 bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17c0 5.355 3.578 9.901 8.776 10.573m0-13c5.5 0 10 4.745 10 10 0 5.355-3.578 9.901-8.776 10.573m0-13h-.002"></path>
+                            </svg>
+                        </div>
+                    }
+                    
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm text-indigo-600 dark:text-indigo-400 font-semibold">@article.Category?.Name</span>
+                            <span class="text-xs text-gray-500">@article.PublishedAt?.ToString("dd.MM.yyyy")</span>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                            <a asp-action="Details" asp-route-slug="@article.Slug" class="link-strong">
+                                @article.Title
+                            </a>
+                        </h3>
+                        
+                        <p class="text-gray-600 dark:text-gray-400 text-sm line-clamp-3 mb-4">
+                            @(string.IsNullOrEmpty(article.Excerpt) ? article.Content.Substring(0, Math.Min(150, article.Content.Length)) + "..." : article.Excerpt)
+                        </p>
+                        
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2 text-sm text-gray-500">
+                                <span>Autor: <strong>@article.Author?.UserName</strong></span>
+                            </div>
+                            <a asp-action="Details" asp-route-slug="@article.Slug" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline">
+                                Czytaj →
+                            </a>
+                        </div>
+
+                        @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                        {
+                            <div class="mt-4 flex gap-2 border-t border-gray-200 dark:border-gray-700 pt-4">
+                                <a asp-action="Edit" asp-route-id="@article.Id" class="text-sm px-3 py-1 btn-secondary rounded">
+                                    Edytuj
+                                </a>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <form asp-action="Delete" asp-route-id="@article.Id" method="post" onsubmit="return confirm('Czy na pewno chcesz usunąć ten artykuł?');" class="inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="text-sm px-3 py-1 bg-red-600 hover:bg-red-700 text-white rounded">
+                                            Usuń
+                                        </button>
+                                    </form>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-span-full text-center py-12">
+                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C6.5 6.253 2 10.998 2 17c0 5.355 3.578 9.901 8.776 10.573m0-13c5.5 0 10 4.745 10 10 0 5.355-3.578 9.901-8.776 10.573"></path>
+                </svg>
+                <p class="text-gray-600 dark:text-gray-400 mt-4">Brak artykułów do wyświetlenia</p>
+            </div>
+        }
+    </div>
+
+    <!-- Pagination -->
+    @if (totalPages > 1)
+    {
+        <div class="flex justify-center items-center space-x-2 mt-8">
+            @if (pageNumber > 1)
+            {
+                <a asp-action="Index" asp-route-pageNumber="@(pageNumber - 1)" asp-route-categoryId="@selectedCategory" 
+                   class="px-4 py-2 btn-pagination rounded-lg">← Poprzednia</a>
+            }
+
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                if (i == pageNumber)
+                {
+                    <span class="px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold">@i</span>
+                }
+                else
+                {
+                    <a asp-action="Index" asp-route-pageNumber="@i" asp-route-categoryId="@selectedCategory" 
+                       class="px-4 py-2 btn-pagination rounded-lg">@i</a>
+                }
+            }
+
+            @if (pageNumber < totalPages)
+            {
+                <a asp-action="Index" asp-route-pageNumber="@(pageNumber + 1)" asp-route-categoryId="@selectedCategory" 
+                   class="px-4 py-2 btn-pagination rounded-lg">Następna →</a>
+            }
+        </div>
+    }
+</div>

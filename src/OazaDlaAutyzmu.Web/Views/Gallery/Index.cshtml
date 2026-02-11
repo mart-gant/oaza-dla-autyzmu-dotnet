@@ -1,14 +1,15 @@
 @model IEnumerable<OazaDlaAutyzmu.Domain.Entities.FacilityImage>
 @{
     var facility = ViewBag.Facility as OazaDlaAutyzmu.Domain.Entities.Facility;
-    ViewData["Title"] = "Galeria - " + (facility?.Name ?? "Placówka");
-    var canEdit = (bool)ViewBag.CanEdit;
+    var facilityName = facility?.Name ?? "Placówka";
+    ViewData["Title"] = "Galeria - " + facilityName;
+    var canEdit = ViewBag.CanEdit as bool? ?? false;
 }
 
 <div class="container mx-auto px-4 py-8">
     <div class="mb-6">
         <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Galeria</h1>
-        <p class="text-gray-600 dark:text-gray-400">@(facility?.Name ?? "Placówka")</p>
+        <p class="text-gray-600 dark:text-gray-400">@facilityName</p>
         @if (facility != null)
         {
             <a asp-controller="Facilities" asp-action="Details" asp-route-id="@facility.Id" class="link-strong">
@@ -17,7 +18,7 @@
         }
     </div>
 
-    @if (canEdit)
+    @if (canEdit && facility != null)
     {
         <div class="mb-6">
             <a asp-action="Upload" asp-route-facilityId="@facility.Id" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
@@ -47,9 +48,9 @@
                 <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden group relative">
                     <div class="relative">
                         <img src="@image.ImageUrl" 
-                             alt="@(image.Caption ?? facility.Name)" 
+                             alt="@(image.Caption ?? facilityName)" 
                              class="w-full h-64 object-cover cursor-pointer hover:opacity-90 transition-opacity"
-                             onclick="openLightbox('@image.ImageUrl', '@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(image.Caption ?? facility.Name))')">
+                             onclick="openLightbox('@image.ImageUrl', '@Html.Raw(System.Web.HttpUtility.JavaScriptStringEncode(image.Caption ?? facilityName))')">
                         
                         @if (image.IsMain)
                         {

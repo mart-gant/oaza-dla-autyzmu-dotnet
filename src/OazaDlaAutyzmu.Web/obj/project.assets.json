@@ -2,31 +2,31 @@
   "version": 3,
   "targets": {
     "net10.0": {
-      "AngleSharp/1.2.0": {
+      "AngleSharp/0.17.1": {
         "type": "package",
         "compile": {
-          "lib/net8.0/AngleSharp.dll": {
+          "lib/netstandard2.0/AngleSharp.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/AngleSharp.dll": {
+          "lib/netstandard2.0/AngleSharp.dll": {
             "related": ".xml"
           }
         }
       },
-      "AngleSharp.Css/1.0.0-beta.151": {
+      "AngleSharp.Css/0.17.0": {
         "type": "package",
         "dependencies": {
-          "AngleSharp": "[1.0.0, 2.0.0)"
+          "AngleSharp": "[0.17.0, 0.18.0)"
         },
         "compile": {
-          "lib/net8.0/AngleSharp.Css.dll": {
+          "lib/net7.0/AngleSharp.Css.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/AngleSharp.Css.dll": {
+          "lib/net7.0/AngleSharp.Css.dll": {
             "related": ".xml"
           }
         }
@@ -108,19 +108,19 @@
           }
         }
       },
-      "HtmlSanitizer/9.1.878-beta": {
+      "HtmlSanitizer/9.0.892": {
         "type": "package",
         "dependencies": {
-          "AngleSharp": "1.2.0",
-          "AngleSharp.Css": "1.0.0-beta.151"
+          "AngleSharp": "[0.17.1]",
+          "AngleSharp.Css": "[0.17.0]"
         },
         "compile": {
-          "lib/netstandard2.0/HtmlSanitizer.dll": {
+          "lib/net8.0/HtmlSanitizer.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netstandard2.0/HtmlSanitizer.dll": {
+          "lib/net8.0/HtmlSanitizer.dll": {
             "related": ".xml"
           }
         }
@@ -2706,40 +2706,33 @@
     }
   },
   "libraries": {
-    "AngleSharp/1.2.0": {
-      "sha512": "uF/PzSCVcb+b2nqVvHZbOqexoJ9R6QLjonugPf0PQl+0h7YKaFZeXyspctbHe5HGlx7/Iuk5BErtk+t63ac/ZA==",
+    "AngleSharp/0.17.1": {
+      "sha512": "5MPI4bbixlwxb0W/smOMeIR+QlxMy5/5jD+WnIAw4pBC+7AhLPe5bS3cLgQMJyvd6q0A48sG+uYOt/ep406GLA==",
       "type": "package",
-      "path": "anglesharp/1.2.0",
+      "path": "anglesharp/0.17.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "README.md",
-        "anglesharp.1.2.0.nupkg.sha512",
+        "anglesharp.0.17.1.nupkg.sha512",
         "anglesharp.nuspec",
-        "lib/net462/AngleSharp.dll",
-        "lib/net462/AngleSharp.xml",
+        "lib/net461/AngleSharp.dll",
+        "lib/net461/AngleSharp.xml",
         "lib/net472/AngleSharp.dll",
         "lib/net472/AngleSharp.xml",
-        "lib/net6.0/AngleSharp.dll",
-        "lib/net6.0/AngleSharp.xml",
-        "lib/net7.0/AngleSharp.dll",
-        "lib/net7.0/AngleSharp.xml",
-        "lib/net8.0/AngleSharp.dll",
-        "lib/net8.0/AngleSharp.xml",
         "lib/netstandard2.0/AngleSharp.dll",
         "lib/netstandard2.0/AngleSharp.xml",
         "logo.png"
       ]
     },
-    "AngleSharp.Css/1.0.0-beta.151": {
-      "sha512": "oEnqXQcwpc/kkUIi2rxWHfFrmKlcJFpZZZjhEIHVc+aEJFo3U+5cptOHByQh+FW0PCW6ssVJ+GGBgbgyN8YPiw==",
+    "AngleSharp.Css/0.17.0": {
+      "sha512": "bg0AcugmX6BFEi/DHG61QrwRU8iuiX4H8LZehdIzYdqOM/dgb3BsCTzNIcc1XADn4+xfQEdVwJYTSwUxroL4vg==",
       "type": "package",
-      "path": "anglesharp.css/1.0.0-beta.151",
+      "path": "anglesharp.css/0.17.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
-        "anglesharp.css.1.0.0-beta.151.nupkg.sha512",
+        "anglesharp.css.0.17.0.nupkg.sha512",
         "anglesharp.css.nuspec",
         "lib/net461/AngleSharp.Css.dll",
         "lib/net461/AngleSharp.Css.xml",
@@ -2749,8 +2742,6 @@
         "lib/net6.0/AngleSharp.Css.xml",
         "lib/net7.0/AngleSharp.Css.dll",
         "lib/net7.0/AngleSharp.Css.xml",
-        "lib/net8.0/AngleSharp.Css.dll",
-        "lib/net8.0/AngleSharp.Css.xml",
         "lib/netstandard2.0/AngleSharp.Css.dll",
         "lib/netstandard2.0/AngleSharp.Css.xml",
         "logo.png"
@@ -2844,18 +2835,22 @@
         "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.xml"
       ]
     },
-    "HtmlSanitizer/9.1.878-beta": {
-      "sha512": "EvQgZEQ7YVyPn7fuM9j1R+bmiC08VEMD65Yi6+4QBPwJbumWqt+apfiwgMVmN66/7J4BV+cJrltNIrnDAQdJtw==",
+    "HtmlSanitizer/9.0.892": {
+      "sha512": "zdkMmpNCjTkxna8Y+jmPIFm2st+HjHrf32yNElFYwe7L4GmDm+mdKR6TzDyf6ewJ0RUUz84D4IkHNgrwGi4VbQ==",
       "type": "package",
-      "path": "htmlsanitizer/9.1.878-beta",
+      "path": "htmlsanitizer/9.0.892",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
-        "htmlsanitizer.9.1.878-beta.nupkg.sha512",
+        "htmlsanitizer.9.0.892.nupkg.sha512",
         "htmlsanitizer.nuspec",
-        "lib/net461/HtmlSanitizer.dll",
-        "lib/net461/HtmlSanitizer.xml",
+        "lib/net462/HtmlSanitizer.dll",
+        "lib/net462/HtmlSanitizer.xml",
+        "lib/net47/HtmlSanitizer.dll",
+        "lib/net47/HtmlSanitizer.xml",
+        "lib/net8.0/HtmlSanitizer.dll",
+        "lib/net8.0/HtmlSanitizer.xml",
         "lib/netstandard2.0/HtmlSanitizer.dll",
         "lib/netstandard2.0/HtmlSanitizer.xml"
       ]
@@ -7087,7 +7082,7 @@
     "net10.0": [
       "AspNetCoreRateLimit >= 5.0.0",
       "FluentValidation.AspNetCore >= 11.3.1",
-      "HtmlSanitizer >= 9.1.878-beta",
+      "HtmlSanitizer >= 9.0.892",
       "MediatR >= 14.0.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 10.0.2",
       "Microsoft.EntityFrameworkCore.Design >= 10.0.2",
@@ -7163,7 +7158,7 @@
           },
           "HtmlSanitizer": {
             "target": "Package",
-            "version": "[9.1.878-beta, )"
+            "version": "[9.0.892, )"
           },
           "MediatR": {
             "target": "Package",
@@ -7644,17 +7639,5 @@
         }
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1902",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'HtmlSanitizer' 9.1.878-beta has a known moderate severity vulnerability, https://github.com/advisories/GHSA-j92c-7v7g-gj3f",
-      "libraryId": "HtmlSanitizer",
-      "targetGraphs": [
-        "net10.0"
-      ]
-    }
-  ]
+  }
 }
