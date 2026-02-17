@@ -33,14 +33,14 @@ public class GetTopicByIdQueryHandler : IRequestHandler<GetTopicByIdQuery, Forum
         {
             Id = topic.Id,
             CategoryId = topic.CategoryId,
-            CategoryName = topic.Category.Name,
+            CategoryName = topic.Category?.Name ?? "Uncategorized",
             Title = topic.Title,
             UserId = topic.AuthorId,
-            UserName = topic.Author.UserName ?? "Anonim",
+            UserName = topic.Author?.UserName ?? "Anonim",
             IsLocked = topic.IsLocked,
             IsPinned = topic.IsPinned,
             ViewCount = topic.ViewCount,
-            PostCount = topic.Posts.Count,
+            PostCount = topic.Posts?.Count ?? 0,
             CreatedAt = topic.CreatedAt
         };
     }

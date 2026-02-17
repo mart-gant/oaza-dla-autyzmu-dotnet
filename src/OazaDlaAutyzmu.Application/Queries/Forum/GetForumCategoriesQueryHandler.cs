@@ -36,22 +36,28 @@ public class GetForumCategoriesQueryHandler : IRequestHandler<GetForumCategories
             var latestTopic = await _context.ForumTopics
                 .Where(t => t.CategoryId == category.Id)
                 .Include(t => t.Author)
+                .Include(t => t.Posts)
                 .OrderByDescending(t => t.CreatedAt)
-                .Select(t => new ForumTopicDto
-                {
-                    Id = t.Id,
-                    CategoryId = t.CategoryId,
-                    CategoryName = category.Name,
-                    Title = t.Title,
-                    UserId = t.AuthorId,
-                    UserName = t.Author.UserName ?? "Anonim",
-                    IsLocked = t.IsLocked,
-                    IsPinned = t.IsPinned,
-                    ViewCount = t.ViewCount,
-                    PostCount = t.Posts.Count,
-                    CreatedAt = t.CreatedAt
-                })
                 .FirstOrDefaultAsync(cancellationToken);
+
+            ForumTopicDto? latestTopicDto = null;
+            if (latestTopic != null)
+            {
+                latestTopicDto = new ForumTopicDto
+                {
+                    Id = latestTopic.Id,
+                    CategoryId = latestTopic.CategoryId,
+                    CategoryName = category.Name,
+                    Title = latestTopic.Title,
+                    UserId = latestTopic.AuthorId,
+                    UserName = latestTopic.Author?.UserName ?? "Anonim",
+                    IsLocked = latestTopic.IsLocked,
+                    IsPinned = latestTopic.IsPinned,
+                    ViewCount = latestTopic.ViewCount,
+                    PostCount = latestTopic.Posts?.Count ?? 0,
+                    CreatedAt = latestTopic.CreatedAt
+                };
+            }
 
             result.Add(new ForumCategoryDto
             {
@@ -60,7 +66,7 @@ public class GetForumCategoriesQueryHandler : IRequestHandler<GetForumCategories
                 Description = category.Description,
                 TopicCount = topicCount,
                 PostCount = postCount,
-                LatestTopic = latestTopic
+                LatestTopic = latestTopicDto
             });
         }
 

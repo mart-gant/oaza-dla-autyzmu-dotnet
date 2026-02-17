@@ -28,16 +28,16 @@ public class GetTopicsByCategoryQueryHandler : IRequestHandler<GetTopicsByCatego
         {
             Id = t.Id,
             CategoryId = t.CategoryId,
-            CategoryName = t.Category.Name,
+            CategoryName = t.Category?.Name ?? "Uncategorized",
             Title = t.Title,
             UserId = t.AuthorId,
-            UserName = t.Author.UserName ?? "Anonim",
+            UserName = t.Author?.UserName ?? "Anonim",
             IsLocked = t.IsLocked,
             IsPinned = t.IsPinned,
             ViewCount = t.ViewCount,
-            PostCount = t.Posts.Count,
+            PostCount = t.Posts?.Count ?? 0,
             CreatedAt = t.CreatedAt,
-            LatestPost = t.Posts
+            LatestPost = t.Posts?
                 .OrderByDescending(p => p.CreatedAt)
                 .Select(p => new ForumPostDto
                 {
@@ -45,7 +45,7 @@ public class GetTopicsByCategoryQueryHandler : IRequestHandler<GetTopicsByCatego
                     TopicId = p.TopicId,
                     TopicTitle = t.Title,
                     UserId = p.AuthorId,
-                    UserName = p.Author.UserName ?? "Anonim",
+                    UserName = p.Author?.UserName ?? "Anonim",
                     Content = p.Content,
                     CreatedAt = p.CreatedAt,
                     UpdatedAt = p.UpdatedAt
