@@ -449,4 +449,11 @@ public class AccountController : Controller
         TempData["ErrorMessage"] = "Nie udało się usunąć konta.";
         return RedirectToAction("DeleteMyAccount");
     }
+
+    [HttpGet]
+    public IActionResult AccessDenied(string? returnUrl = null)
+    {
+        ViewData["ReturnUrl"] = returnUrl;
+        return View();
+    }
 }

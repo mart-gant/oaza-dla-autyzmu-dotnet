@@ -232,6 +232,158 @@ Podzielcie się swoimi opiniami! 🙂",
 
         await context.SaveChangesAsync();
 
+        // 11. Get article categories
+        var educationCategory = await context.ArticleCategories.FirstAsync(c => c.Slug == "edukacja");
+        var therapyCategory2 = await context.ArticleCategories.FirstAsync(c => c.Slug == "terapie");
+        var supportCategory = await context.ArticleCategories.FirstAsync(c => c.Slug == "wsparcie-rodzin");
+
+        // 12. Create example articles about autism spectrum
+        var article1 = new Article
+        {
+            Title = "Spektrum autyzmu - co to właściwie oznacza?",
+            Slug = "spektrum-autyzmu-co-to-oznacza",
+            Content = @"<h2>Czym jest spektrum autyzmu?</h2>
+
+<p>Spektrum autyzmu to pojęcie, które opisuje zakres zachowań i umiejętności związanych z autyzmem. Słowo ""spektrum"" jest kluczowe - oznacza to, że autyzm przybywa w różnych formach i stopniach natężenia.</p>
+
+<h3>Główne cechy spektrum autyzmu:</h3>
+
+<ul>
+<li><strong>Trudności w komunikacji społecznej</strong> - Issues with verbal and non-verbal communication</li>
+<li><strong>Specjalne zainteresowania</strong> - Intensywne, często bardzo szczegółowe zainteresowania</li>
+<li><strong>Powtarzalne zachowania</strong> - Rutyny i powtarzające się czynności</li>
+<li><strong>Wrażliwość sensoryczna</strong> - Wzmożona lub osłabiona wrażliwość zmysłów</li>
+</ul>
+
+<h3>Ważne do zrozumienia:</h3>
+
+<p>Każda osoba z autyzmem jest inna. Spektrum oznacza, że dwie osoby z diagnozą autyzmu mogą mieć zupełnie różne doświadczenia i potrzeby wsparcia.</p>
+
+<p>Autyzm to nie choroba - to neurobiologiczna różnica w sposobie, w jaki mózg przetwaria informacje.</p>",
+            Excerpt = "Poznaj podstawowe informacje o spektrum autyzmu, główne cechy i dlaczego jest to ważne pojęcie.",
+            CategoryId = educationCategory.Id,
+            AuthorId = adminUser.Id,
+            Status = ArticleStatus.Published,
+            CreatedAt = DateTime.UtcNow.AddDays(-5)
+        };
+
+        var article2 = new Article
+        {
+            Title = "Jak wspierać dziecko ze spektrum autyzmu w domu?",
+            Slug = "wspieranie-dziecka-spektrum-autyzmu-w-domu",
+            Content = @"<h2>Poradnik dla rodziców</h2>
+
+<p>Wspieranie dziecka ze spektrum autyzmu w domu to ważna część jego rozwoju. Oto kilka praktycznych porad.</p>
+
+<h3>1. Twórz rutyny i strukturę</h3>
+
+<p>Dzieci ze spektrum autyzmu często czują się bezpieczniej w przewidywalnym otoczeniu. Regularny harmonogram dnia pomaga zmniejszyć niepokój.</p>
+
+<h3>2. Dostosuj otoczenie sensoryczne</h3>
+
+<ul>
+<li>Ogranicz hałas i zbędne bodźce</li>
+<li>Wybierz odpowiednie oświetlenie</li>
+<li>Zapewni spokojny kąt do odpoczynku</li>
+</ul>
+
+<h3>3. Nawiąż komunikację </h3>
+
+<p>Bądź jasny i konkretny w instrukcjach. Użyj prostych słów i wizualnych pomocí komunikacyjnych.</p>
+
+<h3>4. Doceniaj zainteresowania dziecka</h3>
+
+<p>Zamiast walczyć ze specjalistycznym zainteresowaniem twojego dziecka, spróbuj je wykorzystać w nauce i zabawie.</p>
+
+<h3>5. Szukaj profesjonalnego wsparcia</h3>
+
+<p>Terapeuci, psycholodzy i specjaliści mogą zaproponować strategie dostosowane do indywidualnych potrzeb twojego dziecka.</p>",
+            Excerpt = "Praktyczne porady dla rodziców na temat wspierania dziecka ze spektrum autyzmu w domu.",
+            CategoryId = supportCategory.Id,
+            AuthorId = adminUser.Id,
+            Status = ArticleStatus.Published,
+            CreatedAt = DateTime.UtcNow.AddDays(-3)
+        };
+
+        var article3 = new Article
+        {
+            Title = "Terapia logopedyczna dla osób z autyzmem",
+            Slug = "terapia-logopedyczna-dla-osob-z-autyzmem",
+            Content = @"<h2>Znaczenie terapii logopedycznej</h2>
+
+<p>Wiele osób ze spektrum autyzmu ma trudności z komunikacją. Terapia logopedyczna może być bardzo pomocna.</p>
+
+<h3>Jakie problemy logopedyczne są częste?</h3>
+
+<ul>
+<li>Opóźnienie w rozwoju mowy</li>
+<li>Trudności z artykułacją</li>
+<li>Problemy z zrozumieniem i użyciem języka</li>
+<li>Problemy z pragmatyką komunikacyjną (społeczne aspekty komunikacji)</li>
+</ul>
+
+<h3>Jak logopeda może pomóc?</h3>
+
+<p>Logopedzi opracowują indywidualne plany terapii dostosowane do potrzeb każdej osoby. Mogą pracować nad:</p>
+
+<ul>
+<li>Wyraźnością mowy</li>
+<li>Rozbudowaniem słownika</li>
+<li>Umiejętnościami społeczno-komunikacyjnymi</li>
+<li>Zapoznawaniem się z alternatywnymi metodami komunikacji (AAC)</li>
+</ul>
+
+<h3>Kiedy szukać pomocy?</h3>
+
+<p>Jeśli dostrzeżesz trudności w komunikacji u swojego dziecka, warto zasięgnąć porady logopedy. Im wcześniej zostanie podjęta interwencja, tym lepsze mogą być rezultaty.</p>",
+            Excerpt = "Informacja o roli i znaczeniu terapii logopedycznej dla osób ze spektrum autyzmu.",
+            CategoryId = therapyCategory2.Id,
+            AuthorId = adminUser.Id,
+            Status = ArticleStatus.Published,
+            CreatedAt = DateTime.UtcNow.AddDays(-1)
+        };
+
+        var article4 = new Article
+        {
+            Title = "Integracja sensoryczna - co to i jak działa?",
+            Slug = "integracja-sensoryczna-jak-dziala",
+            Content = @"<h2>Zrozumienie integracji sensorycznej</h2>
+
+<p>Integracja sensoryczna (SI) to termin opisujący, jak nasze mózgi odbierają i przetwarzają informacje ze zmysłów.</p>
+
+<h3>Problemy z integracją sensoryczną w autyzmie</h3>
+
+<p>Osoby ze spektrum autyzmu często mają trudności z przetwarzaniem informacji sensorycznych. Mogą być:</p>
+
+<ul>
+<li><strong>Nadwrażliwe (hipersensytywne)</strong> - Zbyt czuli na bodźce</li>
+<li><strong>Niedowrażliwe (hiposensytywne)</strong> - Mniej czuli na bodźce</li>
+<li><strong>Niechętni wobec zmian sensorycznych</strong> - Wymagają czasu na adaptację</li>
+</ul>
+
+<h3>Terapia integracji sensorycznej</h3>
+
+<p>Terapeuta terapii SI pracuje z pacjentem, aby pomóc mózgowi lepiej przetwarzać bodźce sensoryczne. Sesje mogą obejmować:</p>
+
+<ul>
+<li>Zabawy i ćwiczenia w kontrolowanym otoczeniu</li>
+<li>Bodźce proprioceptywne i wibrantne</li>
+<li>Aktywności dostosowane do indywidualnych potrzeb</li>
+</ul>
+
+<h3>Korzyści</h3>
+
+<p>Prawidłowa terapia SI może poprawiać równowagę, koordynację motoryczną i emocjonalne samopoczucie.</p>",
+            Excerpt = "Wyjaśnienie procesu integracji sensorycznej i roli terapii SI dla osób ze spektrum autyzmu.",
+            CategoryId = therapyCategory2.Id,
+            AuthorId = adminUser.Id,
+            Status = ArticleStatus.Published,
+            CreatedAt = DateTime.UtcNow.AddDays(-2)
+        };
+
+        context.Articles.AddRange(article1, article2, article3, article4);
+        await context.SaveChangesAsync();
+
         Console.WriteLine("✅ Seed data created successfully!");
         Console.WriteLine($"   - Test user: test@oaza.pl / Test123!");
         Console.WriteLine($"   - Admin user: admin@oaza.pl / Admin123!");
