@@ -12,6 +12,7 @@ public static class SeedData
         using var scope = serviceProvider.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<int>>>();
 
         // Ensure database is created (use EnsureCreated for InMemory, Migrate for relational)
         var databaseProvider = context.Database.ProviderName;
@@ -22,6 +23,16 @@ public static class SeedData
         else
         {
             await context.Database.MigrateAsync();
+        }
+
+        // Create roles if they don't exist
+        var roles = new[] { "Admin", "Moderator", "User" };
+        foreach (var role in roles)
+        {
+            if (!await roleManager.RoleExistsAsync(role))
+            {
+                await roleManager.CreateAsync(new IdentityRole<int> { Name = role });
+            }
         }
 
         // Check if data already exists
@@ -43,6 +54,8 @@ public static class SeedData
         var result = await userManager.CreateAsync(testUser, "Test123!");
         if (!result.Succeeded)
             throw new Exception($"Failed to create test user: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+        
+        await userManager.AddToRoleAsync(testUser, "User");
 
         // 2. Create admin user
         var adminUser = new ApplicationUser
@@ -56,7 +69,11 @@ public static class SeedData
             CreatedAt = DateTime.UtcNow
         };
 
-        await userManager.CreateAsync(adminUser, "Admin123!");
+        var adminResult = await userManager.CreateAsync(adminUser, "Admin123!");
+        if (!adminResult.Succeeded)
+            throw new Exception($"Failed to create admin user: {string.Join(", ", adminResult.Errors.Select(e => e.Description))}");
+        
+        await userManager.AddToRoleAsync(adminUser, "Admin");
 
         // 3. Create test facility
         var facility = new Facility
