@@ -143,7 +143,8 @@ else
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Oaza dla Autyzmu API v1");
+        // Use an app-root relative path so the UI works consistently behind the /api/docs prefix.
+        c.SwaggerEndpoint("../swagger/v1/swagger.json", "Oaza dla Autyzmu API v1");
         c.RoutePrefix = "api/docs"; // URL will be /api/docs
     });
 }
@@ -169,6 +170,9 @@ app.UseIpRateLimiting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.MapGet("/api/docs", () => Results.Redirect("/api/docs/index.html"));
+app.MapGet("/api/docs/", () => Results.Redirect("/api/docs/index.html"));
 
 app.MapStaticAssets();
 

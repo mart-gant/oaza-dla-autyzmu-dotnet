@@ -58,8 +58,8 @@ cd ../OazaDlaAutyzmu.Web
 dotnet run
 ```
 
-Aplikacja: `https://localhost:5050`  
-API Docs: `https://localhost:5050/api/docs`
+Aplikacja: `https://localhost:7115`  
+API Docs: `https://localhost:7115/api/docs`
 
 ## ⚙️ Konfiguracja
 
