@@ -1,37 +1,43 @@
 {
   "format": 1,
   "restore": {
-    "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Web/OazaDlaAutyzmu.Web.csproj": {}
+    "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj": {}
   },
   "projects": {
-    "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Application/OazaDlaAutyzmu.Application.csproj": {
+    "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Application/OazaDlaAutyzmu.Application.csproj",
+        "projectUniqueName": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
         "projectName": "OazaDlaAutyzmu.Application",
-        "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Application/OazaDlaAutyzmu.Application.csproj",
-        "packagesPath": "/Users/marcingantkowski/.nuget/packages/",
-        "outputPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Application/obj/",
+        "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
+        "packagesPath": "C:\\Users\\marty\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\obj\\",
         "projectStyle": "PackageReference",
+        "centralPackageVersionsManagementEnabled": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/marcingantkowski/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\marty\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Domain/OazaDlaAutyzmu.Domain.csproj": {
-                "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Domain/OazaDlaAutyzmu.Domain.csproj"
+              "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj": {
+                "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj"
               },
-              "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj": {
-                "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj"
+              "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj"
               }
             }
           }
@@ -46,7 +52,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "net10.0": {
@@ -54,20 +60,53 @@
           "dependencies": {
             "AutoMapper": {
               "target": "Package",
-              "version": "[12.0.1, )"
+              "version": "[15.1.3, )",
+              "versionCentrallyManaged": true
             },
             "FluentValidation": {
               "target": "Package",
-              "version": "[11.9.0, )"
+              "version": "[11.3.1, )",
+              "versionCentrallyManaged": true
             },
             "MediatR": {
               "target": "Package",
-              "version": "[12.2.0, )"
+              "version": "[14.0.0, )",
+              "versionCentrallyManaged": true
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[10.0.2, )"
+              "version": "[10.0.2, )",
+              "versionCentrallyManaged": true
             }
+          },
+          "centralPackageVersions": {
+            "AspNetCoreRateLimit": "5.0.0",
+            "AutoMapper": "15.1.3",
+            "coverlet.collector": "6.0.4",
+            "FluentAssertions": "6.12.0",
+            "FluentValidation": "11.3.1",
+            "FluentValidation.AspNetCore": "11.3.1",
+            "HtmlSanitizer": "9.0.892",
+            "MediatR": "14.0.0",
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.2",
+            "Microsoft.AspNetCore.Mvc.Testing": "10.0.0",
+            "Microsoft.EntityFrameworkCore": "10.0.2",
+            "Microsoft.EntityFrameworkCore.Design": "10.0.2",
+            "Microsoft.EntityFrameworkCore.InMemory": "10.0.2",
+            "Microsoft.EntityFrameworkCore.Sqlite": "10.0.2",
+            "Microsoft.EntityFrameworkCore.Tools": "10.0.2",
+            "Microsoft.NET.Test.Sdk": "17.14.1",
+            "Microsoft.Playwright": "1.57.0",
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": "10.0.0",
+            "Moq": "4.20.70",
+            "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.0",
+            "QRCoder": "1.7.0",
+            "reCAPTCHA.AspNetCore": "3.0.10",
+            "Sentry.AspNetCore": "4.10.0",
+            "SixLabors.ImageSharp": "3.1.12",
+            "Swashbuckle.AspNetCore": "10.1.0",
+            "xunit": "2.9.3",
+            "xunit.runner.visualstudio": "3.1.4"
           },
           "imports": [
             "net461",
@@ -85,7 +124,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.102/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -363,23 +402,29 @@
         }
       }
     },
-    "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Domain/OazaDlaAutyzmu.Domain.csproj": {
+    "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Domain/OazaDlaAutyzmu.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj",
         "projectName": "OazaDlaAutyzmu.Domain",
-        "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Domain/OazaDlaAutyzmu.Domain.csproj",
-        "packagesPath": "/Users/marcingantkowski/.nuget/packages/",
-        "outputPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Domain/obj/",
+        "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj",
+        "packagesPath": "C:\\Users\\marty\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "centralPackageVersionsManagementEnabled": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/marcingantkowski/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\marty\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -398,7 +443,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "net10.0": {
@@ -406,8 +451,38 @@
           "dependencies": {
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[10.0.2, )"
+              "version": "[10.0.2, )",
+              "versionCentrallyManaged": true
             }
+          },
+          "centralPackageVersions": {
+            "AspNetCoreRateLimit": "5.0.0",
+            "AutoMapper": "15.1.3",
+            "coverlet.collector": "6.0.4",
+            "FluentAssertions": "6.12.0",
+            "FluentValidation": "11.3.1",
+            "FluentValidation.AspNetCore": "11.3.1",
+            "HtmlSanitizer": "9.0.892",
+            "MediatR": "14.0.0",
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.2",
+            "Microsoft.AspNetCore.Mvc.Testing": "10.0.0",
+            "Microsoft.EntityFrameworkCore": "10.0.2",
+            "Microsoft.EntityFrameworkCore.Design": "10.0.2",
+            "Microsoft.EntityFrameworkCore.InMemory": "10.0.2",
+            "Microsoft.EntityFrameworkCore.Sqlite": "10.0.2",
+            "Microsoft.EntityFrameworkCore.Tools": "10.0.2",
+            "Microsoft.NET.Test.Sdk": "17.14.1",
+            "Microsoft.Playwright": "1.57.0",
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": "10.0.0",
+            "Moq": "4.20.70",
+            "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.0",
+            "QRCoder": "1.7.0",
+            "reCAPTCHA.AspNetCore": "3.0.10",
+            "Sentry.AspNetCore": "4.10.0",
+            "SixLabors.ImageSharp": "3.1.12",
+            "Swashbuckle.AspNetCore": "10.1.0",
+            "xunit": "2.9.3",
+            "xunit.runner.visualstudio": "3.1.4"
           },
           "imports": [
             "net461",
@@ -425,7 +500,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.102/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -703,31 +778,37 @@
         }
       }
     },
-    "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj": {
+    "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj",
         "projectName": "OazaDlaAutyzmu.Infrastructure",
-        "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj",
-        "packagesPath": "/Users/marcingantkowski/.nuget/packages/",
-        "outputPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Infrastructure/obj/",
+        "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\marty\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
+        "centralPackageVersionsManagementEnabled": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/marcingantkowski/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\marty\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Domain/OazaDlaAutyzmu.Domain.csproj": {
-                "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Domain/OazaDlaAutyzmu.Domain.csproj"
+              "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj": {
+                "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj"
               }
             }
           }
@@ -742,7 +823,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "net10.0": {
@@ -750,26 +831,60 @@
           "dependencies": {
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[10.0.2, )"
+              "version": "[10.0.2, )",
+              "versionCentrallyManaged": true
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
-              "version": "[10.0.2, )"
+              "version": "[10.0.2, )",
+              "versionCentrallyManaged": true
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[10.0.2, )"
+              "version": "[10.0.2, )",
+              "versionCentrallyManaged": true
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
-              "version": "[10.0.0, )"
+              "version": "[10.0.0, )",
+              "versionCentrallyManaged": true
             },
             "SixLabors.ImageSharp": {
               "target": "Package",
-              "version": "[3.1.12, )"
+              "version": "[3.1.12, )",
+              "versionCentrallyManaged": true
             }
+          },
+          "centralPackageVersions": {
+            "AspNetCoreRateLimit": "5.0.0",
+            "AutoMapper": "15.1.3",
+            "coverlet.collector": "6.0.4",
+            "FluentAssertions": "6.12.0",
+            "FluentValidation": "11.3.1",
+            "FluentValidation.AspNetCore": "11.3.1",
+            "HtmlSanitizer": "9.0.892",
+            "MediatR": "14.0.0",
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.2",
+            "Microsoft.AspNetCore.Mvc.Testing": "10.0.0",
+            "Microsoft.EntityFrameworkCore": "10.0.2",
+            "Microsoft.EntityFrameworkCore.Design": "10.0.2",
+            "Microsoft.EntityFrameworkCore.InMemory": "10.0.2",
+            "Microsoft.EntityFrameworkCore.Sqlite": "10.0.2",
+            "Microsoft.EntityFrameworkCore.Tools": "10.0.2",
+            "Microsoft.NET.Test.Sdk": "17.14.1",
+            "Microsoft.Playwright": "1.57.0",
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": "10.0.0",
+            "Moq": "4.20.70",
+            "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.0",
+            "QRCoder": "1.7.0",
+            "reCAPTCHA.AspNetCore": "3.0.10",
+            "Sentry.AspNetCore": "4.10.0",
+            "SixLabors.ImageSharp": "3.1.12",
+            "Swashbuckle.AspNetCore": "10.1.0",
+            "xunit": "2.9.3",
+            "xunit.runner.visualstudio": "3.1.4"
           },
           "imports": [
             "net461",
@@ -787,7 +902,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.102/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -1065,34 +1180,40 @@
         }
       }
     },
-    "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Web/OazaDlaAutyzmu.Web.csproj": {
+    "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Web/OazaDlaAutyzmu.Web.csproj",
+        "projectUniqueName": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
         "projectName": "OazaDlaAutyzmu.Web",
-        "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Web/OazaDlaAutyzmu.Web.csproj",
-        "packagesPath": "/Users/marcingantkowski/.nuget/packages/",
-        "outputPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Web/obj/",
+        "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
+        "packagesPath": "C:\\Users\\marty\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\obj\\",
         "projectStyle": "PackageReference",
+        "centralPackageVersionsManagementEnabled": true,
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/marcingantkowski/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\marty\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Application/OazaDlaAutyzmu.Application.csproj": {
-                "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Application/OazaDlaAutyzmu.Application.csproj"
+              "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj": {
+                "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj"
               },
-              "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj": {
-                "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet/src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj"
+              "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj"
               }
             }
           }
@@ -1107,7 +1228,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "net10.0": {
@@ -1115,58 +1236,100 @@
           "dependencies": {
             "AspNetCoreRateLimit": {
               "target": "Package",
-              "version": "[5.0.0, )"
+              "version": "[5.0.0, )",
+              "versionCentrallyManaged": true
             },
             "FluentValidation.AspNetCore": {
               "target": "Package",
-              "version": "[11.3.1, )"
+              "version": "[11.3.1, )",
+              "versionCentrallyManaged": true
             },
             "HtmlSanitizer": {
               "target": "Package",
-              "version": "[9.0.892, )"
+              "version": "[9.0.892, )",
+              "versionCentrallyManaged": true
             },
             "MediatR": {
               "target": "Package",
-              "version": "[14.0.0, )"
+              "version": "[14.0.0, )",
+              "versionCentrallyManaged": true
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[10.0.2, )"
+              "version": "[10.0.2, )",
+              "versionCentrallyManaged": true
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[10.0.2, )"
+              "version": "[10.0.2, )",
+              "versionCentrallyManaged": true
             },
             "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
-              "version": "[10.0.2, )"
+              "version": "[10.0.2, )",
+              "versionCentrallyManaged": true
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[10.0.2, )"
+              "version": "[10.0.0, )",
+              "versionCentrallyManaged": true
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
-              "version": "[10.0.0, )"
+              "version": "[10.0.0, )",
+              "versionCentrallyManaged": true
             },
             "QRCoder": {
               "target": "Package",
-              "version": "[1.7.0, )"
+              "version": "[1.7.0, )",
+              "versionCentrallyManaged": true
             },
             "Sentry.AspNetCore": {
               "target": "Package",
-              "version": "[4.10.0, )"
+              "version": "[4.10.0, )",
+              "versionCentrallyManaged": true
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[10.1.0, )"
+              "version": "[10.1.0, )",
+              "versionCentrallyManaged": true
             },
             "reCAPTCHA.AspNetCore": {
               "target": "Package",
-              "version": "[3.0.10, )"
+              "version": "[3.0.10, )",
+              "versionCentrallyManaged": true
             }
+          },
+          "centralPackageVersions": {
+            "AspNetCoreRateLimit": "5.0.0",
+            "AutoMapper": "15.1.3",
+            "coverlet.collector": "6.0.4",
+            "FluentAssertions": "6.12.0",
+            "FluentValidation": "11.3.1",
+            "FluentValidation.AspNetCore": "11.3.1",
+            "HtmlSanitizer": "9.0.892",
+            "MediatR": "14.0.0",
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.2",
+            "Microsoft.AspNetCore.Mvc.Testing": "10.0.0",
+            "Microsoft.EntityFrameworkCore": "10.0.2",
+            "Microsoft.EntityFrameworkCore.Design": "10.0.2",
+            "Microsoft.EntityFrameworkCore.InMemory": "10.0.2",
+            "Microsoft.EntityFrameworkCore.Sqlite": "10.0.2",
+            "Microsoft.EntityFrameworkCore.Tools": "10.0.2",
+            "Microsoft.NET.Test.Sdk": "17.14.1",
+            "Microsoft.Playwright": "1.57.0",
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": "10.0.0",
+            "Moq": "4.20.70",
+            "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.0",
+            "QRCoder": "1.7.0",
+            "reCAPTCHA.AspNetCore": "3.0.10",
+            "Sentry.AspNetCore": "4.10.0",
+            "SixLabors.ImageSharp": "3.1.12",
+            "Swashbuckle.AspNetCore": "10.1.0",
+            "xunit": "2.9.3",
+            "xunit.runner.visualstudio": "3.1.4"
           },
           "imports": [
             "net461",
@@ -1187,7 +1350,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.102/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
