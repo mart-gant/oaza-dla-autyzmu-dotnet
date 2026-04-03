@@ -42,6 +42,15 @@ public class ForumController : ControllerBase
         return Ok(new { data = topics });
     }
 
+    // Support query-style endpoint: /api/v1/forum/topics?categoryId=1
+    [HttpGet("topics")]
+    public async Task<IActionResult> GetTopicsByQuery([FromQuery] int categoryId)
+    {
+        var query = new GetTopicsByCategoryQuery { CategoryId = categoryId };
+        var topics = await _mediator.Send(query);
+        return Ok(new { data = topics });
+    }
+
     /// <summary>
     /// Get a specific topic with its posts
     /// </summary>

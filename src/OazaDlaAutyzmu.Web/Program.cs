@@ -200,6 +200,9 @@ app.MapGet("/api/docs/", () => Results.Redirect("/api/docs/index.html"));
 
 app.MapStaticAssets();
 
+// Map attribute-routed API controllers (e.g. /api/v1/...)
+app.MapControllers();
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
