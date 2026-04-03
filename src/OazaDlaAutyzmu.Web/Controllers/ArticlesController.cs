@@ -16,6 +16,49 @@ public class ArticlesController : Controller
         _context = context;
     }
 
+    // Debug endpoint (Admin only) to list articles and their slugs/status. Remove or protect further in production.
+    [HttpGet]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> DebugList()
+    {
+        var list = await _context.Articles
+            .AsNoTracking()
+            .OrderByDescending(a => a.CreatedAt)
+            .Select(a => new { a.Id, a.Title, a.Slug, Status = a.Status.ToString(), a.PublishedAt })
+            .ToListAsync();
+
+        return Json(list);
+    }
+
+    private async Task<string> GenerateUniqueSlugAsync(string title, int? excludeArticleId = null)
+    {
+        string Normalize(string input)
+        {
+            var s = input.ToLower()
+                .Replace(" ", "-")
+                .Replace("ó", "o").Replace("ż", "z").Replace("ź", "z").Replace("ą", "a").Replace("ę", "e").Replace("ć", "c").Replace("ł", "l").Replace("ń", "n").Replace("ś", "s");
+            // Remove invalid chars
+            var sb = new System.Text.StringBuilder();
+            foreach (var ch in s)
+            {
+                if ((ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || ch == '-')
+                    sb.Append(ch);
+            }
+            return sb.ToString().Trim('-');
+        }
+
+        var baseSlug = Normalize(title);
+        var slug = baseSlug;
+        var i = 1;
+        while (await _context.Articles.AnyAsync(a => a.Slug == slug && (!excludeArticleId.HasValue || a.Id != excludeArticleId.Value)))
+        {
+            slug = baseSlug + "-" + i;
+            i++;
+        }
+
+        return slug;
+    }
+
     [HttpGet]
     [AllowAnonymous]
     public async Task<IActionResult> Index(int? categoryId, int pageNumber = 1)
@@ -102,7 +145,8 @@ public class ArticlesController : Controller
             return View();
         }
 
-        var slug = title.ToLower().Replace(" ", "-").Replace("ó", "o").Replace("ż", "z").Replace("ź", "z").Replace("ą", "a").Replace("ę", "e").Replace("ć", "c").Replace("ł", "l").Replace("ń", "n").Replace("ś", "s");
+        // Generate unique slug (avoid UNIQUE constraint violation)
+        var slug = await GenerateUniqueSlugAsync(title);
 
         var article = new Article
         {
@@ -171,6 +215,7 @@ public class ArticlesController : Controller
             return View(article);
         }
 
+        var oldTitle = article.Title;
         article.Title = title;
         article.Content = content;
         article.Excerpt = excerpt;
@@ -179,6 +224,12 @@ public class ArticlesController : Controller
 
         if (publish && !article.PublishedAt.HasValue)
             article.PublishedAt = DateTime.UtcNow;
+
+        // Regenerate slug only if title changed
+        if (!string.Equals(oldTitle, title, StringComparison.Ordinal))
+        {
+            article.Slug = await GenerateUniqueSlugAsync(title, article.Id);
+        }
 
         article.UpdatedAt = DateTime.UtcNow;
 

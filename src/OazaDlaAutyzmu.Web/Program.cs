@@ -128,6 +128,30 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+// Ensure specific article slug is published to avoid 404 for known slugs in development
+using (var scope = app.Services.CreateScope())
+{
+    try
+    {
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        var context = scope.ServiceProvider.GetRequiredService<OazaDlaAutyzmu.Infrastructure.Data.ApplicationDbContext>();
+        var targetSlug = "swiatowy-dzien-swiadomosci-autyzmu-2";
+        var article = await context.Articles.FirstOrDefaultAsync(a => a.Slug == targetSlug);
+        if (article != null && article.Status != OazaDlaAutyzmu.Domain.Entities.ArticleStatus.Published)
+        {
+            article.Status = OazaDlaAutyzmu.Domain.Entities.ArticleStatus.Published;
+            article.PublishedAt = DateTime.UtcNow;
+            await context.SaveChangesAsync();
+            logger.LogInformation("Published article with slug '{Slug}' on startup.", targetSlug);
+        }
+    }
+    catch (Exception ex)
+    {
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while ensuring article publication.");
+    }
+}
+
 // Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
