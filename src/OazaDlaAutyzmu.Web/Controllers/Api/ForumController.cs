@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OazaDlaAutyzmu.Application.Commands.Forum;
 using OazaDlaAutyzmu.Application.Queries.Forum;
+using OazaDlaAutyzmu.Infrastructure.Data;
+using OazaDlaAutyzmu.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace OazaDlaAutyzmu.Web.Controllers.Api;
@@ -13,10 +16,12 @@ namespace OazaDlaAutyzmu.Web.Controllers.Api;
 public class ForumController : ControllerBase
 {
     private readonly IMediator _mediator;
+    private readonly ApplicationDbContext _context;
 
-    public ForumController(IMediator mediator)
+    public ForumController(IMediator mediator, ApplicationDbContext context)
     {
         _mediator = mediator;
+        _context = context;
     }
 
     /// <summary>
@@ -42,6 +47,33 @@ public class ForumController : ControllerBase
         return Ok(new { data = topics });
     }
 
+    /// <summary>
+    /// Create a new forum category (Admin only)
+    /// </summary>
+    [HttpPost("categories")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequest request)
+    {
+        if (string.IsNullOrWhiteSpace(request.Name))
+            return BadRequest(new { message = "Name is required" });
+
+        // Generate unique slug
+        var slug = await GenerateUniqueCategorySlugAsync(request.Name);
+
+        var category = new ForumCategory
+        {
+            Name = request.Name.Trim(),
+            Slug = slug,
+            Description = request.Description?.Trim(),
+            SortOrder = request.SortOrder
+        };
+
+        _context.ForumCategories.Add(category);
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetCategories), new { id = category.Id }, new { data = new { id = category.Id, message = "Category created" } });
+    }
+
     // Support query-style endpoint: /api/v1/forum/topics?categoryId=1
     [HttpGet("topics")]
     public async Task<IActionResult> GetTopicsByQuery([FromQuery] int categoryId)
@@ -50,6 +82,14 @@ public class ForumController : ControllerBase
         var topics = await _mediator.Send(query);
         return Ok(new { data = topics });
     }
+
+public class CreateCategoryRequest
+{
+    public string Name { get; set; } = string.Empty;
+    public string? Description { get; set; }
+    public int SortOrder { get; set; } = 0;
+}
+
 
     /// <summary>
     /// Get a specific topic with its posts
@@ -134,6 +174,33 @@ public class ForumController : ControllerBase
         {
             return BadRequest(new { message = ex.Message });
         }
+    }
+
+    private async Task<string> GenerateUniqueCategorySlugAsync(string name)
+    {
+        string Normalize(string input)
+        {
+            var s = input.ToLower().Replace(" ", "-")
+                .Replace("ó", "o").Replace("ż", "z").Replace("ź", "z").Replace("ą", "a").Replace("ę", "e").Replace("ć", "c").Replace("ł", "l").Replace("ń", "n").Replace("ś", "s");
+            var sb = new System.Text.StringBuilder();
+            foreach (var ch in s)
+            {
+                if ((ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || ch == '-')
+                    sb.Append(ch);
+            }
+            return sb.ToString().Trim('-');
+        }
+
+        var baseSlug = Normalize(name);
+        var slug = baseSlug;
+        var i = 1;
+        while (await _context.ForumCategories.AnyAsync(c => c.Slug == slug))
+        {
+            slug = baseSlug + "-" + i;
+            i++;
+        }
+
+        return slug;
     }
 }
 
