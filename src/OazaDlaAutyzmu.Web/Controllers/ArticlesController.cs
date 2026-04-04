@@ -16,19 +16,6 @@ public class ArticlesController : Controller
         _context = context;
     }
 
-    // Debug endpoint (Admin only) to list articles and their slugs/status. Remove or protect further in production.
-    [HttpGet]
-    [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> DebugList()
-    {
-        var list = await _context.Articles
-            .AsNoTracking()
-            .OrderByDescending(a => a.CreatedAt)
-            .Select(a => new { a.Id, a.Title, a.Slug, Status = a.Status.ToString(), a.PublishedAt })
-            .ToListAsync();
-
-        return Json(list);
-    }
 
     private async Task<string> GenerateUniqueSlugAsync(string title, int? excludeArticleId = null)
     {

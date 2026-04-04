@@ -145,6 +145,69 @@ public class ForumController : Controller
         return RedirectToAction(nameof(Topic), new { id = topicId });
     }
 
+    // Admin UI: create forum category (Razor view)
+    [HttpGet]
+    [Authorize(Roles = "Admin")]
+    public IActionResult CreateCategory()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [Authorize(Roles = "Admin")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> CreateCategory(string name, string? description, int sortOrder = 0)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            ModelState.AddModelError("", "Nazwa kategorii jest wymagana");
+            return View();
+        }
+
+        var slug = await GenerateUniqueCategorySlugAsync(name);
+
+        var category = new OazaDlaAutyzmu.Domain.Entities.ForumCategory
+        {
+            Name = name.Trim(),
+            Slug = slug,
+            Description = description?.Trim(),
+            SortOrder = sortOrder
+        };
+
+        _context.ForumCategories.Add(category);
+        await _context.SaveChangesAsync();
+
+        TempData["Success"] = "Kategoria została utworzona.";
+        return RedirectToAction(nameof(Index));
+    }
+
+    private async Task<string> GenerateUniqueCategorySlugAsync(string name)
+    {
+        string Normalize(string input)
+        {
+            var s = input.ToLower().Replace(" ", "-")
+                .Replace("ó", "o").Replace("ż", "z").Replace("ź", "z").Replace("ą", "a").Replace("ę", "e").Replace("ć", "c").Replace("ł", "l").Replace("ń", "n").Replace("ś", "s");
+            var sb = new System.Text.StringBuilder();
+            foreach (var ch in s)
+            {
+                if ((ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9') || ch == '-')
+                    sb.Append(ch);
+            }
+            return sb.ToString().Trim('-');
+        }
+
+        var baseSlug = Normalize(name);
+        var slug = baseSlug;
+        var i = 1;
+        while (await _context.ForumCategories.AnyAsync(c => c.Slug == slug))
+        {
+            slug = baseSlug + "-" + i;
+            i++;
+        }
+
+        return slug;
+    }
+
     [HttpPost]
     [Authorize]
     [ValidateAntiForgeryToken]
