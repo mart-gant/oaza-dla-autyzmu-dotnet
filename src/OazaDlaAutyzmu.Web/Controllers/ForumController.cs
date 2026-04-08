@@ -9,6 +9,7 @@ using OazaDlaAutyzmu.Infrastructure.Services;
 using OazaDlaAutyzmu.Web.Services;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace OazaDlaAutyzmu.Web.Controllers;
 
@@ -21,6 +22,7 @@ public class ForumController : Controller
     private readonly IContentModerationService _contentModeration;
     private readonly INotificationService _notificationService;
     private readonly ApplicationDbContext _context;
+    private readonly ILogger<ForumController> _logger;
 
     public ForumController(
         IMediator mediator, 
@@ -29,7 +31,8 @@ public class ForumController : Controller
         IHtmlSanitizerService htmlSanitizer,
         IContentModerationService contentModeration,
         INotificationService notificationService,
-        ApplicationDbContext context)
+        ApplicationDbContext context,
+        ILogger<ForumController> logger)
     {
         _mediator = mediator;
         _topicValidator = topicValidator;
@@ -38,6 +41,7 @@ public class ForumController : Controller
         _contentModeration = contentModeration;
         _notificationService = notificationService;
         _context = context;
+        _logger = logger;
     }
 
     [HttpGet]
@@ -103,9 +107,14 @@ public class ForumController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> CreateTopic(int categoryId, string title, string content)
     {
+        _logger.LogInformation("======= MVC CreateTopic POST HIT! =======");
+        _logger.LogInformation("CategoryId: {CategoryId}, Title: {Title}, Content length: {ContentLength}", 
+            categoryId, title, content?.Length ?? 0);
+
         var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (!int.TryParse(userIdClaim, out int userId))
         {
+            _logger.LogWarning("MVC CreateTopic: Unauthorized - no valid userId");
             return Unauthorized();
         }
 

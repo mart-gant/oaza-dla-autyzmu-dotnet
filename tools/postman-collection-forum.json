@@ -1,0 +1,91 @@
+{
+  "info": {
+    "name": "Oaza Forum API - Basic",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0"
+  },
+  "item": [
+    {
+      "name": "Get categories",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/forum/categories",
+          "host": ["{{baseUrl}}"],
+          "path": ["api","v1","forum","categories"]
+        }
+      }
+    },
+    {
+      "name": "Get all topics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/forum/topics",
+          "host": ["{{baseUrl}}"],
+          "path": ["api","v1","forum","topics"]
+        }
+      }
+    },
+    {
+      "name": "Get topics by category",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/forum/topics?categoryId=1",
+          "host": ["{{baseUrl}}"],
+          "path": ["api","v1","forum","topics"],
+          "query": [
+            { "key": "categoryId", "value": "1" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create topic (requires auth)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{bearerToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"categoryId\":1,\"title\":\"Nowy temat testowy\",\"content\":\"To jest treść testowa tematu.\"}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/forum/topics",
+          "host": ["{{baseUrl}}"],
+          "path": ["api","v1","forum","topics"]
+        }
+      }
+    },
+    {
+      "name": "Create category (Admin)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\":\"NowaKategoriaTest\",\"description\":\"Opis testowy\",\"sortOrder\":10}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/forum/categories",
+          "host": ["{{baseUrl}}"],
+          "path": ["api","v1","forum","categories"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "https://localhost:7115" },
+    { "key": "bearerToken", "value": "" },
+    { "key": "adminToken", "value": "" }
+  ]
+}

@@ -8,10 +8,26 @@ using OazaDlaAutyzmu.Infrastructure.Services;
 using OazaDlaAutyzmu.Web.Services;
 using OazaDlaAutyzmu.Web.Middleware;
 using AspNetCoreRateLimit;
+using Serilog;
 using reCAPTCHA.AspNetCore;
 using Sentry;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Serilog early
+// Read Seq and log file path from configuration
+var seqServerUrl = builder.Configuration.GetValue<string>("Serilog:SeqServerUrl");
+var logFilePath = builder.Configuration.GetValue<string>("Serilog:LogFilePath") ?? "Logs/log-.txt";
+
+Log.Logger = new Serilog.LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.File(logFilePath, rollingInterval: Serilog.RollingInterval.Day)
+    .WriteTo.Seq(seqServerUrl ?? "http://localhost:5341")
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 builder.WebHost.UseSentry(options =>
 {
@@ -210,7 +226,14 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 
-app.Run();
+try
+{
+    app.Run();
+}
+finally
+{
+    Serilog.Log.CloseAndFlush();
+}
 
 // Make Program class accessible to tests
 public partial class Program { }

@@ -103,6 +103,10 @@
             "QRCoder": "1.7.0",
             "reCAPTCHA.AspNetCore": "3.0.10",
             "Sentry.AspNetCore": "4.10.0",
+            "Serilog.AspNetCore": "7.0.0",
+            "Serilog.Settings.Configuration": "7.0.0",
+            "Serilog.Sinks.File": "7.0.0",
+            "Serilog.Sinks.Seq": "7.0.0",
             "SixLabors.ImageSharp": "3.1.12",
             "Swashbuckle.AspNetCore": "10.1.0",
             "xunit": "2.9.3",
@@ -479,6 +483,10 @@
             "QRCoder": "1.7.0",
             "reCAPTCHA.AspNetCore": "3.0.10",
             "Sentry.AspNetCore": "4.10.0",
+            "Serilog.AspNetCore": "7.0.0",
+            "Serilog.Settings.Configuration": "7.0.0",
+            "Serilog.Sinks.File": "7.0.0",
+            "Serilog.Sinks.Seq": "7.0.0",
             "SixLabors.ImageSharp": "3.1.12",
             "Swashbuckle.AspNetCore": "10.1.0",
             "xunit": "2.9.3",
@@ -881,6 +889,10 @@
             "QRCoder": "1.7.0",
             "reCAPTCHA.AspNetCore": "3.0.10",
             "Sentry.AspNetCore": "4.10.0",
+            "Serilog.AspNetCore": "7.0.0",
+            "Serilog.Settings.Configuration": "7.0.0",
+            "Serilog.Sinks.File": "7.0.0",
+            "Serilog.Sinks.Seq": "7.0.0",
             "SixLabors.ImageSharp": "3.1.12",
             "Swashbuckle.AspNetCore": "10.1.0",
             "xunit": "2.9.3",
@@ -1291,6 +1303,26 @@
               "version": "[4.10.0, )",
               "versionCentrallyManaged": true
             },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[7.0.0, )",
+              "versionCentrallyManaged": true
+            },
+            "Serilog.Settings.Configuration": {
+              "target": "Package",
+              "version": "[7.0.0, )",
+              "versionCentrallyManaged": true
+            },
+            "Serilog.Sinks.File": {
+              "target": "Package",
+              "version": "[7.0.0, )",
+              "versionCentrallyManaged": true
+            },
+            "Serilog.Sinks.Seq": {
+              "target": "Package",
+              "version": "[7.0.0, )",
+              "versionCentrallyManaged": true
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[10.1.0, )",
@@ -1326,6 +1358,10 @@
             "QRCoder": "1.7.0",
             "reCAPTCHA.AspNetCore": "3.0.10",
             "Sentry.AspNetCore": "4.10.0",
+            "Serilog.AspNetCore": "7.0.0",
+            "Serilog.Settings.Configuration": "7.0.0",
+            "Serilog.Sinks.File": "7.0.0",
+            "Serilog.Sinks.Seq": "7.0.0",
             "SixLabors.ImageSharp": "3.1.12",
             "Swashbuckle.AspNetCore": "10.1.0",
             "xunit": "2.9.3",

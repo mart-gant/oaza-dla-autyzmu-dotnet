@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Serilog.Sinks.File" />
+    <PackageReference Include="Serilog.Sinks.Seq" />
+    <PackageReference Include="Serilog.Settings.Configuration" />
     <PackageReference Include="AspNetCoreRateLimit" />
     <PackageReference Include="FluentValidation.AspNetCore" />
     <PackageReference Include="HtmlSanitizer" />

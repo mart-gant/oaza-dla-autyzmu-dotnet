@@ -16,7 +16,7 @@
             Utwórz nowy temat
         </h1>
 
-        <form asp-action="CreateTopic" method="post">
+        <form action="http://localhost:5050/Forum/CreateTopic" method="post" onsubmit="console.log('Form submitting to:', this.action); return true;">
             @Html.AntiForgeryToken()
             <input type="hidden" name="categoryId" value="@ViewBag.CategoryId" />
             
@@ -51,3 +51,21 @@
         </form>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        // WYŁĄCZ WSZYSTKIE EVENT LISTENERY NA FORMULARZU
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            if (form) {
+                // Usuń wszystkie event listenery
+                const newForm = form.cloneNode(true);
+                form.parentNode.replaceChild(newForm, form);
+
+                console.log('Form replaced to remove all event listeners');
+                console.log('Form action:', newForm.action);
+                console.log('Form method:', newForm.method);
+            }
+        });
+    </script>
+}
