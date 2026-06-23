@@ -31,6 +31,7 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
               "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj": {
@@ -52,10 +53,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "AutoMapper": {
@@ -102,6 +104,7 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.0",
             "QRCoder": "1.7.0",
             "reCAPTCHA.AspNetCore": "3.0.10",
+            "Resend": "1.5.0",
             "Sentry.AspNetCore": "4.10.0",
             "Serilog.AspNetCore": "7.0.0",
             "Serilog.Settings.Configuration": "7.0.0",
@@ -128,7 +131,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -433,6 +436,7 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -447,10 +451,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
@@ -482,6 +487,7 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.0",
             "QRCoder": "1.7.0",
             "reCAPTCHA.AspNetCore": "3.0.10",
+            "Resend": "1.5.0",
             "Sentry.AspNetCore": "4.10.0",
             "Serilog.AspNetCore": "7.0.0",
             "Serilog.Settings.Configuration": "7.0.0",
@@ -508,7 +514,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -813,6 +819,7 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
               "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj": {
@@ -831,10 +838,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
@@ -857,6 +865,11 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[10.0.0, )",
+              "versionCentrallyManaged": true
+            },
+            "Resend": {
+              "target": "Package",
+              "version": "[1.5.0, )",
               "versionCentrallyManaged": true
             },
             "SixLabors.ImageSharp": {
@@ -888,6 +901,7 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.0",
             "QRCoder": "1.7.0",
             "reCAPTCHA.AspNetCore": "3.0.10",
+            "Resend": "1.5.0",
             "Sentry.AspNetCore": "4.10.0",
             "Serilog.AspNetCore": "7.0.0",
             "Serilog.Settings.Configuration": "7.0.0",
@@ -914,7 +928,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -1219,6 +1233,7 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
               "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj": {
@@ -1240,10 +1255,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "AspNetCoreRateLimit": {
@@ -1357,6 +1373,7 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.0",
             "QRCoder": "1.7.0",
             "reCAPTCHA.AspNetCore": "3.0.10",
+            "Resend": "1.5.0",
             "Sentry.AspNetCore": "4.10.0",
             "Serilog.AspNetCore": "7.0.0",
             "Serilog.Settings.Configuration": "7.0.0",
@@ -1386,7 +1403,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
@@ -1831,6 +1848,7 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
               "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj": {
@@ -1858,10 +1876,11 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.200"
+        "SdkAnalysisLevel": "10.0.300"
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "FluentAssertions": {
@@ -1933,6 +1952,7 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": "10.0.0",
             "QRCoder": "1.7.0",
             "reCAPTCHA.AspNetCore": "3.0.10",
+            "Resend": "1.5.0",
             "Sentry.AspNetCore": "4.10.0",
             "Serilog.AspNetCore": "7.0.0",
             "Serilog.Settings.Configuration": "7.0.0",
@@ -1959,7 +1979,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",

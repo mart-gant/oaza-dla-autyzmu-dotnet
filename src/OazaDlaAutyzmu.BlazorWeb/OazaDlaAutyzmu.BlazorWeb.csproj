@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+	<TargetFramework>net10.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
+	<RunAOTCompilation>false</RunAOTCompilation>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<ProjectReference Include="..\OazaDlaAutyzmu.Domain\OazaDlaAutyzmu.Domain.csproj" />
+	<ProjectReference Include="..\OazaDlaAutyzmu.Infrastructure\OazaDlaAutyzmu.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

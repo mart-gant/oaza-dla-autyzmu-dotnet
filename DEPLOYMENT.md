@@ -172,31 +172,271 @@ az container create \
 
 ---
 
-## 3️⃣ AWS Elastic Beanstalk
+## 3️⃣ AWS Elastic Beanstalk (AUTOMATYCZNY SKRYPT)
 
-### Krok 1: Zainstaluj AWS CLI i EB CLI
+### ⚡ SZYBKIE WDROŻENIE (15 minut)
+
+**Krok 1: Przygotuj konto AWS**
 ```bash
-pip install awsebcli
+# Utwórz konto: https://aws.amazon.com/free/
+# Zainstaluj AWS CLI: https://aws.amazon.com/cli/
+# Skonfiguruj credentials:
+aws configure
+# Wprowadź: AWS Access Key ID, Secret Access Key, Region: eu-central-1
 ```
 
-### Krok 2: Inicjalizuj projekt
+**Krok 2: Zainstaluj EB CLI**
+```bash
+# Windows (PowerShell):
+pip install awsebcli
+
+# macOS/Linux:
+pip3 install awsebcli --upgrade --user
+
+# Weryfikacja:
+eb --version
+```
+
+**Krok 3: Skonfiguruj credentials w deploy-aws.sh**
+```bash
+# Edytuj deploy-aws.sh:
+SMTP_USERNAME="your-email@gmail.com"
+SMTP_PASSWORD="your-gmail-app-password"
+RECAPTCHA_SITE_KEY="your-recaptcha-site-key"
+RECAPTCHA_SECRET_KEY="your-recaptcha-secret"
+DB_PASSWORD="YourStrongPassword123!"  # Zmień!
+```
+
+**Krok 4: Uruchom automatyczny deployment**
+```bash
+chmod +x deploy-aws.sh
+./deploy-aws.sh
+```
+
+✅ **To wszystko! Aplikacja będzie online za 10-15 minut!**
+
+---
+
+### 📋 CO ROBI SKRYPT `deploy-aws.sh`?
+
+1. ✅ Tworzy RDS PostgreSQL (db.t3.micro)
+2. ✅ Tworzy Elastic Beanstalk environment (t3.small)
+3. ✅ Konfiguruje Load Balancer
+4. ✅ Ustawia zmienne środowiskowe (SMTP, reCAPTCHA, DB)
+5. ✅ Deploy aplikacji .NET
+6. ✅ Zapisuje dane logowania w `aws-deployment-info.txt`
+
+---
+
+### 🔧 RĘCZNE WDROŻENIE (krok po kroku)
+
+**Krok 1: Inicjalizacja projektu**
 ```bash
 cd src/OazaDlaAutyzmu.Web
-eb init -p "64bit Amazon Linux 2023 v3.0.0 running .NET 8" oaza-app --region eu-central-1
+eb init oaza-dla-autyzmu \
+  --platform "64bit Amazon Linux 2023 v3.2.0 running .NET 8" \
+  --region eu-central-1
 ```
 
-### Krok 3: Utwórz środowisko i deploy
+**Krok 2: Utwórz RDS PostgreSQL**
 ```bash
-eb create oaza-production
-eb deploy
+# Przez AWS Console:
+# 1. Idź do RDS → Create database
+# 2. Engine: PostgreSQL 16
+# 3. Template: Free tier (db.t3.micro)
+# 4. DB instance identifier: oaza-db
+# 5. Master username: oazaadmin
+# 6. Master password: [SILNE_HASŁO]
+# 7. Public access: Yes
+# 8. Database name: OazaDlaAutyzmu
+
+# LUB przez CLI:
+aws rds create-db-instance \
+  --db-instance-identifier oaza-db \
+  --db-instance-class db.t3.micro \
+  --engine postgres \
+  --master-username oazaadmin \
+  --master-user-password 'YourPassword123!' \
+  --allocated-storage 20 \
+  --publicly-accessible \
+  --region eu-central-1
 ```
 
-### Krok 4: Ustaw zmienne środowiskowe
+**Krok 3: Utwórz środowisko Elastic Beanstalk**
+```bash
+eb create oaza-production \
+  --instance-type t3.small \
+  --region eu-central-1
+```
+
+**Krok 4: Pobierz endpoint RDS**
+```bash
+aws rds describe-db-instances \
+  --db-instance-identifier oaza-db \
+  --query 'DBInstances[0].Endpoint.Address' \
+  --output text
+```
+
+**Krok 5: Ustaw zmienne środowiskowe**
 ```bash
 eb setenv \
   ASPNETCORE_ENVIRONMENT=Production \
-  ConnectionStrings__DefaultConnection='YOUR_RDS_CONNECTION_STRING' \
-  EmailSettings__SmtpServer=smtp.gmail.com
+  ConnectionStrings__DefaultConnection='Host=YOUR_RDS_ENDPOINT.rds.amazonaws.com;Database=OazaDlaAutyzmu;Username=oazaadmin;Password=YourPassword123!;SSL Mode=Require;' \
+  EmailSettings__SmtpServer=smtp.gmail.com \
+  EmailSettings__SmtpPort=587 \
+  EmailSettings__SmtpUsername=your-email@gmail.com \
+  EmailSettings__SmtpPassword=your-app-password \
+  RecaptchaSettings__SiteKey=your-site-key \
+  RecaptchaSettings__SecretKey=your-secret-key
+```
+
+**Krok 6: Deploy aplikacji**
+```bash
+# Z Visual Studio:
+dotnet publish -c Release -o ./publish
+
+# Spakuj:
+cd publish
+zip -r ../deploy.zip .
+
+# Deploy:
+eb deploy
+```
+
+**Krok 7: Uruchom migracje**
+```bash
+dotnet ef database update \
+  --connection "Host=YOUR_RDS_ENDPOINT;Database=OazaDlaAutyzmu;Username=oazaadmin;Password=YourPassword123!;SSL Mode=Require;"
+```
+
+---
+
+### 🔐 DODAJ HTTPS (SSL Certificate)
+
+**Krok 1: Request certificate w AWS Certificate Manager**
+```bash
+# Przez AWS Console:
+# 1. Certificate Manager → Request certificate
+# 2. Domain: yourdomain.com, www.yourdomain.com
+# 3. Validation: DNS (dodaj CNAME w domenowym DNS)
+# 4. Wait for validation
+
+# LUB przez CLI:
+aws acm request-certificate \
+  --domain-name yourdomain.com \
+  --subject-alternative-names www.yourdomain.com \
+  --validation-method DNS \
+  --region eu-central-1
+```
+
+**Krok 2: Przypisz certificate do Load Balancera**
+```bash
+# Przez EB CLI:
+eb config
+
+# Dodaj w sekcji aws:elbv2:listener:443:
+# ListenerEnabled: true
+# Protocol: HTTPS
+# SSLCertificateArns: arn:aws:acm:eu-central-1:ACCOUNT_ID:certificate/CERT_ID
+```
+
+---
+
+### 🌐 WŁASNA DOMENA (Route 53)
+
+**Krok 1: Kup domenę**
+```bash
+# Przez AWS Route 53 lub zewnętrznego providera (np. Cloudflare, Namecheap)
+```
+
+**Krok 2: Utwórz Hosted Zone**
+```bash
+aws route53 create-hosted-zone \
+  --name yourdomain.com \
+  --caller-reference $(date +%s)
+```
+
+**Krok 3: Dodaj CNAME do Elastic Beanstalk**
+```bash
+# Pobierz CNAME EB:
+eb status
+
+# Dodaj CNAME record w Route 53:
+# yourdomain.com → CNAME → oaza-production.eu-central-1.elasticbeanstalk.com
+```
+
+---
+
+### 📊 KOSZTY AWS (miesięcznie)
+
+| Usługa | Konfiguracja | Koszt |
+|--------|--------------|-------|
+| **Elastic Beanstalk (EC2)** | t3.small | ~$15 |
+| **RDS PostgreSQL** | db.t3.micro | ~$13 |
+| **Application Load Balancer** | - | ~$16 |
+| **Data Transfer** | ~10GB | ~$1 |
+| **S3 (backupy)** | ~5GB | ~$0.12 |
+| **RAZEM** | | **~$45 USD/miesiąc** |
+
+**Free Tier (pierwsze 12 miesięcy):**
+- 750 godzin EC2 t2.micro (FREE)
+- 750 godzin RDS db.t2.micro (FREE)
+- **Koszt przez 12 miesięcy: ~$0-5 USD/miesiąc!**
+
+---
+
+### 🛠️ ZARZĄDZANIE APLIKACJĄ
+
+```bash
+# Status aplikacji
+eb status
+
+# Logi
+eb logs
+
+# SSH do instancji
+eb ssh
+
+# Deploy nowej wersji
+eb deploy
+
+# Restart aplikacji
+eb restart
+
+# Skalowanie (auto-scaling)
+eb scale 3  # 3 instancje
+
+# Monitoring
+eb health
+
+# Otwórz w przeglądarce
+eb open
+
+# Usuń środowisko (UWAGA!)
+eb terminate oaza-production
+```
+
+---
+
+### 🔄 CI/CD - GitHub Actions
+
+**Krok 1: Dodaj secrets w GitHub**
+```
+Settings → Secrets → Actions:
+- AWS_ACCESS_KEY_ID
+- AWS_SECRET_ACCESS_KEY
+- AWS_ACCOUNT_ID
+```
+
+**Krok 2: Workflow już gotowy!**
+```
+.github/workflows/aws-deploy.yml
+```
+
+**Krok 3: Push do main = automatyczny deployment!**
+```bash
+git push origin main
+# GitHub Actions automatycznie deploy na AWS!
 ```
 
 ---

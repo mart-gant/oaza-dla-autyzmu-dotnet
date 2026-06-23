@@ -99,10 +99,24 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateFacilityCommand>();
 // reCAPTCHA configuration
 builder.Services.AddRecaptcha(builder.Configuration.GetSection("RecaptchaSettings"));
 
+// Email service configuration - use Resend for modern email delivery
+var emailProvider = builder.Configuration["EmailSettings:Provider"]?.ToLower() ?? "smtp";
+if (emailProvider == "resend")
+{
+    // Register Resend client
+    var resendApiKey = builder.Configuration["EmailSettings:ResendApiKey"];
+    builder.Services.AddScoped<Resend.IResend>(_ => new Resend.ResendClient(resendApiKey));
+    builder.Services.AddScoped<IEmailService, ResendEmailService>();
+}
+else
+{
+    // Fallback to SMTP-based email service
+    builder.Services.AddScoped<IEmailService, EmailService>();
+}
+
 // Register services
 builder.Services.AddScoped<IHtmlSanitizerService, HtmlSanitizerService>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
-builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IAuditService, AuditService>();
 builder.Services.AddScoped<IContentModerationService, ContentModerationService>();

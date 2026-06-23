@@ -13,9 +13,17 @@ SQL_ADMIN="oazaadmin"
 SQL_PASSWORD="OazaAdmin123!@#"  # ZMIEŃ TO!
 DB_NAME="OazaDlaAutyzmu"
 
-# SMTP Configuration (UZUPEŁNIJ!)
-SMTP_USERNAME="your-email@gmail.com"
-SMTP_PASSWORD="your-app-password"
+# Email Configuration - Resend (UZUPEŁNIJ!)
+# Zarejestruj się na https://resend.com/signup
+# Dodaj i zweryfikuj swoją domenę w Resend Dashboard
+# Wygeneruj API Key w Settings -> API Keys
+RESEND_API_KEY=""
+SENDER_EMAIL="noreply@twojadomena.pl"  # Musi być z zweryfikowanej domeny
+SENDER_NAME="Oaza dla Autyzmu"
+
+# PRZESTARZAŁE - SMTP Configuration (użyj Resend zamiast tego)
+# SMTP_USERNAME="your-email@gmail.com"
+# SMTP_PASSWORD="your-app-password"
 
 # reCAPTCHA (UZUPEŁNIJ!)
 RECAPTCHA_SITE_KEY="your-site-key"
@@ -27,6 +35,8 @@ echo "  Resource Group: $RESOURCE_GROUP"
 echo "  App Name: $APP_NAME"
 echo "  SQL Server: $SQL_SERVER"
 echo "  Location: $LOCATION"
+echo "  Email Provider: Resend"
+echo "  Sender Email: $SENDER_EMAIL"
 echo ""
 read -p "Czy chcesz kontynuować? (y/n) " -n 1 -r
 echo
@@ -100,12 +110,10 @@ az webapp config appsettings set \
   --resource-group $RESOURCE_GROUP \
   --settings \
     ASPNETCORE_ENVIRONMENT=Production \
-    "EmailSettings__SmtpServer=smtp.gmail.com" \
-    "EmailSettings__SmtpPort=587" \
-    "EmailSettings__SmtpUsername=$SMTP_USERNAME" \
-    "EmailSettings__SmtpPassword=$SMTP_PASSWORD" \
-    "EmailSettings__SenderEmail=noreply@oaza.pl" \
-    "EmailSettings__SenderName=Oaza dla Autyzmu" \
+    "EmailSettings__Provider=Resend" \
+    "EmailSettings__ResendApiKey=$RESEND_API_KEY" \
+    "EmailSettings__SenderEmail=$SENDER_EMAIL" \
+    "EmailSettings__SenderName=$SENDER_NAME" \
     "RecaptchaSettings__SiteKey=$RECAPTCHA_SITE_KEY" \
     "RecaptchaSettings__SecretKey=$RECAPTCHA_SECRET_KEY"
 

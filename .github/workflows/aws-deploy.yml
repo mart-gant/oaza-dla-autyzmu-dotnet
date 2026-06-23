@@ -1,0 +1,88 @@
+name: Deploy to AWS Elastic Beanstalk
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  AWS_REGION: eu-central-1
+  EB_APPLICATION_NAME: oaza-dla-autyzmu
+  EB_ENVIRONMENT_NAME: oaza-production
+  DEPLOY_PACKAGE_NAME: oaza-${{ github.sha }}.zip
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Run tests
+      run: dotnet test --no-restore --verbosity normal
+
+    - name: Publish
+      run: dotnet publish src/OazaDlaAutyzmu.Web/OazaDlaAutyzmu.Web.csproj -c Release -o ./publish
+
+    - name: Create deployment package
+      run: |
+        cd publish
+        zip -r ../${{ env.DEPLOY_PACKAGE_NAME }} .
+        cd ..
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: Upload package to S3
+      run: |
+        aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} \
+          s3://elasticbeanstalk-${{ env.AWS_REGION }}-${{ secrets.AWS_ACCOUNT_ID }}/${{ env.EB_APPLICATION_NAME }}/${{ env.DEPLOY_PACKAGE_NAME }}
+
+    - name: Create new Elastic Beanstalk version
+      run: |
+        aws elasticbeanstalk create-application-version \
+          --application-name ${{ env.EB_APPLICATION_NAME }} \
+          --version-label ${{ github.sha }} \
+          --source-bundle S3Bucket="elasticbeanstalk-${{ env.AWS_REGION }}-${{ secrets.AWS_ACCOUNT_ID }}",S3Key="${{ env.EB_APPLICATION_NAME }}/${{ env.DEPLOY_PACKAGE_NAME }}" \
+          --description "Commit ${{ github.sha }}"
+
+    - name: Deploy to Elastic Beanstalk
+      run: |
+        aws elasticbeanstalk update-environment \
+          --application-name ${{ env.EB_APPLICATION_NAME }} \
+          --environment-name ${{ env.EB_ENVIRONMENT_NAME }} \
+          --version-label ${{ github.sha }}
+
+    - name: Wait for deployment
+      run: |
+        aws elasticbeanstalk wait environment-updated \
+          --application-name ${{ env.EB_APPLICATION_NAME }} \
+          --environment-name ${{ env.EB_ENVIRONMENT_NAME }}
+
+    - name: Deployment successful
+      run: |
+        echo "🎉 Deployment successful!"
+        echo "URL: http://${{ env.EB_ENVIRONMENT_NAME }}.${{ env.AWS_REGION }}.elasticbeanstalk.com"
+
+    - name: Notify on failure
+      if: failure()
+      run: |
+        echo "❌ Deployment failed!"
+        echo "Check logs: eb logs"

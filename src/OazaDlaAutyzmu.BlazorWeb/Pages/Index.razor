@@ -1,0 +1,14 @@
+@page "/"
+@namespace OazaDlaAutyzmu.BlazorWeb.Pages
+
+<h1>Witamy w Oaza dla Autyzmu</h1>
+<p>To przykładowa strona startowa dla Blazor WebAssembly.</p>
+
+<button class="btn" @onclick="ShowMessage">Kliknij mnie</button>
+
+@code {
+    void ShowMessage()
+    {
+        Console.WriteLine("Przycisk kliknięty");
+    }
+}

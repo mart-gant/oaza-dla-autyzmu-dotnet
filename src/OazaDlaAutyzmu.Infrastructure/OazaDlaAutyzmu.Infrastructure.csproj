@@ -15,6 +15,7 @@
     </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
     <PackageReference Include="SixLabors.ImageSharp" />
+    <PackageReference Include="Resend" />
   </ItemGroup>
 
   <ItemGroup>

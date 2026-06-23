@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "dgSpecHash": "aMY1v7d8YME=",
-  "success": true,
+  "dgSpecHash": "6nm7y8itn68=",
+  "success": false,
   "projectFilePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\marty\\.nuget\\packages\\automapper\\15.1.3\\automapper.15.1.3.nupkg.sha512",
@@ -56,6 +56,29 @@
       "warningLevel": 1,
       "filePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
       "libraryId": "FluentValidation",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1102",
+      "level": "Error",
+      "message": "Nie można znaleźć pakietu Resend w wersji (>= 1.5.0)\r\n  - Znalezione wersje w nuget.org: 28 [ Najbliższa wersja: 0.5.1 ]\r\n  - Znalezione wersje w Microsoft Visual Studio Offline Packages: 0",
+      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
+      "filePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
+      "libraryId": "Resend",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Pakiet „SQLitePCLRaw.lib.e_sqlite3” 2.1.11 ma znane wysoka luki w zabezpieczeniach o ważności, https://github.com/advisories/GHSA-2m69-gcr7-jv3q",
+      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
+      "libraryId": "SQLitePCLRaw.lib.e_sqlite3",
       "targetGraphs": [
         "net10.0"
       ]

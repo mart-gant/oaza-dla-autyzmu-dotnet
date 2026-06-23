@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "dgSpecHash": "T64GAsqBGCw=",
-  "success": true,
+  "dgSpecHash": "Xu6+6HGRmjE=",
+  "success": false,
   "projectFilePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\marty\\.nuget\\packages\\anglesharp\\0.17.1\\anglesharp.0.17.1.nupkg.sha512",
@@ -245,6 +245,53 @@
       "warningLevel": 1,
       "filePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
       "libraryId": "Microsoft.CodeAnalysis.Common",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1102",
+      "level": "Error",
+      "message": "Nie można znaleźć pakietu Resend w wersji (>= 1.5.0)\r\n  - Znalezione wersje w nuget.org: 28 [ Najbliższa wersja: 0.5.1 ]\r\n  - Znalezione wersje w Microsoft Visual Studio Offline Packages: 0",
+      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
+      "filePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
+      "libraryId": "Resend",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1901",
+      "level": "Warning",
+      "message": "Pakiet „NuGet.Packaging” 6.12.1 ma znane niska luki w zabezpieczeniach o ważności, https://github.com/advisories/GHSA-g4vj-cjjj-v7hg",
+      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
+      "libraryId": "NuGet.Packaging",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1901",
+      "level": "Warning",
+      "message": "Pakiet „NuGet.Protocol” 6.12.1 ma znane niska luki w zabezpieczeniach o ważności, https://github.com/advisories/GHSA-g4vj-cjjj-v7hg",
+      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
+      "libraryId": "NuGet.Protocol",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Pakiet „SQLitePCLRaw.lib.e_sqlite3” 2.1.11 ma znane wysoka luki w zabezpieczeniach o ważności, https://github.com/advisories/GHSA-2m69-gcr7-jv3q",
+      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
+      "libraryId": "SQLitePCLRaw.lib.e_sqlite3",
       "targetGraphs": [
         "net10.0"
       ]
