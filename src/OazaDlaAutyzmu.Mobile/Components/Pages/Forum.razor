@@ -1,0 +1,444 @@
+@page "/forum"
+@inject ApiService Api
+
+<div class="space-y-4">
+    <!-- Navigation Breadcrumbs / Title -->
+    <div class="flex items-center justify-between border-b pb-2">
+        <div class="flex items-center space-x-1.5 text-xs text-slate-500">
+            <button @onclick="NavigateToCategories" class="hover:text-sky-600 font-semibold clickable-active">Forum</button>
+            @if (_currentState != ViewState.Categories && _selectedCategory != null)
+            {
+                <span>/</span>
+                <button @onclick="NavigateToTopics" class="hover:text-sky-600 font-semibold truncate max-w-[100px] clickable-active">@_selectedCategory.Name</button>
+            }
+            @if (_currentState == ViewState.TopicDetails && _selectedTopic != null)
+            {
+                <span>/</span>
+                <span class="truncate max-w-[120px]">Temat</span>
+            }
+            @if (_currentState == ViewState.CreateTopic)
+            {
+                <span>/</span>
+                <span>Nowy Temat</span>
+            }
+        </div>
+        
+        <!-- Action Buttons -->
+        @if (_currentState == ViewState.Topics && _selectedCategory != null)
+        {
+            <button @onclick="OpenCreateTopicForm" class="px-3 py-1 bg-sky-600 hover:bg-sky-700 text-white rounded-lg text-xs font-bold transition-colors clickable-active">
+                + Nowy temat
+            </button>
+        }
+    </div>
+
+    <!-- Error/Loading states -->
+    @if (_loading)
+    {
+        <div class="flex flex-col items-center justify-center py-16 space-y-3">
+            <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-sky-500"></div>
+            <p class="text-sm text-slate-500">Ładowanie forum...</p>
+        </div>
+    }
+    else if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div class="bg-red-50 border border-red-200 text-red-700 text-sm p-4 rounded-xl">
+            @_errorMessage
+        </div>
+    }
+    else
+    {
+        <!-- VIEW 1: Categories List -->
+        @if (_currentState == ViewState.Categories)
+        {
+            <div class="space-y-3">
+                @foreach (var category in _categories)
+                {
+                    <button @onclick="() => SelectCategory(category)" class="w-full bg-white p-4 border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow text-left space-y-2 clickable-active block">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-slate-900 text-base">@category.Name</h3>
+                            <span class="text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded-md">@category.TopicCount tem.</span>
+                        </div>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            @category.Description
+                        </p>
+                    </button>
+                }
+            </div>
+        }
+
+        <!-- VIEW 2: Topics in Category -->
+        else if (_currentState == ViewState.Topics && _selectedCategory != null)
+        {
+            <div class="space-y-3">
+                <div class="flex items-center space-x-2 text-left">
+                    <button @onclick="NavigateToCategories" class="text-xs text-sky-600 font-semibold clickable-active">← Powrót</button>
+                    <span class="text-sm font-bold text-slate-700">Kategoria: @_selectedCategory.Name</span>
+                </div>
+
+                @if (_topics.Count == 0)
+                {
+                    <div class="bg-white p-8 border border-slate-100 rounded-2xl text-center text-slate-500 text-sm">
+                        Brak tematów w tej kategorii. Załóż pierwszy temat!
+                    </div>
+                }
+                else
+                {
+                    <div class="space-y-3">
+                        @foreach (var topic in _topics)
+                        {
+                            <button @onclick="() => SelectTopic(topic)" class="w-full bg-white p-4 border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow text-left space-y-2.5 clickable-active block">
+                                <div class="flex justify-between items-start space-x-2">
+                                    <h3 class="font-bold text-slate-900 text-sm leading-snug">
+                                        @if (topic.IsPinned) { <span class="text-sky-600 mr-1">📌</span> }
+                                        @if (topic.IsLocked) { <span class="text-slate-400 mr-1">🔒</span> }
+                                        @topic.Title
+                                    </h3>
+                                    <span class="text-[10px] bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded-md shrink-0">@topic.PostCount odp.</span>
+                                </div>
+                                <div class="flex justify-between items-center text-[10px] text-slate-400">
+                                    <span>Autor: @topic.AuthorName</span>
+                                    <span>Wyśw: @topic.ViewCount</span>
+                                </div>
+                            </button>
+                        }
+                    </div>
+                }
+            </div>
+        }
+
+        <!-- VIEW 3: Topic Details (Posts List & Reply Form) -->
+        else if (_currentState == ViewState.TopicDetails && _selectedTopic != null)
+        {
+            <div class="space-y-4">
+                <div class="flex items-center space-x-2 text-left">
+                    <button @onclick="NavigateToTopics" class="text-xs text-sky-600 font-semibold clickable-active">← Powrót</button>
+                    <span class="text-xs text-slate-500">Temat</span>
+                </div>
+
+                <!-- Topic Header -->
+                <div class="bg-sky-50 border border-sky-100 rounded-2xl p-4 text-left space-y-1">
+                    <h2 class="text-base font-bold text-slate-900 leading-snug">
+                        @if (_selectedTopic.IsPinned) { <span class="text-sky-600 mr-1">📌</span> }
+                        @if (_selectedTopic.IsLocked) { <span class="text-slate-400 mr-1">🔒</span> }
+                        @_selectedTopic.Title
+                    </h2>
+                    <span class="text-[10px] text-slate-400 block">Założony przez @_selectedTopic.AuthorName dnia @_selectedTopic.CreatedAt.ToString("dd.MM.yyyy HH:mm")</span>
+                </div>
+
+                <!-- Posts List -->
+                <div class="space-y-3">
+                    @foreach (var post in _posts)
+                    {
+                        <div class="bg-white p-4 border border-slate-100 rounded-2xl shadow-sm space-y-2 text-left">
+                            <div class="flex justify-between items-start">
+                                <span class="text-xs font-bold text-slate-800 flex items-center space-x-1">
+                                    <span class="inline-block w-4 h-4 bg-sky-200 text-sky-800 rounded-full text-center text-[10px] font-bold leading-4">
+                                        @post.AuthorName[0]
+                                    </span>
+                                    <span>@post.AuthorName</span>
+                                </span>
+                                <span class="text-[9px] text-slate-400">@post.CreatedAt.ToString("dd.MM.yyyy HH:mm")</span>
+                            </div>
+                            <p class="text-xs text-slate-700 leading-relaxed whitespace-pre-line">
+                                @post.Content
+                            </p>
+                        </div>
+                    }
+                </div>
+
+                <!-- Reply Form -->
+                <div class="bg-white p-4 border border-slate-100 rounded-2xl shadow-sm space-y-3 text-left">
+                    <h4 class="font-bold text-slate-900 text-xs">Dodaj odpowiedź</h4>
+                    
+                    @if (_selectedTopic.IsLocked)
+                    {
+                        <div class="bg-slate-50 border rounded-xl p-3 text-center text-slate-500 text-xs">
+                            🔒 Ten temat został zamknięty przez moderatora. Nie można dodawać nowych odpowiedzi.
+                        </div>
+                    }
+                    else if (!Api.IsAuthenticated)
+                    {
+                        <div class="bg-sky-50 border border-sky-100 rounded-xl p-3 text-center space-y-2">
+                            <p class="text-[11px] text-sky-800">Zaloguj się, aby napisać odpowiedź.</p>
+                            <a href="account" class="inline-block px-3 py-1 bg-sky-600 text-white font-bold text-[10px] rounded-lg clickable-active">
+                                Zaloguj się
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <textarea @bind="_replyContent" rows="3" placeholder="Wpisz treść odpowiedzi..."
+                                  class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-sky-500 focus:bg-white"></textarea>
+                        
+                        @if (!string.IsNullOrEmpty(_actionStatusMessage))
+                        {
+                            <div class="p-2.5 text-[11px] rounded-lg @(_actionSuccess ? "bg-emerald-50 text-emerald-700 border border-emerald-100" : "bg-red-50 text-red-700 border border-red-200")">
+                                @_actionStatusMessage
+                            </div>
+                        }
+
+                        <div class="flex justify-end pt-1">
+                            <button @onclick="SubmitReply" disabled="@_submitting" 
+                                    class="px-4 py-1.5 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-lg disabled:opacity-50 transition-colors clickable-active">
+                                @(_submitting ? "Wysyłanie..." : "Wyślij")
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        <!-- VIEW 4: Create Topic Form -->
+        else if (_currentState == ViewState.CreateTopic && _selectedCategory != null)
+        {
+            <div class="bg-white p-5 border border-slate-100 rounded-2xl shadow-sm space-y-4 text-left">
+                <div class="flex justify-between items-center border-b pb-2">
+                    <h3 class="font-bold text-slate-900 text-sm">Nowy temat w: @_selectedCategory.Name</h3>
+                    <button @onclick="NavigateToTopics" class="text-slate-400 hover:text-slate-600 text-sm font-semibold clickable-active">Anuluj</button>
+                </div>
+
+                @if (!Api.IsAuthenticated)
+                {
+                    <div class="bg-sky-50 border border-sky-100 rounded-xl p-4 text-center space-y-2">
+                        <p class="text-xs text-sky-800">Musisz być zalogowany, aby założyć nowy temat.</p>
+                        <a href="account" class="inline-block px-4 py-1.5 bg-sky-600 text-white font-bold text-xs rounded-lg clickable-active">Zaloguj</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="space-y-1">
+                        <label class="block text-xs font-medium text-slate-500">Tytuł tematu:</label>
+                        <input type="text" @bind="_newTopicTitle" placeholder="Np. Pytanie o integrację sensoryczną w przedszkolu..."
+                               class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-sky-500 focus:bg-white" />
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="block text-xs font-medium text-slate-500">Treść pierwszego posta:</label>
+                        <textarea @bind="_newTopicContent" rows="5" placeholder="Napisz szczegółowo, o czym chcesz porozmawiać..."
+                                  class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-sky-500 focus:bg-white"></textarea>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(_actionStatusMessage))
+                    {
+                        <div class="p-2.5 text-[11px] rounded-lg @(_actionSuccess ? "bg-emerald-50 text-emerald-700 border border-emerald-100" : "bg-red-50 text-red-700 border border-red-200")">
+                            @_actionStatusMessage
+                        </div>
+                    }
+
+                    <div class="flex justify-end space-x-2 pt-1">
+                        <button @onclick="NavigateToTopics" class="px-4 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs rounded-lg font-medium transition-colors clickable-active">
+                            Anuluj
+                        </button>
+                        <button @onclick="SubmitTopic" disabled="@_submitting" 
+                                class="px-5 py-1.5 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-lg shadow-sm disabled:opacity-50 transition-colors clickable-active">
+                            @(_submitting ? "Zakładanie..." : "Załóż temat")
+                        </button>
+                    </div>
+                }
+            </div>
+        }
+    }
+</div>
+
+@code {
+    private enum ViewState { Categories, Topics, TopicDetails, CreateTopic }
+
+    private ViewState _currentState = ViewState.Categories;
+    private bool _loading = true;
+    private string _errorMessage = string.Empty;
+
+    private List<ForumCategory> _categories = new();
+    private ForumCategory? _selectedCategory;
+    private List<ForumTopic> _topics = new();
+    private ForumTopic? _selectedTopic;
+    private List<ForumPost> _posts = new();
+
+    // Forms
+    private string _replyContent = string.Empty;
+    private string _newTopicTitle = string.Empty;
+    private string _newTopicContent = string.Empty;
+    private bool _submitting = false;
+    private string _actionStatusMessage = string.Empty;
+    private bool _actionSuccess = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCategories();
+    }
+
+    private async Task LoadCategories()
+    {
+        _loading = true;
+        _errorMessage = string.Empty;
+        _currentState = ViewState.Categories;
+
+        var result = await Api.GetForumCategoriesAsync();
+        if (result.IsSuccess && result.Data != null)
+        {
+            _categories = result.Data;
+        }
+        else
+        {
+            _errorMessage = result.Message;
+        }
+
+        _loading = false;
+        StateHasChanged();
+    }
+
+    private async Task SelectCategory(ForumCategory category)
+    {
+        _selectedCategory = category;
+        await LoadTopics();
+    }
+
+    private async Task LoadTopics()
+    {
+        if (_selectedCategory == null) return;
+
+        _loading = true;
+        _errorMessage = string.Empty;
+        _currentState = ViewState.Topics;
+
+        var result = await Api.GetCategoryTopicsAsync(_selectedCategory.Id);
+        if (result.IsSuccess && result.Data != null)
+        {
+            _topics = result.Data.OrderByDescending(t => t.IsPinned).ThenByDescending(t => t.LastPostAt).ToList();
+        }
+        else
+        {
+            _errorMessage = result.Message;
+        }
+
+        _loading = false;
+        StateHasChanged();
+    }
+
+    private async Task SelectTopic(ForumTopic topic)
+    {
+        _selectedTopic = topic;
+        await LoadTopicDetails();
+    }
+
+    private async Task LoadTopicDetails()
+    {
+        if (_selectedTopic == null) return;
+
+        _loading = true;
+        _errorMessage = string.Empty;
+        _currentState = ViewState.TopicDetails;
+
+        var result = await Api.GetTopicDetailsAsync(_selectedTopic.Id);
+        if (result.IsSuccess && result.Data != null)
+        {
+            _selectedTopic = result.Data.Topic;
+            _posts = result.Data.Posts.Data.OrderBy(p => p.CreatedAt).ToList();
+        }
+        else
+        {
+            _errorMessage = result.Message;
+        }
+
+        _loading = false;
+        StateHasChanged();
+    }
+
+    private void OpenCreateTopicForm()
+    {
+        _newTopicTitle = string.Empty;
+        _newTopicContent = string.Empty;
+        _actionStatusMessage = string.Empty;
+        _currentState = ViewState.CreateTopic;
+    }
+
+    private async Task SubmitTopic()
+    {
+        if (_selectedCategory == null) return;
+
+        if (string.IsNullOrWhiteSpace(_newTopicTitle) || _newTopicTitle.Length < 5)
+        {
+            _actionSuccess = false;
+            _actionStatusMessage = "Tytuł musi mieć co najmniej 5 znaków.";
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(_newTopicContent) || _newTopicContent.Length < 10)
+        {
+            _actionSuccess = false;
+            _actionStatusMessage = "Treść posta musi mieć co najmniej 10 znaków.";
+            return;
+        }
+
+        _submitting = true;
+        _actionStatusMessage = string.Empty;
+
+        var result = await Api.CreateTopicAsync(_selectedCategory.Id, _newTopicTitle, _newTopicContent);
+        if (result.IsSuccess)
+        {
+            _actionSuccess = true;
+            _actionStatusMessage = "Temat został pomyślnie załozony!";
+            // Reset fields
+            _newTopicTitle = string.Empty;
+            _newTopicContent = string.Empty;
+            
+            // Reload topics list
+            await LoadTopics();
+        }
+        else
+        {
+            _actionSuccess = false;
+            _actionStatusMessage = result.Message;
+        }
+
+        _submitting = false;
+        StateHasChanged();
+    }
+
+    private async Task SubmitReply()
+    {
+        if (_selectedTopic == null) return;
+
+        if (string.IsNullOrWhiteSpace(_replyContent) || _replyContent.Length < 5)
+        {
+            _actionSuccess = false;
+            _actionStatusMessage = "Odpowiedź musi zawierać co najmniej 5 znaków.";
+            return;
+        }
+
+        _submitting = true;
+        _actionStatusMessage = string.Empty;
+
+        var result = await Api.CreatePostAsync(_selectedTopic.Id, _replyContent);
+        if (result.IsSuccess)
+        {
+            _actionSuccess = true;
+            _replyContent = string.Empty;
+            // Reload posts
+            await LoadTopicDetails();
+        }
+        else
+        {
+            _actionSuccess = false;
+            _actionStatusMessage = result.Message;
+        }
+
+        _submitting = false;
+        StateHasChanged();
+    }
+
+    private void NavigateToCategories()
+    {
+        _selectedCategory = null;
+        _selectedTopic = null;
+        _currentState = ViewState.Categories;
+        _actionStatusMessage = string.Empty;
+    }
+
+    private async Task NavigateToTopics()
+    {
+        _selectedTopic = null;
+        _actionStatusMessage = string.Empty;
+        await LoadTopics();
+    }
+}

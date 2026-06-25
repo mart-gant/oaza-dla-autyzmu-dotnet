@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "targets": {
     "net10.0": {
       "AngleSharp/0.17.1": {
@@ -7351,11 +7351,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
+      "projectUniqueName": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
       "projectName": "OazaDlaAutyzmu.Web",
-      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
+      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
       "packagesPath": "C:\\Users\\marty\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\obj\\",
+      "outputPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Web\\obj\\",
       "projectStyle": "PackageReference",
       "centralPackageVersionsManagementEnabled": true,
       "fallbackFolders": [
@@ -7375,13 +7375,14 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj": {
-              "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj"
+            "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj": {
+              "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj"
             },
-            "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj"
+            "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj"
             }
           }
         }
@@ -7396,10 +7397,11 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.200"
+      "SdkAnalysisLevel": "10.0.300"
     },
     "frameworks": {
       "net10.0": {
+        "framework": "net10.0",
         "targetAlias": "net10.0",
         "dependencies": {
           "AspNetCoreRateLimit": {
@@ -7479,6 +7481,7 @@
           "FluentValidation.AspNetCore": "11.3.1",
           "HtmlSanitizer": "9.0.892",
           "MediatR": "14.0.0",
+          "Microsoft.AspNetCore.Components.WebView.Maui": "10.0.2",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.2",
           "Microsoft.AspNetCore.Mvc.Testing": "10.0.0",
           "Microsoft.EntityFrameworkCore": "10.0.2",
@@ -7486,6 +7489,7 @@
           "Microsoft.EntityFrameworkCore.InMemory": "10.0.2",
           "Microsoft.EntityFrameworkCore.Sqlite": "10.0.2",
           "Microsoft.EntityFrameworkCore.Tools": "10.0.2",
+          "Microsoft.Extensions.Logging.Debug": "10.0.2",
           "Microsoft.NET.Test.Sdk": "17.14.1",
           "Microsoft.Playwright": "1.57.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "10.0.0",
@@ -7518,7 +7522,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
@@ -8003,6 +8007,36 @@
       "warningLevel": 1,
       "message": "Wykryta wersja pakietu jest poza ograniczeniami zależności: element Microsoft.CodeAnalysis.Scripting.Common 4.14.0 wymaga wersji Microsoft.CodeAnalysis.Common (= 4.14.0), ale rozpoznano wersję Microsoft.CodeAnalysis.Common 5.0.0.",
       "libraryId": "Microsoft.CodeAnalysis.Common",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1901",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Pakiet „NuGet.Packaging” 6.12.1 ma znane niska luki w zabezpieczeniach o ważności, https://github.com/advisories/GHSA-g4vj-cjjj-v7hg",
+      "libraryId": "NuGet.Packaging",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1901",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Pakiet „NuGet.Protocol” 6.12.1 ma znane niska luki w zabezpieczeniach o ważności, https://github.com/advisories/GHSA-g4vj-cjjj-v7hg",
+      "libraryId": "NuGet.Protocol",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Pakiet „SQLitePCLRaw.lib.e_sqlite3” 2.1.11 ma znane wysoka luki w zabezpieczeniach o ważności, https://github.com/advisories/GHSA-2m69-gcr7-jv3q",
+      "libraryId": "SQLitePCLRaw.lib.e_sqlite3",
       "targetGraphs": [
         "net10.0"
       ]

@@ -1,0 +1,53 @@
+/* Custom mobile specific styles and sensory overrides */
+
+:root {
+    --text-scale: 1;
+}
+
+body {
+    font-size: calc(1rem * var(--text-scale));
+}
+
+/* Sensory accessibility styling */
+.sensory-high-contrast {
+    filter: contrast(1.2);
+}
+
+.sensory-high-contrast body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+.sensory-high-contrast button, 
+.sensory-high-contrast a {
+    outline: 2px solid #000000 !important;
+    outline-offset: 2px !important;
+}
+
+.sensory-reduced-motion * {
+    animation-delay: 0s !important;
+    animation-duration: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+}
+
+.sensory-calm {
+    filter: sepia(0.15) saturate(0.85);
+}
+
+.sensory-calm body {
+    background-color: #f7f3e9 !important; /* Soft warm background */
+    color: #2c2921 !important;
+}
+
+/* Touch-friendly enhancements */
+button, a, input, select {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+.clickable-active:active {
+    opacity: 0.7;
+    transform: scale(0.98);
+}

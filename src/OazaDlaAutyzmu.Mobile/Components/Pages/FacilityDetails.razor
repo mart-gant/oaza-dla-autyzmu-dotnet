@@ -1,0 +1,290 @@
+@page "/facility/{Id:int}"
+@inject ApiService Api
+@inject NavigationManager Nav
+
+<div class="space-y-6">
+    <!-- Back Button -->
+    <a href="facilities" class="inline-flex items-center space-x-1 text-xs text-sky-600 font-semibold hover:text-sky-700 clickable-active">
+        <span>← Wróć do listy</span>
+    </a>
+
+    @if (_loading)
+    {
+        <div class="flex flex-col items-center justify-center py-16 space-y-3">
+            <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-sky-500"></div>
+            <p class="text-sm text-slate-500">Pobieranie szczegółów...</p>
+        </div>
+    }
+    else if (!string.IsNullOrEmpty(_errorMessage) || _facility == null)
+    {
+        <div class="bg-red-50 border border-red-200 text-red-700 text-sm p-4 rounded-xl">
+            @(_errorMessage.Length > 0 ? _errorMessage : "Nie znaleziono placówki.")
+        </div>
+    }
+    else
+    {
+        <!-- Facility Info Header -->
+        <div class="bg-white p-6 border border-slate-100 rounded-2xl shadow-sm space-y-4 text-left">
+            <div class="flex justify-between items-start">
+                <span class="px-3 py-0.5 rounded-full text-xs font-semibold @GetTagClass(_facility.Type)">
+                    @GetTypeName(_facility.Type)
+                </span>
+                
+                <div class="flex items-center space-x-1 bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-100">
+                    <span class="text-xs text-amber-500">★</span>
+                    <span class="text-sm font-bold text-slate-700">@_facility.AverageRating.ToString("F1")</span>
+                    <span class="text-xs text-slate-400">(@_reviews.Count opinii)</span>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-xl font-bold text-slate-900 leading-snug">@_facility.Name</h2>
+                <p class="text-sm text-slate-500 mt-1 flex items-center">
+                    <span class="mr-1.5">📍</span> @_facility.Address, @_facility.City
+                </p>
+            </div>
+
+            <div class="border-t border-slate-100 pt-4 space-y-2">
+                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Kontakt i Informacje</h4>
+                <div class="grid grid-cols-1 gap-2 text-sm text-slate-700">
+                    @if (!string.IsNullOrEmpty(_facility.PhoneNumber))
+                    {
+                        <div class="flex items-center space-x-2">
+                            <span>📞</span>
+                            <a href="tel:@_facility.PhoneNumber" class="text-sky-600 font-semibold hover:underline">@_facility.PhoneNumber</a>
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(_facility.Email))
+                    {
+                        <div class="flex items-center space-x-2">
+                            <span>✉️</span>
+                            <a href="mailto:@_facility.Email" class="text-sky-600 font-semibold hover:underline">@_facility.Email</a>
+                        </div>
+                    }
+                    @if (!string.IsNullOrEmpty(_facility.Website))
+                    {
+                        <div class="flex items-center space-x-2">
+                            <span>🌐</span>
+                            <a href="@_facility.Website" target="_blank" class="text-sky-600 font-semibold hover:underline">Odwiedź stronę www</a>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="border-t border-slate-100 pt-4 space-y-2">
+                <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">O placówce</h4>
+                <p class="text-sm text-slate-700 leading-relaxed whitespace-pre-line">
+                    @_facility.Description
+                </p>
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="space-y-4">
+            <h3 class="text-lg font-bold text-slate-800 text-left">Opinie i recenzje</h3>
+
+            <!-- Review Submission Form -->
+            <div class="bg-white p-5 border border-slate-100 rounded-2xl shadow-sm space-y-4 text-left">
+                <h4 class="font-bold text-slate-900 text-sm">Dodaj swoją opinię</h4>
+                
+                @if (!Api.IsAuthenticated)
+                {
+                    <div class="bg-sky-50 border border-sky-100 rounded-xl p-4 text-center space-y-3">
+                        <p class="text-xs text-sky-800 leading-relaxed">
+                            Tylko zalogowani użytkownicy mogą dodawać opinie o placówkach.
+                        </p>
+                        <a href="account" class="inline-block px-4 py-1.5 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-lg transition-colors clickable-active">
+                            Zaloguj się teraz
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <!-- Stars Selector -->
+                    <div class="space-y-1">
+                        <label class="block text-xs font-medium text-slate-500">Twoja ocena:</label>
+                        <div class="flex space-x-1.5">
+                            @for (int i = 1; i <= 5; i++)
+                            {
+                                int starRating = i;
+                                <button @onclick="() => SetRating(starRating)" class="focus:outline-none p-1 clickable-active">
+                                    <span class="text-3xl transition-transform duration-100 hover:scale-110 @(starRating <= _newReviewRating ? "text-amber-400" : "text-slate-200")">★</span>
+                                </button>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Comment -->
+                    <div class="space-y-1">
+                        <label class="block text-xs font-medium text-slate-500">Twój komentarz:</label>
+                        <textarea @bind="_newReviewComment" rows="3" placeholder="Opisz swoje doświadczenia z placówką..."
+                                  class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-sky-500 focus:bg-white"></textarea>
+                    </div>
+
+                    <!-- Status messages -->
+                    @if (!string.IsNullOrEmpty(_reviewStatusMessage))
+                    {
+                        <div class="p-3 text-xs rounded-lg @(_reviewSuccess ? "bg-emerald-50 text-emerald-700 border border-emerald-100" : "bg-red-50 text-red-700 border border-red-200")">
+                            @_reviewStatusMessage
+                        </div>
+                    }
+
+                    <div class="flex justify-end pt-1">
+                        <button @onclick="SubmitReview" disabled="@_submittingReview" 
+                                class="px-5 py-2 bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs rounded-xl shadow-sm disabled:opacity-50 transition-colors clickable-active flex items-center space-x-2">
+                            @if (_submittingReview)
+                            {
+                                <div class="animate-spin rounded-full h-3.5 w-3.5 border-t-2 border-b-2 border-white"></div>
+                                <span>Wysyłanie...</span>
+                            }
+                            else
+                            {
+                                <span>Dodaj opinię</span>
+                            }
+                        </button>
+                    </div>
+                }
+            </div>
+
+            <!-- Reviews List -->
+            @if (_reviews.Count == 0)
+            {
+                <div class="bg-white p-6 border border-slate-100 rounded-2xl shadow-sm text-center text-slate-500 text-sm">
+                    Ta placówka nie posiada jeszcze żadnych opinii. Bądź pierwszy!
+                </div>
+            }
+            else
+            {
+                <div class="space-y-3">
+                    @foreach (var review in _reviews)
+                    {
+                        <div class="bg-white p-4 border border-slate-100 rounded-2xl shadow-sm space-y-2 text-left">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <span class="block text-sm font-bold text-slate-900">@review.UserName</span>
+                                    <span class="block text-[10px] text-slate-400">@review.CreatedAt.ToString("dd.MM.yyyy HH:mm")</span>
+                                </div>
+                                <div class="flex space-x-0.5">
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        <span class="text-sm @(i <= review.Rating ? "text-amber-400" : "text-slate-200")">★</span>
+                                    }
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-700 leading-relaxed whitespace-pre-line">
+                                @review.Comment
+                            </p>
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private FacilityDetail? _facility;
+    private List<ReviewItem> _reviews = new();
+    private bool _loading = true;
+    private string _errorMessage = string.Empty;
+
+    // New Review Fields
+    private int _newReviewRating = 5;
+    private string _newReviewComment = string.Empty;
+    private bool _submittingReview = false;
+    private string _reviewStatusMessage = string.Empty;
+    private bool _reviewSuccess = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadDetails();
+    }
+
+    private async Task LoadDetails()
+    {
+        _loading = true;
+        _errorMessage = string.Empty;
+
+        var facilityResult = await Api.GetFacilityDetailsAsync(Id);
+        if (facilityResult.IsSuccess)
+        {
+            _facility = facilityResult.Data;
+            
+            var reviewsResult = await Api.GetFacilityReviewsAsync(Id);
+            if (reviewsResult.IsSuccess && reviewsResult.Data != null)
+            {
+                // Only show approved reviews or if the user is the owner/admin
+                _reviews = reviewsResult.Data.Where(r => r.IsApproved).OrderByDescending(r => r.CreatedAt).ToList();
+            }
+        }
+        else
+        {
+            _errorMessage = facilityResult.Message;
+        }
+
+        _loading = false;
+        StateHasChanged();
+    }
+
+    private void SetRating(int rating)
+    {
+        _newReviewRating = rating;
+    }
+
+    private async Task SubmitReview()
+    {
+        if (string.IsNullOrWhiteSpace(_newReviewComment) || _newReviewComment.Length < 10)
+        {
+            _reviewSuccess = false;
+            _reviewStatusMessage = "Komentarz musi mieć co najmniej 10 znaków.";
+            return;
+        }
+
+        _submittingReview = true;
+        _reviewStatusMessage = string.Empty;
+
+        var result = await Api.CreateReviewAsync(Id, _newReviewRating, _newReviewComment);
+        if (result.IsSuccess)
+        {
+            _reviewSuccess = true;
+            _reviewStatusMessage = "Dziękujemy! Twoja opinia została dodana i zostanie opublikowana po moderacji.";
+            _newReviewComment = string.Empty;
+            _newReviewRating = 5;
+            // Reload reviews
+            var reviewsResult = await Api.GetFacilityReviewsAsync(Id);
+            if (reviewsResult.IsSuccess && reviewsResult.Data != null)
+            {
+                _reviews = reviewsResult.Data.Where(r => r.IsApproved).OrderByDescending(r => r.CreatedAt).ToList();
+            }
+        }
+        else
+        {
+            _reviewSuccess = false;
+            _reviewStatusMessage = result.Message;
+        }
+
+        _submittingReview = false;
+        StateHasChanged();
+    }
+
+    private string GetTypeName(int type) => type switch
+    {
+        0 => "Terapia",
+        1 => "Szkoła",
+        2 => "Wsparcie",
+        3 => "Klinika",
+        _ => "Inne"
+    };
+
+    private string GetTagClass(int type) => type switch
+    {
+        0 => "bg-sky-50 text-sky-700 border border-sky-100",
+        1 => "bg-indigo-50 text-indigo-700 border border-indigo-100",
+        2 => "bg-emerald-50 text-emerald-700 border border-emerald-100",
+        3 => "bg-rose-50 text-rose-700 border border-rose-100",
+        _ => "bg-slate-50 text-slate-700 border border-slate-100"
+    };
+}

@@ -63,6 +63,10 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
+// Bearer Token Authentication for Mobile Client
+builder.Services.AddAuthentication()
+    .AddBearerToken(IdentityConstants.BearerScheme);
+
 // Cookie configuration for session timeout
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -71,6 +75,27 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LoginPath = "/Account/Login";
     options.LogoutPath = "/Account/Logout";
     options.AccessDeniedPath = "/Account/AccessDenied";
+});
+
+// Configure default authorization policy to accept both Cookie and Bearer schemes
+builder.Services.AddAuthorization(options =>
+{
+    options.DefaultPolicy = new Microsoft.AspNetCore.Authorization.AuthorizationPolicyBuilder(
+        IdentityConstants.ApplicationScheme,
+        IdentityConstants.BearerScheme)
+        .RequireAuthenticatedUser()
+        .Build();
+});
+
+// CORS configuration for mobile clients
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MobileCorsPolicy", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
 });
 
 // MediatR configuration
@@ -164,6 +189,8 @@ app.UseResponseCaching();
 app.UseSecurityHeaders();
 
 app.UseRouting();
+
+app.UseCors("MobileCorsPolicy");
 
 // Rate limiting middleware
 app.UseIpRateLimiting();

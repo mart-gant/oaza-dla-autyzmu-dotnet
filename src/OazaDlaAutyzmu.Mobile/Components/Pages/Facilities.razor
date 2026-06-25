@@ -1,0 +1,218 @@
+@page "/facilities"
+@inject ApiService Api
+
+<div class="space-y-4">
+    <div class="flex items-center space-x-2">
+        <h2 class="text-xl font-bold text-slate-800">Placówki terapeutyczne</h2>
+    </div>
+
+    <!-- Search and Filter Bar -->
+    <div class="bg-white p-4 border border-slate-100 rounded-2xl shadow-sm space-y-3">
+        <!-- Search Input -->
+        <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400">🔍</span>
+            <input type="text" @bind="_searchTerm" @bind:event="oninput" @onkeyup="HandleKeyUp"
+                   placeholder="Szukaj placówki lub miasta..." 
+                   class="w-full pl-9 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl focus:outline-sky-500 focus:bg-white text-sm" />
+        </div>
+
+        <!-- Filter Dropdown Grid -->
+        <div class="grid grid-cols-2 gap-2">
+            <select @bind="_selectedType" @bind:after="LoadFacilities" 
+                    class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-sky-500">
+                <option value="">Wszystkie typy</option>
+                <option value="0">Terapia</option>
+                <option value="1">Szkoła</option>
+                <option value="2">Ośrodek wsparcia</option>
+                <option value="3">Klinika</option>
+                <option value="4">Inne</option>
+            </select>
+
+            <select @bind="_selectedCity" @bind:after="LoadFacilities"
+                    class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-sky-500">
+                <option value="">Wszystkie miasta</option>
+                <option value="Warszawa">Warszawa</option>
+                <option value="Kraków">Kraków</option>
+                <option value="Wrocław">Wrocław</option>
+                <option value="Poznań">Poznań</option>
+                <option value="Gdańsk">Gdańsk</option>
+            </select>
+        </div>
+        
+        <div class="flex justify-end space-x-2">
+            <button @onclick="ResetFilters" class="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs rounded-lg font-medium transition-colors">
+                Wyczyść
+            </button>
+            <button @onclick="LoadFacilities" class="px-4 py-1.5 bg-sky-600 hover:bg-sky-700 text-white text-xs rounded-lg font-bold transition-colors">
+                Szukaj
+            </button>
+        </div>
+    </div>
+
+    <!-- Error/Loading states -->
+    @if (_loading)
+    {
+        <div class="flex flex-col items-center justify-center py-12 space-y-3">
+            <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-sky-500"></div>
+            <p class="text-sm text-slate-500">Pobieranie placówek...</p>
+        </div>
+    }
+    else if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div class="bg-red-50 border border-red-200 text-red-700 text-sm p-4 rounded-xl">
+            @_errorMessage
+        </div>
+    }
+    else if (_facilities.Count == 0)
+    {
+        <div class="text-center py-12 text-slate-500">
+            <span class="text-4xl block mb-2">🤷‍♂️</span>
+            <p class="font-medium">Nie znaleziono placówek pasujących do filtrów.</p>
+        </div>
+    }
+    else
+    {
+        <!-- Facilities List -->
+        <div class="space-y-3">
+            @foreach (var facility in _facilities)
+            {
+                <a href="facility/@facility.Id" class="block bg-white p-4 border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow text-left space-y-2.5 clickable-active">
+                    <div class="flex justify-between items-start">
+                        <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold @GetTagClass(facility.Type)">
+                            @GetTypeName(facility.Type)
+                        </span>
+                        <div class="flex items-center space-x-1 bg-amber-50 px-2 py-0.5 rounded-lg border border-amber-100">
+                            <span class="text-xs text-amber-500">★</span>
+                            <span class="text-xs font-bold text-slate-700">@facility.AverageRating.ToString("F1")</span>
+                            <span class="text-[10px] text-slate-400">(@facility.ReviewCount)</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="font-bold text-slate-900 leading-tight">@facility.Name</h3>
+                        <p class="text-xs text-slate-500 flex items-center mt-1">
+                            <span class="mr-1">📍</span> @facility.Address, @facility.City
+                        </p>
+                    </div>
+
+                    <p class="text-xs text-slate-600 line-clamp-2 mt-2 leading-relaxed">
+                        @facility.Description
+                    </p>
+                </a>
+            }
+        </div>
+
+        <!-- Pagination Controls -->
+        @if (_totalPages > 1)
+        {
+            <div class="flex items-center justify-between pt-2">
+                <button @onclick="PreviousPage" disabled="@(!_hasPrevious)" 
+                        class="px-3 py-1.5 border rounded-lg text-xs bg-white text-slate-700 hover:bg-slate-50 disabled:opacity-50 transition-colors clickable-active">
+                    Poprzednia
+                </button>
+                <span class="text-xs font-medium text-slate-600">Strona @_currentPage z @_totalPages</span>
+                <button @onclick="NextPage" disabled="@(!_hasNext)" 
+                        class="px-3 py-1.5 border rounded-lg text-xs bg-white text-slate-700 hover:bg-slate-50 disabled:opacity-50 transition-colors clickable-active">
+                    Następna
+                </button>
+            </div>
+        }
+    }
+</div>
+
+@code {
+    private List<FacilityItem> _facilities = new();
+    private bool _loading = true;
+    private string _errorMessage = string.Empty;
+    private int _currentPage = 1;
+    private int _totalPages = 1;
+    private bool _hasNext = false;
+    private bool _hasPrevious = false;
+
+    // Filters
+    private string _searchTerm = string.Empty;
+    private string _selectedType = string.Empty;
+    private string _selectedCity = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadFacilities();
+    }
+
+    private async Task LoadFacilities()
+    {
+        _loading = true;
+        _errorMessage = string.Empty;
+
+        var result = await Api.GetFacilitiesAsync(_searchTerm, _selectedCity, _selectedType, _currentPage, 6);
+        if (result.IsSuccess && result.Data != null)
+        {
+            _facilities = result.Data.Data;
+            _currentPage = result.Data.Pagination.CurrentPage;
+            _totalPages = result.Data.Pagination.TotalPages;
+            _hasNext = result.Data.Pagination.HasNextPage;
+            _hasPrevious = result.Data.Pagination.HasPreviousPage;
+        }
+        else
+        {
+            _errorMessage = result.Message;
+        }
+
+        _loading = false;
+        StateHasChanged();
+    }
+
+    private async Task HandleKeyUp(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter")
+        {
+            _currentPage = 1;
+            await LoadFacilities();
+        }
+    }
+
+    private async Task PreviousPage()
+    {
+        if (_hasPrevious)
+        {
+            _currentPage--;
+            await LoadFacilities();
+        }
+    }
+
+    private async Task NextPage()
+    {
+        if (_hasNext)
+        {
+            _currentPage++;
+            await LoadFacilities();
+        }
+    }
+
+    private async Task ResetFilters()
+    {
+        _searchTerm = string.Empty;
+        _selectedType = string.Empty;
+        _selectedCity = string.Empty;
+        _currentPage = 1;
+        await LoadFacilities();
+    }
+
+    private string GetTypeName(int type) => type switch
+    {
+        0 => "Terapia",
+        1 => "Szkoła",
+        2 => "Wsparcie",
+        3 => "Klinika",
+        _ => "Inne"
+    };
+
+    private string GetTagClass(int type) => type switch
+    {
+        0 => "bg-sky-50 text-sky-700 border border-sky-100",
+        1 => "bg-indigo-50 text-indigo-700 border border-indigo-100",
+        2 => "bg-emerald-50 text-emerald-700 border border-emerald-100",
+        3 => "bg-rose-50 text-rose-700 border border-rose-100",
+        _ => "bg-slate-50 text-slate-700 border border-slate-100"
+    };
+}

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "DJhe7E05quw=",
+  "dgSpecHash": "bUwKO2Veq5Y=",
   "success": true,
-  "projectFilePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj",
+  "projectFilePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\marty\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\10.0.2\\microsoft.aspnetcore.cryptography.internal.10.0.2.nupkg.sha512",
     "C:\\Users\\marty\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\10.0.2\\microsoft.aspnetcore.cryptography.keyderivation.10.0.2.nupkg.sha512",

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <title>Oaza dla Autyzmu</title>
+    <base href="/" />
+    <!-- Tailwind CSS CDN for modern and beautiful styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0ea5e9',
+                        secondary: '#64748b',
+                        autismBlue: '#1e3a8a',
+                        softBackground: '#f8fafc',
+                        sensoryWarm: '#fef3c7'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="index.css" rel="stylesheet" />
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-sky-200">
+
+    <div id="app" class="min-h-screen flex items-center justify-center">
+        <div class="flex flex-col items-center space-y-4">
+            <!-- Calming spinner for loading screen -->
+            <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-sky-500"></div>
+            <p class="text-sky-700 font-medium">Ładowanie aplikacji Oaza dla Autyzmu...</p>
+        </div>
+    </div>
+
+    <script src="_framework/blazor.webview.js"></script>
+</body>
+</html>

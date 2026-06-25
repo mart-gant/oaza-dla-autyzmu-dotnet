@@ -4,6 +4,7 @@
     <Project Path="src/OazaDlaAutyzmu.Domain/OazaDlaAutyzmu.Domain.csproj" />
     <Project Path="src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj" />
     <Project Path="src/OazaDlaAutyzmu.Web/OazaDlaAutyzmu.Web.csproj" />
+    <Project Path="src/OazaDlaAutyzmu.Mobile/OazaDlaAutyzmu.Mobile.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/OazaDlaAutyzmu.Tests/OazaDlaAutyzmu.Tests.csproj" />

@@ -1,0 +1,253 @@
+@page "/account"
+@inject ApiService Api
+
+<div class="space-y-6">
+    @if (Api.IsAuthenticated && Api.CurrentUser != null)
+    {
+        <!-- VIEW: Profile Details -->
+        <div class="bg-white p-6 border border-slate-100 rounded-2xl shadow-sm space-y-6 text-left">
+            <!-- Header -->
+            <div class="flex items-center space-x-4 border-b pb-4">
+                <div class="w-16 h-16 bg-sky-100 text-sky-700 rounded-full flex items-center justify-center text-3xl font-bold shadow-inner">
+                    @Api.CurrentUser.FirstName[0]
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold text-slate-900">@Api.CurrentUser.FirstName @Api.CurrentUser.LastName</h2>
+                    <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-100">
+                        @GetRoleLabel(Api.CurrentUser.Role)
+                    </span>
+                </div>
+            </div>
+
+            <!-- Profile Info Grid -->
+            <div class="space-y-3.5 text-sm text-slate-700">
+                <div class="flex justify-between">
+                    <span class="text-slate-400 font-medium">Adres Email:</span>
+                    <span class="font-semibold">@Api.CurrentUser.Email</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400 font-medium">Rola w systemie:</span>
+                    <span class="font-semibold">@Api.CurrentUser.Role</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-400 font-medium">Konto utworzone:</span>
+                    <span class="font-semibold">@Api.CurrentUser.CreatedAt.ToString("dd.MM.yyyy")</span>
+                </div>
+            </div>
+
+            <!-- Logout Button -->
+            <div class="pt-4 border-t border-slate-100">
+                <button @onclick="Logout" 
+                        class="w-full py-2.5 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 font-bold text-sm rounded-xl transition-colors clickable-active">
+                    Wyloguj się
+                </button>
+            </div>
+        </div>
+    }
+    else
+    {
+        <!-- VIEW: Login / Register Form -->
+        <div class="bg-white p-6 border border-slate-100 rounded-2xl shadow-sm space-y-6 text-left">
+            <!-- Tabs -->
+            <div class="flex border-b">
+                <button @onclick="() => SetFormMode(true)" 
+                        class="w-1/2 pb-3 text-sm font-bold text-center border-b-2 transition-colors @(_isLoginMode ? "border-sky-600 text-sky-600" : "border-transparent text-slate-400") clickable-active">
+                    Logowanie
+                </button>
+                <button @onclick="() => SetFormMode(false)" 
+                        class="w-1/2 pb-3 text-sm font-bold text-center border-b-2 transition-colors @(!_isLoginMode ? "border-sky-600 text-sky-600" : "border-transparent text-slate-400") clickable-active">
+                    Rejestracja
+                </button>
+            </div>
+
+            <!-- Messages -->
+            @if (!string.IsNullOrEmpty(_statusMessage))
+            {
+                <div class="p-3.5 text-xs rounded-xl @(_actionSuccess ? "bg-emerald-50 text-emerald-700 border border-emerald-100" : "bg-red-50 text-red-700 border border-red-200")">
+                    @_statusMessage
+                </div>
+            }
+
+            @if (_isLoginMode)
+            {
+                <!-- Login Form -->
+                <div class="space-y-4">
+                    <div class="space-y-1">
+                        <label class="block text-xs font-semibold text-slate-500">Email:</label>
+                        <input type="email" @bind="_email" placeholder="twoj-email@oaza.pl"
+                               class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-sky-500 focus:bg-white" />
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="block text-xs font-semibold text-slate-500">Hasło:</label>
+                        <input type="password" @bind="_password" placeholder="••••••••"
+                               class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-sky-500 focus:bg-white" />
+                    </div>
+
+                    <button @onclick="HandleLogin" disabled="@_submitting"
+                            class="w-full py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold text-sm rounded-xl shadow-md disabled:opacity-50 transition-colors clickable-active flex items-center justify-center space-x-2">
+                        @if (_submitting)
+                        {
+                            <div class="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></div>
+                            <span>Logowanie...</span>
+                        }
+                        else
+                        {
+                            <span>Zaloguj się</span>
+                        }
+                    </button>
+                </div>
+            }
+            else
+            {
+                <!-- Register Form -->
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="space-y-1">
+                            <label class="block text-xs font-semibold text-slate-500">Imię:</label>
+                            <input type="text" @bind="_firstName" placeholder="Jan"
+                                   class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-sky-500 focus:bg-white" />
+                        </div>
+                        <div class="space-y-1">
+                            <label class="block text-xs font-semibold text-slate-500">Nazwisko:</label>
+                            <input type="text" @bind="_lastName" placeholder="Kowalski"
+                                   class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-sky-500 focus:bg-white" />
+                        </div>
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="block text-xs font-semibold text-slate-500">Email:</label>
+                        <input type="email" @bind="_email" placeholder="nazwa@domena.pl"
+                               class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-sky-500 focus:bg-white" />
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="block text-xs font-semibold text-slate-500">Hasło (min. 8 znaków, cyfra, wielka litera):</label>
+                        <input type="password" @bind="_password" placeholder="••••••••"
+                               class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-sky-500 focus:bg-white" />
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="block text-xs font-semibold text-slate-500">Potwierdź hasło:</label>
+                        <input type="password" @bind="_confirmPassword" placeholder="••••••••"
+                               class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-sky-500 focus:bg-white" />
+                    </div>
+
+                    <button @onclick="HandleRegister" disabled="@_submitting"
+                            class="w-full py-3 bg-sky-600 hover:bg-sky-700 text-white font-bold text-sm rounded-xl shadow-md disabled:opacity-50 transition-colors clickable-active flex items-center justify-center space-x-2">
+                        @if (_submitting)
+                        {
+                            <div class="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white"></div>
+                            <span>Tworzenie konta...</span>
+                        }
+                        else
+                        {
+                            <span>Zarejestruj się</span>
+                        }
+                    </button>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    private bool _isLoginMode = true;
+    private bool _submitting = false;
+    private string _statusMessage = string.Empty;
+    private bool _actionSuccess = false;
+
+    // Form inputs
+    private string _email = string.Empty;
+    private string _password = string.Empty;
+    private string _confirmPassword = string.Empty;
+    private string _firstName = string.Empty;
+    private string _lastName = string.Empty;
+
+    private void SetFormMode(bool isLogin)
+    {
+        _isLoginMode = isLogin;
+        _statusMessage = string.Empty;
+    }
+
+    private async Task HandleLogin()
+    {
+        if (string.IsNullOrWhiteSpace(_email) || string.IsNullOrWhiteSpace(_password))
+        {
+            _actionSuccess = false;
+            _statusMessage = "Proszę podać email i hasło.";
+            return;
+        }
+
+        _submitting = true;
+        _statusMessage = string.Empty;
+
+        var result = await Api.LoginAsync(_email, _password);
+        if (result.IsSuccess)
+        {
+            _actionSuccess = true;
+            // Clear inputs
+            _email = string.Empty;
+            _password = string.Empty;
+        }
+        else
+        {
+            _actionSuccess = false;
+            _statusMessage = result.Message;
+        }
+
+        _submitting = false;
+        StateHasChanged();
+    }
+
+    private async Task HandleRegister()
+    {
+        if (string.IsNullOrWhiteSpace(_email) || string.IsNullOrWhiteSpace(_password) || 
+            string.IsNullOrWhiteSpace(_firstName) || string.IsNullOrWhiteSpace(_lastName))
+        {
+            _actionSuccess = false;
+            _statusMessage = "Wszystkie pola są wymagane.";
+            return;
+        }
+
+        if (_password != _confirmPassword)
+        {
+            _actionSuccess = false;
+            _statusMessage = "Hasła muszą być identyczne.";
+            return;
+        }
+
+        _submitting = true;
+        _statusMessage = string.Empty;
+
+        var result = await Api.RegisterAsync(_email, _password, _firstName, _lastName);
+        if (result.IsSuccess)
+        {
+            _actionSuccess = true;
+            _statusMessage = "Konto zostało utworzone! Możesz się teraz zalogować.";
+            _isLoginMode = true;
+            _password = string.Empty;
+            _confirmPassword = string.Empty;
+        }
+        else
+        {
+            _actionSuccess = false;
+            _statusMessage = result.Message;
+        }
+
+        _submitting = false;
+        StateHasChanged();
+    }
+
+    private async Task Logout()
+    {
+        await Api.LogoutAsync();
+    }
+
+    private string GetRoleLabel(string role) => role switch
+    {
+        "Admin" => "Administrator",
+        "Moderator" => "Moderator",
+        _ => "Użytkownik"
+    };
+}

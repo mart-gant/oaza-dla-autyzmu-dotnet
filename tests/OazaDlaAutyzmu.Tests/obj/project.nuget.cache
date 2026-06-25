@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fEIXdD7slfI=",
+  "dgSpecHash": "aSkvfoBj49Q=",
   "success": true,
-  "projectFilePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet\\tests\\OazaDlaAutyzmu.Tests\\OazaDlaAutyzmu.Tests.csproj",
+  "projectFilePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\tests\\OazaDlaAutyzmu.Tests\\OazaDlaAutyzmu.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\marty\\.nuget\\packages\\anglesharp\\0.17.1\\anglesharp.0.17.1.nupkg.sha512",
     "C:\\Users\\marty\\.nuget\\packages\\anglesharp.css\\0.17.0\\anglesharp.css.0.17.0.nupkg.sha512",
@@ -210,5 +210,66 @@
     "C:\\Users\\marty\\.nuget\\packages\\xunit.extensibility.execution\\2.9.3\\xunit.extensibility.execution.2.9.3.nupkg.sha512",
     "C:\\Users\\marty\\.nuget\\packages\\xunit.runner.visualstudio\\3.1.4\\xunit.runner.visualstudio.3.1.4.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1901",
+      "level": "Warning",
+      "message": "Pakiet „NuGet.Packaging” 6.12.1 ma znane niska luki w zabezpieczeniach o ważności, https://github.com/advisories/GHSA-g4vj-cjjj-v7hg",
+      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\tests\\OazaDlaAutyzmu.Tests\\OazaDlaAutyzmu.Tests.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\tests\\OazaDlaAutyzmu.Tests\\OazaDlaAutyzmu.Tests.csproj",
+      "libraryId": "NuGet.Packaging",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1901",
+      "level": "Warning",
+      "message": "Pakiet „NuGet.Protocol” 6.12.1 ma znane niska luki w zabezpieczeniach o ważności, https://github.com/advisories/GHSA-g4vj-cjjj-v7hg",
+      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\tests\\OazaDlaAutyzmu.Tests\\OazaDlaAutyzmu.Tests.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\tests\\OazaDlaAutyzmu.Tests\\OazaDlaAutyzmu.Tests.csproj",
+      "libraryId": "NuGet.Protocol",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Pakiet „SQLitePCLRaw.lib.e_sqlite3” 2.1.11 ma znane wysoka luki w zabezpieczeniach o ważności, https://github.com/advisories/GHSA-2m69-gcr7-jv3q",
+      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\tests\\OazaDlaAutyzmu.Tests\\OazaDlaAutyzmu.Tests.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\tests\\OazaDlaAutyzmu.Tests\\OazaDlaAutyzmu.Tests.csproj",
+      "libraryId": "SQLitePCLRaw.lib.e_sqlite3",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Pakiet „System.Security.Cryptography.Xml” 9.0.0 ma znane wysoka luki w zabezpieczeniach o ważności, https://github.com/advisories/GHSA-37gx-xxp4-5rgx",
+      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\tests\\OazaDlaAutyzmu.Tests\\OazaDlaAutyzmu.Tests.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\tests\\OazaDlaAutyzmu.Tests\\OazaDlaAutyzmu.Tests.csproj",
+      "libraryId": "System.Security.Cryptography.Xml",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Pakiet „System.Security.Cryptography.Xml” 9.0.0 ma znane wysoka luki w zabezpieczeniach o ważności, https://github.com/advisories/GHSA-w3x6-4m5h-cxqf",
+      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\tests\\OazaDlaAutyzmu.Tests\\OazaDlaAutyzmu.Tests.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\tests\\OazaDlaAutyzmu.Tests\\OazaDlaAutyzmu.Tests.csproj",
+      "libraryId": "System.Security.Cryptography.Xml",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    }
+  ]
 }

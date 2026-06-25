@@ -1,0 +1,59 @@
+@page "/"
+@inject ApiService Api
+
+<div class="space-y-6">
+    <!-- Welcome Banner -->
+    <div class="bg-gradient-to-r from-sky-500 to-indigo-600 text-white rounded-2xl p-6 shadow-md text-center space-y-3">
+        <h2 class="text-2xl font-bold">Witaj w Oazie dla Autyzmu!</h2>
+        <p class="text-sky-100 text-sm max-w-sm mx-auto">
+            Wyszukuj bezpieczne i sprawdzone placówki terapeutyczne, wymieniaj się opiniami oraz rozmawiaj z innymi rodzicami na forum.
+        </p>
+        @if (Api.IsAuthenticated)
+        {
+            <div class="inline-block bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold">
+                Zalogowany jako: @Api.CurrentUser?.FirstName
+            </div>
+        }
+    </div>
+
+    <!-- Core Actions Grid -->
+    <div class="grid grid-cols-1 gap-4">
+        <!-- Find Facilities -->
+        <a href="facilities" class="flex items-center space-x-4 p-4 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow clickable-active">
+            <span class="text-4xl p-3 bg-sky-100 text-sky-600 rounded-xl">🏢</span>
+            <div class="text-left">
+                <span class="block text-base font-bold text-slate-900">Baza Placówek</span>
+                <span class="block text-xs text-slate-500">Wyszukuj ośrodki terapeutyczne, szkoły i kliniki</span>
+            </div>
+        </a>
+
+        <!-- Community Forum -->
+        <a href="forum" class="flex items-center space-x-4 p-4 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow clickable-active">
+            <span class="text-4xl p-3 bg-emerald-100 text-emerald-600 rounded-xl">💬</span>
+            <div class="text-left">
+                <span class="block text-base font-bold text-slate-900">Forum Społeczności</span>
+                <span class="block text-xs text-slate-500">Podziel się doświadczeniem i zadaj pytania innym</span>
+            </div>
+        </a>
+
+        <!-- Account Profile -->
+        <a href="account" class="flex items-center space-x-4 p-4 bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow clickable-active">
+            <span class="text-4xl p-3 bg-violet-100 text-violet-600 rounded-xl">👤</span>
+            <div class="text-left">
+                <span class="block text-base font-bold text-slate-900">Moje Konto</span>
+                <span class="block text-xs text-slate-500">Logowanie, rejestracja oraz szczegóły profilu</span>
+            </div>
+        </a>
+    </div>
+
+    <!-- Friendly Tip/Quote Card -->
+    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 flex space-x-3 items-start">
+        <span class="text-2xl mt-0.5">💡</span>
+        <div class="space-y-1">
+            <h4 class="text-sm font-bold text-amber-800">Wskazówka dostępności</h4>
+            <p class="text-xs text-amber-700 leading-relaxed">
+                Jeśli kolory lub napisy są zbyt intensywne, kliknij ikonę koła zębatego w prawym górnym rogu ekranu, aby włączyć **Tryb Spokojny** lub dostosować rozmiar czcionki.
+            </p>
+        </div>
+    </div>
+</div>
