@@ -5,25 +5,54 @@
 
 <div class="max-w-7xl mx-auto px-4 py-8">
     <!-- Header -->
-    <div class="flex justify-between items-center mb-8">
-        <div>
-            <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-                Placówki dla osób z autyzmem
-            </h1>
-            <p class="text-gray-600 dark:text-gray-400">
-                Znaleziono: <strong>@Model.TotalCount</strong> placówek (strona @Model.PageNumber z @Model.TotalPages)
-            </p>
+    <div class="mb-8">
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-6">
+            <div>
+                <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+                    Rekomendowani terapeuci i placówki
+                </h1>
+                <p class="text-gray-600 dark:text-gray-400">
+                    Znaleziono: <strong>@Model.TotalCount</strong> specjalistów (strona @Model.PageNumber z @Model.TotalPages)
+                </p>
+            </div>
+            
+            @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+            {
+                <a asp-action="Create" class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition shadow-sm">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    Dodaj placówkę
+                </a>
+            }
         </div>
-        
-        @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
-        {
-            <a asp-action="Create" class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                </svg>
-                Dodaj placówkę
-            </a>
-        }
+
+        <!-- Recommended Banner -->
+        <div class="relative overflow-hidden bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30 border border-indigo-100/80 dark:border-indigo-900/50 rounded-2xl p-6 shadow-sm">
+            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-indigo-200/20 dark:bg-indigo-700/10 rounded-full blur-2xl"></div>
+            <div class="absolute -left-10 -top-10 w-40 h-40 bg-purple-200/20 dark:bg-purple-700/10 rounded-full blur-2xl"></div>
+            
+            <div class="relative flex flex-col md:flex-row md:items-center gap-4 justify-between">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-2xl bg-indigo-600 text-white shadow-md font-bold text-xl">
+                        IT
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-1">
+                            Rekomendacje Idy Tyminy
+                        </h4>
+                        <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl">
+                            Przeglądasz bazę terapeutów i placówek szczególnie polecanych przez <strong>Idę Tyminę</strong>. 
+                            Większość specjalistów oprócz gabinetów stacjonarnych przyjmuje również <strong>online</strong>.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 bg-white/80 dark:bg-gray-800/80 backdrop-blur px-4 py-2.5 rounded-xl border border-gray-100/50 dark:border-gray-700/50 text-xs font-semibold text-indigo-700 dark:text-indigo-300 shadow-sm whitespace-nowrap self-start md:self-auto">
+                    <span class="text-base">💡</span>
+                    <span>Wskazówka: Użyj <strong>Ctrl + F (⌘ + F)</strong> aby przeszukać stronę</span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Filters -->
