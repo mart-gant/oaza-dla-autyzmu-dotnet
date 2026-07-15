@@ -16,10 +16,11 @@ public class EmailSender : IEmailSender
 
     public async Task SendEmailAsync(string email, string subject, string htmlMessage)
     {
-        var smtpHost = _configuration["EmailSettings:SmtpHost"];
+        var smtpHost = _configuration["EmailSettings:SmtpServer"];
         var smtpPort = int.Parse(_configuration["EmailSettings:SmtpPort"] ?? "587");
         var senderEmail = _configuration["EmailSettings:SenderEmail"];
-        var senderPassword = _configuration["EmailSettings:SenderPassword"];
+        var smtpUsername = _configuration["EmailSettings:SmtpUsername"] ?? senderEmail;
+        var senderPassword = _configuration["EmailSettings:SmtpPassword"];
         var senderName = _configuration["EmailSettings:SenderName"];
 
         if (string.IsNullOrEmpty(smtpHost) || string.IsNullOrEmpty(senderEmail))
@@ -33,7 +34,7 @@ public class EmailSender : IEmailSender
             using var smtpClient = new SmtpClient(smtpHost, smtpPort)
             {
                 EnableSsl = true,
-                Credentials = new NetworkCredential(senderEmail, senderPassword)
+                Credentials = new NetworkCredential(smtpUsername, senderPassword)
             };
 
             var mailMessage = new MailMessage

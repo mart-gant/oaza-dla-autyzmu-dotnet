@@ -122,6 +122,61 @@ public class ApiService
         }
     }
 
+    public async Task<ApiResponse<bool>> ExternalLoginAsync(string provider)
+    {
+        try
+        {
+            var backendUrl = GetBackendUrl();
+            if (string.IsNullOrEmpty(backendUrl))
+            {
+                return ApiResponse<bool>.ErrorResult("Nie skonfigurowano adresu URL serwera API.");
+            }
+
+            var callbackUrl = "oazadlaautyzmu://callback";
+            var authUrl = $"{backendUrl.TrimEnd('/')}/api/v1/auth/external-login?provider={provider}&redirectUri={Uri.EscapeDataString(callbackUrl)}";
+            
+            var authResult = await Microsoft.Maui.Authentication.WebAuthenticator.Default.AuthenticateAsync(
+                new Uri(authUrl),
+                new Uri(callbackUrl));
+
+            var accessToken = authResult.Properties.TryGetValue("accessToken", out var at) ? at : null;
+            var refreshToken = authResult.Properties.TryGetValue("refreshToken", out var rt) ? rt : null;
+
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                return ApiResponse<bool>.ErrorResult("Błąd uwierzytelniania: brak tokenu dostępu.");
+            }
+
+            await SetSecureValueAsync(TokenKey, accessToken);
+            if (!string.IsNullOrEmpty(refreshToken))
+            {
+                await SetSecureValueAsync(RefreshTokenKey, refreshToken);
+            }
+
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+            IsAuthenticated = true;
+
+            // Fetch current user details
+            var profileResponse = await GetUserProfileAsync();
+            if (profileResponse.IsSuccess && profileResponse.Data != null)
+            {
+                CurrentUser = profileResponse.Data;
+                Preferences.Default.Set(UserInfoKey, JsonSerializer.Serialize(CurrentUser));
+            }
+
+            OnAuthStateChanged?.Invoke();
+            return ApiResponse<bool>.SuccessResult(true);
+        }
+        catch (TaskCanceledException)
+        {
+            return ApiResponse<bool>.ErrorResult("Uwierzytelnianie zostało anulowane przez użytkownika.");
+        }
+        catch (Exception ex)
+        {
+            return ApiResponse<bool>.ErrorResult($"Błąd logowania zewnętrznego: {ex.Message}");
+        }
+    }
+
     public async Task LogoutAsync()
     {
         try

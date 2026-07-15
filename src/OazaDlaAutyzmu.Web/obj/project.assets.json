@@ -752,6 +752,38 @@
           }
         }
       },
+      "Microsoft.AspNetCore.Authentication.Facebook/10.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net10.0/Microsoft.AspNetCore.Authentication.Facebook.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.AspNetCore.Authentication.Facebook.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "Microsoft.AspNetCore.Authentication.Google/10.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net10.0/Microsoft.AspNetCore.Authentication.Google.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.AspNetCore.Authentication.Google.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore/10.0.2": {
         "type": "package",
         "dependencies": {
@@ -3756,6 +3788,38 @@
         "lib/netstandard2.0/MediatR.Contracts.xml",
         "mediatr.contracts.2.0.1.nupkg.sha512",
         "mediatr.contracts.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.Facebook/10.0.2": {
+      "sha512": "ZLLssLdISdTQRusGkpwcRQLAg+tWlFKjdRoLL+1XRb8Vrj+joJoWYk/sosGIHZS66/nz3fP+CclB2T59klSZlA==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.facebook/10.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net10.0/Microsoft.AspNetCore.Authentication.Facebook.dll",
+        "lib/net10.0/Microsoft.AspNetCore.Authentication.Facebook.xml",
+        "microsoft.aspnetcore.authentication.facebook.10.0.2.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.facebook.nuspec"
+      ]
+    },
+    "Microsoft.AspNetCore.Authentication.Google/10.0.2": {
+      "sha512": "tls7egsHsKjn4sxYmA8wwNGM+U+acpIPh1JOqFXxjG+YYn8/HOEwyO6kdFqyaqtjV2aI2ZUhGkMqYdKtlY266A==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.authentication.google/10.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net10.0/Microsoft.AspNetCore.Authentication.Google.dll",
+        "lib/net10.0/Microsoft.AspNetCore.Authentication.Google.xml",
+        "microsoft.aspnetcore.authentication.google.10.0.2.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.google.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore/10.0.2": {
@@ -7331,6 +7395,8 @@
       "FluentValidation.AspNetCore >= 11.3.1",
       "HtmlSanitizer >= 9.0.892",
       "MediatR >= 14.0.0",
+      "Microsoft.AspNetCore.Authentication.Facebook >= 10.0.2",
+      "Microsoft.AspNetCore.Authentication.Google >= 10.0.2",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 10.0.2",
       "Microsoft.EntityFrameworkCore.Design >= 10.0.2",
       "Microsoft.EntityFrameworkCore.InMemory >= 10.0.2",
@@ -7424,6 +7490,16 @@
             "version": "[14.0.0, )",
             "versionCentrallyManaged": true
           },
+          "Microsoft.AspNetCore.Authentication.Facebook": {
+            "target": "Package",
+            "version": "[10.0.2, )",
+            "versionCentrallyManaged": true
+          },
+          "Microsoft.AspNetCore.Authentication.Google": {
+            "target": "Package",
+            "version": "[10.0.2, )",
+            "versionCentrallyManaged": true
+          },
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
             "target": "Package",
             "version": "[10.0.2, )",
@@ -7481,6 +7557,8 @@
           "FluentValidation.AspNetCore": "11.3.1",
           "HtmlSanitizer": "9.0.892",
           "MediatR": "14.0.0",
+          "Microsoft.AspNetCore.Authentication.Facebook": "10.0.2",
+          "Microsoft.AspNetCore.Authentication.Google": "10.0.2",
           "Microsoft.AspNetCore.Components.WebView.Maui": "10.0.2",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.2",
           "Microsoft.AspNetCore.Mvc.Testing": "10.0.0",
@@ -8007,6 +8085,16 @@
       "warningLevel": 1,
       "message": "Wykryta wersja pakietu jest poza ograniczeniami zależności: element Microsoft.CodeAnalysis.Scripting.Common 4.14.0 wymaga wersji Microsoft.CodeAnalysis.Common (= 4.14.0), ale rozpoznano wersję Microsoft.CodeAnalysis.Common 5.0.0.",
       "libraryId": "Microsoft.CodeAnalysis.Common",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Pakiet „Microsoft.OpenApi” 2.3.0 ma znane wysoka luki w zabezpieczeniach o ważności, https://github.com/advisories/GHSA-v5pm-xwqc-g5wc",
+      "libraryId": "Microsoft.OpenApi",
       "targetGraphs": [
         "net10.0"
       ]

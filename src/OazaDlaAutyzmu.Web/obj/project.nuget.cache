@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "e+SbElBMaeo=",
+  "dgSpecHash": "Xg7K7/PHbhE=",
   "success": true,
   "projectFilePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
   "expectedPackageFiles": [
@@ -64,6 +64,8 @@
     "C:\\Users\\marty\\.nuget\\packages\\humanizer.core.zh-hant\\2.14.1\\humanizer.core.zh-hant.2.14.1.nupkg.sha512",
     "C:\\Users\\marty\\.nuget\\packages\\mediatr\\14.0.0\\mediatr.14.0.0.nupkg.sha512",
     "C:\\Users\\marty\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\marty\\.nuget\\packages\\microsoft.aspnetcore.authentication.facebook\\10.0.2\\microsoft.aspnetcore.authentication.facebook.10.0.2.nupkg.sha512",
+    "C:\\Users\\marty\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\10.0.2\\microsoft.aspnetcore.authentication.google.10.0.2.nupkg.sha512",
     "C:\\Users\\marty\\.nuget\\packages\\microsoft.aspnetcore.identity.entityframeworkcore\\10.0.2\\microsoft.aspnetcore.identity.entityframeworkcore.10.0.2.nupkg.sha512",
     "C:\\Users\\marty\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.24\\microsoft.aspnetcore.razor.language.6.0.24.nupkg.sha512",
     "C:\\Users\\marty\\.nuget\\packages\\microsoft.build\\17.11.48\\microsoft.build.17.11.48.nupkg.sha512",
@@ -234,6 +236,18 @@
       "warningLevel": 1,
       "filePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
       "libraryId": "Microsoft.CodeAnalysis.Common",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Pakiet „Microsoft.OpenApi” 2.3.0 ma znane wysoka luki w zabezpieczeniach o ważności, https://github.com/advisories/GHSA-v5pm-xwqc-g5wc",
+      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
+      "libraryId": "Microsoft.OpenApi",
       "targetGraphs": [
         "net10.0"
       ]

@@ -180,6 +180,110 @@ public class IdentityApiController : ControllerBase
             createdAt = user.CreatedAt
         });
     }
+
+    /// <summary>
+    /// Inicjalizacja logowania zewnętrznego dla aplikacji mobilnej (WebAuthenticator)
+    /// </summary>
+    [HttpGet("external-login")]
+    public IActionResult ExternalLogin([FromQuery] string provider, [FromQuery] string redirectUri)
+    {
+        if (string.IsNullOrEmpty(provider) || string.IsNullOrEmpty(redirectUri))
+        {
+            return BadRequest(new { message = "Provider i redirectUri są wymagane." });
+        }
+
+        var callbackUrl = Url.Action("ExternalCallback", "IdentityApi");
+        var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, callbackUrl);
+        properties.Items["mobileRedirectUri"] = redirectUri;
+        
+        return Challenge(properties, provider);
+    }
+
+    /// <summary>
+    /// Callback logowania zewnętrznego dla aplikacji mobilnej
+    /// </summary>
+    [HttpGet("external-callback")]
+    public async Task<IActionResult> ExternalCallback()
+    {
+        var info = await _signInManager.GetExternalLoginInfoAsync();
+        if (info == null)
+        {
+            return BadRequest(new { message = "Nie można pobrać informacji o logowaniu zewnętrznym." });
+        }
+
+        var authenticateResult = await HttpContext.AuthenticateAsync(IdentityConstants.ExternalScheme);
+        if (!authenticateResult.Succeeded || authenticateResult.Properties == null || 
+            !authenticateResult.Properties.Items.TryGetValue("mobileRedirectUri", out var mobileRedirectUri) || 
+            string.IsNullOrEmpty(mobileRedirectUri))
+        {
+            return BadRequest(new { message = "Brak adresu przekierowania dla aplikacji mobilnej." });
+        }
+
+        var user = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
+        if (user == null)
+        {
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            if (string.IsNullOrEmpty(email))
+            {
+                return BadRequest(new { message = "Nie otrzymano adresu email od dostawcy zewnętrznego." });
+            }
+
+            user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                var name = info.Principal.FindFirstValue(ClaimTypes.Name);
+                var firstName = info.Principal.FindFirstValue(ClaimTypes.GivenName) ?? name ?? "Użytkownik";
+                var lastName = info.Principal.FindFirstValue(ClaimTypes.Surname) ?? "";
+
+                user = new ApplicationUser
+                {
+                    UserName = email,
+                    Email = email,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Role = UserRole.User,
+                    CreatedAt = DateTime.UtcNow,
+                    EmailConfirmed = true
+                };
+
+                var createResult = await _userManager.CreateAsync(user);
+                if (!createResult.Succeeded)
+                {
+                    return BadRequest(new { message = "Nie udało się utworzyć użytkownika.", errors = createResult.Errors.Select(e => e.Description) });
+                }
+            }
+
+            var addLoginResult = await _userManager.AddLoginAsync(user, info);
+            if (!addLoginResult.Succeeded)
+            {
+                return BadRequest(new { message = "Nie udało się przypisać logowania zewnętrznego." });
+            }
+        }
+
+        await _auditService.LogAsync("User_ExternalLogin_Api_Success", "ApplicationUser", user.Id, user.Id, user.Email, 
+            null, $"Successful mobile API external login via {info.LoginProvider}", HttpContext.Connection.RemoteIpAddress?.ToString());
+
+        var principal = await _signInManager.CreateUserPrincipalAsync(user);
+        var options = _bearerTokenOptions.Get(IdentityConstants.BearerScheme);
+        var utcNow = DateTimeOffset.UtcNow;
+        
+        var accessTokenProperties = new AuthenticationProperties
+        {
+            ExpiresUtc = utcNow.Add(options.BearerTokenExpiration)
+        };
+        var accessTokenTicket = new AuthenticationTicket(principal, accessTokenProperties, IdentityConstants.BearerScheme);
+        var accessToken = options.BearerTokenProtector.Protect(accessTokenTicket);
+        
+        var refreshTokenProperties = new AuthenticationProperties
+        {
+            ExpiresUtc = utcNow.Add(options.RefreshTokenExpiration)
+        };
+        var refreshTokenTicket = new AuthenticationTicket(principal, refreshTokenProperties, IdentityConstants.BearerScheme);
+        var refreshToken = options.RefreshTokenProtector.Protect(refreshTokenTicket);
+
+        var redirectUrlWithTokens = $"{mobileRedirectUri}?accessToken={Uri.EscapeDataString(accessToken)}&refreshToken={Uri.EscapeDataString(refreshToken)}";
+        return Redirect(redirectUrlWithTokens);
+    }
 }
 
 public class RegisterApiRequest

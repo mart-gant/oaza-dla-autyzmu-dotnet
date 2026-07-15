@@ -63,9 +63,19 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>(options =>
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
-// Bearer Token Authentication for Mobile Client
+// Bearer Token Authentication for Mobile Client and OAuth Authentication
 builder.Services.AddAuthentication()
-    .AddBearerToken(IdentityConstants.BearerScheme);
+    .AddBearerToken(IdentityConstants.BearerScheme)
+    .AddGoogle(options =>
+    {
+        options.ClientId = builder.Configuration["Authentication:Google:ClientId"] ?? "placeholder";
+        options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"] ?? "placeholder";
+    })
+    .AddFacebook(options =>
+    {
+        options.AppId = builder.Configuration["Authentication:Facebook:AppId"] ?? "placeholder";
+        options.AppSecret = builder.Configuration["Authentication:Facebook:AppSecret"] ?? "placeholder";
+    });
 
 // Cookie configuration for session timeout
 builder.Services.ConfigureApplicationCookie(options =>

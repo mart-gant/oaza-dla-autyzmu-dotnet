@@ -79,9 +79,28 @@
                     </div>
 
                     <div class="space-y-1">
-                        <label class="block text-xs font-semibold text-slate-500">Hasło:</label>
-                        <input type="password" @bind="_password" placeholder="••••••••"
-                               class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-sky-500 focus:bg-white" />
+                        <label class="block text-xs font-semibold text-slate-500" for="loginPasswordMobile">Hasło:</label>
+                        <div class="relative">
+                            <input type="@(_showLoginPassword ? "text" : "password")" id="loginPasswordMobile" @bind="_password" placeholder="••••••••"
+                                   class="w-full pl-3 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-sky-500 focus:bg-white" />
+                            <button type="button" @onclick="() => _showLoginPassword = !_showLoginPassword"
+                                    class="absolute inset-y-0 right-0 px-3 flex items-center text-slate-400 hover:text-sky-600 focus:outline-none"
+                                    aria-label="Pokaż/Ukryj hasło">
+                                @if (_showLoginPassword)
+                                {
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+                                    </svg>
+                                }
+                                else
+                                {
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                }
+                            </button>
+                        </div>
                     </div>
 
                     <button @onclick="HandleLogin" disabled="@_submitting"
@@ -96,6 +115,36 @@
                             <span>Zaloguj się</span>
                         }
                     </button>
+
+                    <!-- External Login Options for Mobile -->
+                    <div class="space-y-2 pt-2">
+                        <div class="relative flex py-2 items-center">
+                            <div class="flex-grow border-t border-slate-200"></div>
+                            <span class="flex-shrink mx-3 text-slate-400 text-xs font-semibold">lub zaloguj się przez</span>
+                            <div class="flex-grow border-t border-slate-200"></div>
+                        </div>
+
+                        <button @onclick='() => HandleExternalLogin("Google")' disabled="@_submitting"
+                                class="w-full py-2.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 font-bold text-xs rounded-xl transition-colors clickable-active flex items-center justify-center space-x-2">
+                            <svg class="h-4 w-4" viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+                                <g transform="matrix(1, 0, 0, 1, 0, 0)">
+                                    <path d="M21.35,11.1H12v2.7h5.38c-0.24,1.28 -0.96,2.37 -2.04,3.1v2.57h3.3c1.93,-1.78 3.04,-4.4 3.04,-7.4C21.68,11.75 21.56,11.4 21.35,11.1z" fill="#4285F4" />
+                                    <path d="M12,20.62c2.5,0 4.6,-0.83 6.13,-2.25l-3.3,-2.57c-0.91,0.61 -2.08,0.98 -3.3,0.98 -2.43,0 -4.5,-1.64 -5.23,-3.84H2.87v2.66C4.4,18.72 8.0,20.62 12,20.62z" fill="#34A853" />
+                                    <path d="M6.77,12.94c-0.18,-0.55 -0.29,-1.14 -0.29,-1.74s0.11,-1.19 0.29,-1.74V6.8H2.87c-0.62,1.24 -0.98,2.64 -0.98,4.1s0.36,2.86 0.98,4.1L6.77,12.94z" fill="#FBBC05" />
+                                    <path d="M12,6.17c1.36,0 2.58,0.47 3.54,1.38l2.65,-2.65C16.58,3.37 14.48,2.57 12,2.57 8.0,2.57 4.4,4.47 2.87,6.8L6.77,9.46C7.5,7.26 9.57,6.17 12,6.17z" fill="#EA4335" />
+                                </g>
+                            </svg>
+                            <span>Google</span>
+                        </button>
+
+                        <button @onclick='() => HandleExternalLogin("Facebook")' disabled="@_submitting"
+                                class="w-full py-2.5 bg-[#1877F2] hover:bg-[#166FE5] text-white font-bold text-xs rounded-xl transition-colors clickable-active flex items-center justify-center space-x-2">
+                            <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24">
+                                <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z"/>
+                            </svg>
+                            <span>Facebook</span>
+                        </button>
+                    </div>
                 </div>
             }
             else
@@ -122,15 +171,53 @@
                     </div>
 
                     <div class="space-y-1">
-                        <label class="block text-xs font-semibold text-slate-500">Hasło (min. 8 znaków, cyfra, wielka litera):</label>
-                        <input type="password" @bind="_password" placeholder="••••••••"
-                               class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-sky-500 focus:bg-white" />
+                        <label class="block text-xs font-semibold text-slate-500" for="registerPasswordMobile">Hasło (min. 8 znaków, cyfra, wielka litera):</label>
+                        <div class="relative">
+                            <input type="@(_showRegisterPassword ? "text" : "password")" id="registerPasswordMobile" @bind="_password" placeholder="••••••••"
+                                   class="w-full pl-3 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-sky-500 focus:bg-white" />
+                            <button type="button" @onclick="() => _showRegisterPassword = !_showRegisterPassword"
+                                    class="absolute inset-y-0 right-0 px-3 flex items-center text-slate-400 hover:text-sky-600 focus:outline-none"
+                                    aria-label="Pokaż/Ukryj hasło">
+                                @if (_showRegisterPassword)
+                                {
+                                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+                                    </svg>
+                                }
+                                else
+                                {
+                                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                }
+                            </button>
+                        </div>
                     </div>
 
                     <div class="space-y-1">
-                        <label class="block text-xs font-semibold text-slate-500">Potwierdź hasło:</label>
-                        <input type="password" @bind="_confirmPassword" placeholder="••••••••"
-                               class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-sky-500 focus:bg-white" />
+                        <label class="block text-xs font-semibold text-slate-500" for="confirmPasswordMobile">Potwierdź hasło:</label>
+                        <div class="relative">
+                            <input type="@(_showConfirmPassword ? "text" : "password")" id="confirmPasswordMobile" @bind="_confirmPassword" placeholder="••••••••"
+                                   class="w-full pl-3 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-sky-500 focus:bg-white" />
+                            <button type="button" @onclick="() => _showConfirmPassword = !_showConfirmPassword"
+                                    class="absolute inset-y-0 right-0 px-3 flex items-center text-slate-400 hover:text-sky-600 focus:outline-none"
+                                    aria-label="Pokaż/Ukryj hasło">
+                                @if (_showConfirmPassword)
+                                {
+                                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+                                    </svg>
+                                }
+                                else
+                                {
+                                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                }
+                            </button>
+                        </div>
                     </div>
 
                     <button @onclick="HandleRegister" disabled="@_submitting"
@@ -156,6 +243,9 @@
     private bool _submitting = false;
     private string _statusMessage = string.Empty;
     private bool _actionSuccess = false;
+    private bool _showLoginPassword = false;
+    private bool _showRegisterPassword = false;
+    private bool _showConfirmPassword = false;
 
     // Form inputs
     private string _email = string.Empty;
@@ -168,6 +258,39 @@
     {
         _isLoginMode = isLogin;
         _statusMessage = string.Empty;
+        _showLoginPassword = false;
+        _showRegisterPassword = false;
+        _showConfirmPassword = false;
+    }
+
+    private bool IsValidEmail(string email)
+    {
+        try
+        {
+            var addr = new System.Net.Mail.MailAddress(email);
+            return addr.Address == email;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    private (bool IsValid, string ErrorMessage) ValidatePasswordStrength(string password)
+    {
+        if (password.Length < 8)
+            return (false, "Hasło musi mieć co najmniej 8 znaków.");
+        
+        if (!password.Any(char.IsUpper))
+            return (false, "Hasło musi zawierać co najmniej jedną wielką literę.");
+            
+        if (!password.Any(char.IsLower))
+            return (false, "Hasło musi zawierać co najmniej jedną małą literę.");
+            
+        if (!password.Any(char.IsDigit))
+            return (false, "Hasło musi zawierać co najmniej jedną cyfrę.");
+
+        return (true, string.Empty);
     }
 
     private async Task HandleLogin()
@@ -176,6 +299,13 @@
         {
             _actionSuccess = false;
             _statusMessage = "Proszę podać email i hasło.";
+            return;
+        }
+
+        if (!IsValidEmail(_email))
+        {
+            _actionSuccess = false;
+            _statusMessage = "Proszę podać prawidłowy adres email.";
             return;
         }
 
@@ -200,6 +330,28 @@
         StateHasChanged();
     }
 
+    private async Task HandleExternalLogin(string provider)
+    {
+        _submitting = true;
+        _statusMessage = string.Empty;
+
+        var result = await Api.ExternalLoginAsync(provider);
+        if (result.IsSuccess)
+        {
+            _actionSuccess = true;
+            _email = string.Empty;
+            _password = string.Empty;
+        }
+        else
+        {
+            _actionSuccess = false;
+            _statusMessage = result.Message;
+        }
+
+        _submitting = false;
+        StateHasChanged();
+    }
+
     private async Task HandleRegister()
     {
         if (string.IsNullOrWhiteSpace(_email) || string.IsNullOrWhiteSpace(_password) || 
@@ -207,6 +359,21 @@
         {
             _actionSuccess = false;
             _statusMessage = "Wszystkie pola są wymagane.";
+            return;
+        }
+
+        if (!IsValidEmail(_email))
+        {
+            _actionSuccess = false;
+            _statusMessage = "Proszę podać prawidłowy adres email.";
+            return;
+        }
+
+        var (isValidPassword, passwordError) = ValidatePasswordStrength(_password);
+        if (!isValidPassword)
+        {
+            _actionSuccess = false;
+            _statusMessage = passwordError;
             return;
         }
 

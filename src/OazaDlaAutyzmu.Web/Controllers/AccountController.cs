@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using OazaDlaAutyzmu.Domain.Entities;
 using OazaDlaAutyzmu.Web.Services;
 using System.Security.Claims;
+using reCAPTCHA.AspNetCore;
+using Microsoft.Extensions.Configuration;
 
 namespace OazaDlaAutyzmu.Web.Controllers;
 
@@ -13,22 +15,29 @@ public class AccountController : Controller
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly IEmailSender _emailSender;
     private readonly IAuditService _auditService;
+    private readonly IRecaptchaService _recaptchaService;
+    private readonly IConfiguration _configuration;
 
     public AccountController(
         UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
         IEmailSender emailSender,
-        IAuditService auditService)
+        IAuditService auditService,
+        IRecaptchaService recaptchaService,
+        IConfiguration configuration)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _emailSender = emailSender;
         _auditService = auditService;
+        _recaptchaService = recaptchaService;
+        _configuration = configuration;
     }
 
     [HttpGet]
     public IActionResult Register()
     {
+        ViewBag.RecaptchaSiteKey = _configuration["RecaptchaSettings:SiteKey"];
         return View();
     }
 
@@ -36,6 +45,15 @@ public class AccountController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Register(string email, string password, string firstName, string lastName)
     {
+        ViewBag.RecaptchaSiteKey = _configuration["RecaptchaSettings:SiteKey"];
+
+        var recaptchaResult = await _recaptchaService.Validate(Request);
+        if (!recaptchaResult.success)
+        {
+            ModelState.AddModelError("", "Weryfikacja reCAPTCHA nie powiodła się. Potwierdź, że nie jesteś robotem.");
+            return View();
+        }
+
         if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(password))
         {
             ModelState.AddModelError("", "Email i hasło są wymagane.");
@@ -448,6 +466,119 @@ public class AccountController : Controller
 
         TempData["ErrorMessage"] = "Nie udało się usunąć konta.";
         return RedirectToAction("DeleteMyAccount");
+    }
+
+    [HttpPost]
+    [AllowAnonymous]
+    [ValidateAntiForgeryToken]
+    public IActionResult ExternalLogin(string provider, string? returnUrl = null)
+    {
+        var redirectUrl = Url.Action("ExternalLoginCallback", "Account", new { returnUrl });
+        var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+        return Challenge(properties, provider);
+    }
+
+    [HttpGet]
+    [AllowAnonymous]
+    public async Task<IActionResult> ExternalLoginCallback(string? returnUrl = null, string? remoteError = null)
+    {
+        if (remoteError != null)
+        {
+            ModelState.AddModelError("", $"Błąd logowania zewnętrznego: {remoteError}");
+            return View("Login");
+        }
+
+        var info = await _signInManager.GetExternalLoginInfoAsync();
+        if (info == null)
+        {
+            ModelState.AddModelError("", "Nie można pobrać informacji o logowaniu zewnętrznym.");
+            return View("Login");
+        }
+
+        var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+        if (result.Succeeded)
+        {
+            var user = await _userManager.FindByLoginAsync(info.LoginProvider, info.ProviderKey);
+            if (user != null)
+            {
+                await _auditService.LogAsync("User_ExternalLogin_Success", "ApplicationUser", user.Id, user.Id, user.Email, 
+                    null, $"Successful external login via {info.LoginProvider}", HttpContext.Connection.RemoteIpAddress?.ToString());
+            }
+
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                return Redirect(returnUrl);
+            
+            return RedirectToAction("Index", "Home");
+        }
+
+        if (result.IsLockedOut)
+        {
+            return RedirectToAction("AccessDenied");
+        }
+
+        // User does not have an account, create it
+        var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+        if (string.IsNullOrEmpty(email))
+        {
+            ModelState.AddModelError("", "Nie otrzymano adresu email od dostawcy zewnętrznego.");
+            return View("Login");
+        }
+
+        var existingUser = await _userManager.FindByEmailAsync(email);
+        if (existingUser != null)
+        {
+            // Connect existing account
+            var linkResult = await _userManager.AddLoginAsync(existingUser, info);
+            if (linkResult.Succeeded)
+            {
+                await _signInManager.SignInAsync(existingUser, isPersistent: false);
+                await _auditService.LogAsync("User_ExternalLogin_Linked", "ApplicationUser", existingUser.Id, existingUser.Id, existingUser.Email, 
+                    null, $"Linked external login {info.LoginProvider} to existing user", HttpContext.Connection.RemoteIpAddress?.ToString());
+
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    return Redirect(returnUrl);
+                
+                return RedirectToAction("Index", "Home");
+            }
+
+            ModelState.AddModelError("", "Nie udało się powiązać zewnętrznego konta.");
+            return View("Login");
+        }
+
+        var name = info.Principal.FindFirstValue(ClaimTypes.Name);
+        var firstName = info.Principal.FindFirstValue(ClaimTypes.GivenName) ?? name ?? "Użytkownik";
+        var lastName = info.Principal.FindFirstValue(ClaimTypes.Surname) ?? "";
+
+        var newUser = new ApplicationUser
+        {
+            UserName = email,
+            Email = email,
+            FirstName = firstName,
+            LastName = lastName,
+            Role = UserRole.User,
+            CreatedAt = DateTime.UtcNow,
+            EmailConfirmed = true // External logins verify email ownership
+        };
+
+        var createResult = await _userManager.CreateAsync(newUser);
+        if (createResult.Succeeded)
+        {
+            var addLoginResult = await _userManager.AddLoginAsync(newUser, info);
+            if (addLoginResult.Succeeded)
+            {
+                await _signInManager.SignInAsync(newUser, isPersistent: false);
+                await _auditService.LogAsync("User_ExternalLogin_Registered", "ApplicationUser", newUser.Id, newUser.Id, newUser.Email, 
+                    null, $"Registered new user via external login {info.LoginProvider}", HttpContext.Connection.RemoteIpAddress?.ToString());
+
+                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    return Redirect(returnUrl);
+                
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        ModelState.AddModelError("", "Błąd podczas rejestracji konta zewnętrznego.");
+        return View("Login");
     }
 
     [HttpGet]

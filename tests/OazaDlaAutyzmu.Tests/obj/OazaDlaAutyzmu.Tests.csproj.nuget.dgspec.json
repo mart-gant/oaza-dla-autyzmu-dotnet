@@ -90,6 +90,8 @@
             "FluentValidation.AspNetCore": "11.3.1",
             "HtmlSanitizer": "9.0.892",
             "MediatR": "14.0.0",
+            "Microsoft.AspNetCore.Authentication.Facebook": "10.0.2",
+            "Microsoft.AspNetCore.Authentication.Google": "10.0.2",
             "Microsoft.AspNetCore.Components.WebView.Maui": "10.0.2",
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.2",
             "Microsoft.AspNetCore.Mvc.Testing": "10.0.0",
@@ -470,6 +472,8 @@
             "FluentValidation.AspNetCore": "11.3.1",
             "HtmlSanitizer": "9.0.892",
             "MediatR": "14.0.0",
+            "Microsoft.AspNetCore.Authentication.Facebook": "10.0.2",
+            "Microsoft.AspNetCore.Authentication.Google": "10.0.2",
             "Microsoft.AspNetCore.Components.WebView.Maui": "10.0.2",
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.2",
             "Microsoft.AspNetCore.Mvc.Testing": "10.0.0",
@@ -876,6 +880,8 @@
             "FluentValidation.AspNetCore": "11.3.1",
             "HtmlSanitizer": "9.0.892",
             "MediatR": "14.0.0",
+            "Microsoft.AspNetCore.Authentication.Facebook": "10.0.2",
+            "Microsoft.AspNetCore.Authentication.Google": "10.0.2",
             "Microsoft.AspNetCore.Components.WebView.Maui": "10.0.2",
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.2",
             "Microsoft.AspNetCore.Mvc.Testing": "10.0.0",
@@ -1268,6 +1274,16 @@
               "version": "[14.0.0, )",
               "versionCentrallyManaged": true
             },
+            "Microsoft.AspNetCore.Authentication.Facebook": {
+              "target": "Package",
+              "version": "[10.0.2, )",
+              "versionCentrallyManaged": true
+            },
+            "Microsoft.AspNetCore.Authentication.Google": {
+              "target": "Package",
+              "version": "[10.0.2, )",
+              "versionCentrallyManaged": true
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[10.0.2, )",
@@ -1325,6 +1341,8 @@
             "FluentValidation.AspNetCore": "11.3.1",
             "HtmlSanitizer": "9.0.892",
             "MediatR": "14.0.0",
+            "Microsoft.AspNetCore.Authentication.Facebook": "10.0.2",
+            "Microsoft.AspNetCore.Authentication.Google": "10.0.2",
             "Microsoft.AspNetCore.Components.WebView.Maui": "10.0.2",
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.2",
             "Microsoft.AspNetCore.Mvc.Testing": "10.0.0",
@@ -1901,6 +1919,8 @@
             "FluentValidation.AspNetCore": "11.3.1",
             "HtmlSanitizer": "9.0.892",
             "MediatR": "14.0.0",
+            "Microsoft.AspNetCore.Authentication.Facebook": "10.0.2",
+            "Microsoft.AspNetCore.Authentication.Google": "10.0.2",
             "Microsoft.AspNetCore.Components.WebView.Maui": "10.0.2",
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "10.0.2",
             "Microsoft.AspNetCore.Mvc.Testing": "10.0.0",
