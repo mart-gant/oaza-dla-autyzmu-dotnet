@@ -1949,6 +1949,9 @@ public static class SeedData
         };
         context.Facilities.Add(cert8);
 
+        // Save facilities to generate IDs before adding reviews referencing them
+        await context.SaveChangesAsync();
+
         // Seed reviews for the first therapist to make sure tests pass
         var review = new Review
         {
