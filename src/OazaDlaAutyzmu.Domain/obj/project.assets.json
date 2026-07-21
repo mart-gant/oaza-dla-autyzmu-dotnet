@@ -1067,11 +1067,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj",
       "projectName": "OazaDlaAutyzmu.Domain",
-      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj",
+      "projectPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj",
       "packagesPath": "C:\\Users\\marty\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Domain\\obj\\",
+      "outputPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "centralPackageVersionsManagementEnabled": true,
       "fallbackFolders": [

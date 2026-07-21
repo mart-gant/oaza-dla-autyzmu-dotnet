@@ -7417,11 +7417,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
+      "projectUniqueName": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
       "projectName": "OazaDlaAutyzmu.Web",
-      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
+      "projectPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
       "packagesPath": "C:\\Users\\marty\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Web\\obj\\",
+      "outputPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\obj\\",
       "projectStyle": "PackageReference",
       "centralPackageVersionsManagementEnabled": true,
       "fallbackFolders": [
@@ -7444,11 +7444,11 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj": {
-              "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj"
+            "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj": {
+              "projectPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj"
             },
-            "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj"
+            "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj"
             }
           }
         }
@@ -8085,6 +8085,16 @@
       "warningLevel": 1,
       "message": "Wykryta wersja pakietu jest poza ograniczeniami zależności: element Microsoft.CodeAnalysis.Scripting.Common 4.14.0 wymaga wersji Microsoft.CodeAnalysis.Common (= 4.14.0), ale rozpoznano wersję Microsoft.CodeAnalysis.Common 5.0.0.",
       "libraryId": "Microsoft.CodeAnalysis.Common",
+      "targetGraphs": [
+        "net10.0"
+      ]
+    },
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Pakiet „AngleSharp” 0.17.1 ma znane umiarkowana luki w zabezpieczeniach o ważności, https://github.com/advisories/GHSA-pgww-w46g-26qg",
+      "libraryId": "AngleSharp",
       "targetGraphs": [
         "net10.0"
       ]

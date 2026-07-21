@@ -1895,11 +1895,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
+      "projectUniqueName": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
       "projectName": "OazaDlaAutyzmu.Application",
-      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
+      "projectPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
       "packagesPath": "C:\\Users\\marty\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Application\\obj\\",
+      "outputPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\obj\\",
       "projectStyle": "PackageReference",
       "centralPackageVersionsManagementEnabled": true,
       "fallbackFolders": [
@@ -1922,11 +1922,11 @@
           "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj": {
-              "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj"
+            "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj": {
+              "projectPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj"
             },
-            "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj"
+            "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj"
             }
           }
         }

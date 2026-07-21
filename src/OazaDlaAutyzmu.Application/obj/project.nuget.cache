@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IhLOM63Os48=",
+  "dgSpecHash": "MXWR4js5IcI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
+  "projectFilePath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\marty\\.nuget\\packages\\automapper\\15.1.3\\automapper.15.1.3.nupkg.sha512",
     "C:\\Users\\marty\\.nuget\\packages\\fluentvalidation\\11.4.0\\fluentvalidation.11.4.0.nupkg.sha512",
@@ -52,9 +52,9 @@
       "code": "NU1603",
       "level": "Warning",
       "message": "OazaDlaAutyzmu.Application jest zależny od FluentValidation (>= 11.3.1), ale FluentValidation 11.3.1 nie został znaleziony. Zamiast tego FluentValidation 11.4.0 został rozwiązany.",
-      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
+      "projectPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
+      "filePath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
       "libraryId": "FluentValidation",
       "targetGraphs": [
         "net10.0"
@@ -64,9 +64,9 @@
       "code": "NU1903",
       "level": "Warning",
       "message": "Pakiet „SQLitePCLRaw.lib.e_sqlite3” 2.1.11 ma znane wysoka luki w zabezpieczeniach o ważności, https://github.com/advisories/GHSA-2m69-gcr7-jv3q",
-      "projectPath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
+      "projectPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\marty\\source\\repos\\oaza-dla-autyzmu-dotnet-1\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
+      "filePath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
       "libraryId": "SQLitePCLRaw.lib.e_sqlite3",
       "targetGraphs": [
         "net10.0"
