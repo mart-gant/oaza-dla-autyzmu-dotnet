@@ -10,7 +10,7 @@ COPY src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj src/
 COPY src/OazaDlaAutyzmu.Web/OazaDlaAutyzmu.Web.csproj src/OazaDlaAutyzmu.Web/
 
 # Restore dependencies
-RUN dotnet restore src/OazaDlaAutyzmu.Web/OazaDlaAutyzmu.Web.csproj
+RUN dotnet restore OazaDlaAutyzmu.slnx
 
 # Copy all source code
 COPY . .
