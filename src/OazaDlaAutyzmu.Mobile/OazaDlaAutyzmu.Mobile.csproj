@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
 		<TargetFrameworks>net10.0-android;net10.0-ios</TargetFrameworks>
@@ -41,6 +41,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Controls" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" />
 	</ItemGroup>
@@ -49,5 +50,9 @@
 		<ProjectReference Include="..\OazaDlaAutyzmu.Application\OazaDlaAutyzmu.Application.csproj" />
 		<ProjectReference Include="..\OazaDlaAutyzmu.Domain\OazaDlaAutyzmu.Domain.csproj" />
 	</ItemGroup>
+
+	<Target Name="ClearAppBundleAttributes" BeforeTargets="_CodesignAppBundle">
+		<Exec Command="xattr -cr &quot;$(AppBundleDir)&quot;" />
+	</Target>
 
 </Project>

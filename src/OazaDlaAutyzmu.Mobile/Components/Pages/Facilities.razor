@@ -37,11 +37,11 @@
             <select @bind="_selectedType" @bind:after="LoadFacilities" 
                     class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-sky-500">
                 <option value="">Wszystkie typy</option>
-                <option value="0">Terapia</option>
-                <option value="1">Szkoła</option>
-                <option value="2">Ośrodek wsparcia</option>
-                <option value="3">Klinika</option>
-                <option value="4">Inne</option>
+                <option value="Therapy">Terapia</option>
+                <option value="School">Szkoła</option>
+                <option value="SupportCenter">Ośrodek wsparcia</option>
+                <option value="Clinic">Klinika</option>
+                <option value="Other">Inne</option>
             </select>
 
             <select @bind="_selectedCity" @bind:after="LoadFacilities"
@@ -214,21 +214,21 @@
         await LoadFacilities();
     }
 
-    private string GetTypeName(int type) => type switch
+    private string GetTypeName(string type) => type switch
     {
-        0 => "Terapia",
-        1 => "Szkoła",
-        2 => "Wsparcie",
-        3 => "Klinika",
+        "Therapy" => "Terapia",
+        "School" => "Szkoła",
+        "SupportCenter" => "Wsparcie",
+        "Clinic" => "Klinika",
         _ => "Inne"
     };
 
-    private string GetTagClass(int type) => type switch
+    private string GetTagClass(string type) => type switch
     {
-        0 => "bg-sky-50 text-sky-700 border border-sky-100",
-        1 => "bg-indigo-50 text-indigo-700 border border-indigo-100",
-        2 => "bg-emerald-50 text-emerald-700 border border-emerald-100",
-        3 => "bg-rose-50 text-rose-700 border border-rose-100",
+        "Therapy" => "bg-sky-50 text-sky-700 border border-sky-100",
+        "School" => "bg-indigo-50 text-indigo-700 border border-indigo-100",
+        "SupportCenter" => "bg-emerald-50 text-emerald-700 border border-emerald-100",
+        "Clinic" => "bg-rose-50 text-rose-700 border border-rose-100",
         _ => "bg-slate-50 text-slate-700 border border-slate-100"
     };
 }

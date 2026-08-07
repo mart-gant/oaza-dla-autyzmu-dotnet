@@ -1,6 +1,7 @@
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace OazaDlaAutyzmu.Mobile.Services;
 
@@ -587,7 +588,7 @@ public class FacilityItem
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;
-    public int Type { get; set; } // 0=Therapy, 1=School, 2=SupportCenter, 3=Clinic, 4=Other
+    public string Type { get; set; } = string.Empty;
     public string City { get; set; } = string.Empty;
     public string Address { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
@@ -633,6 +634,8 @@ public class ForumTopic
     public int CategoryId { get; set; }
     public string Title { get; set; } = string.Empty;
     public string Slug { get; set; } = string.Empty;
+
+    [JsonPropertyName("userName")]
     public string AuthorName { get; set; } = string.Empty;
     public int PostCount { get; set; }
     public int ViewCount { get; set; }
@@ -646,10 +649,16 @@ public class ForumPost
 {
     public int Id { get; set; }
     public int TopicId { get; set; }
+
+    [JsonPropertyName("userId")]
     public int AuthorId { get; set; }
+
+    [JsonPropertyName("userName")]
     public string AuthorName { get; set; } = string.Empty;
     public string Content { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; }
+
+    [JsonPropertyName("updatedAt")]
     public DateTime? EditedAt { get; set; }
 }
 

@@ -1,44 +1,38 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj": {}
+    "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Web/OazaDlaAutyzmu.Web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj": {
+    "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Application/OazaDlaAutyzmu.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
+        "projectUniqueName": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Application/OazaDlaAutyzmu.Application.csproj",
         "projectName": "OazaDlaAutyzmu.Application",
-        "projectPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj",
-        "packagesPath": "C:\\Users\\marty\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\obj\\",
+        "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Application/OazaDlaAutyzmu.Application.csproj",
+        "packagesPath": "/Users/marcingantkowski/.nuget/packages/",
+        "outputPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Application/obj/",
         "projectStyle": "PackageReference",
         "centralPackageVersionsManagementEnabled": true,
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\marty\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/marcingantkowski/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj": {
-                "projectPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj"
+              "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Domain/OazaDlaAutyzmu.Domain.csproj": {
+                "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Domain/OazaDlaAutyzmu.Domain.csproj"
               },
-              "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj"
+              "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj": {
+                "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj"
               }
             }
           }
@@ -53,11 +47,10 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "AutoMapper": {
@@ -101,6 +94,7 @@
             "Microsoft.EntityFrameworkCore.Sqlite": "10.0.2",
             "Microsoft.EntityFrameworkCore.Tools": "10.0.2",
             "Microsoft.Extensions.Logging.Debug": "10.0.2",
+            "Microsoft.Maui.Controls": "10.0.2",
             "Microsoft.NET.Test.Sdk": "17.14.1",
             "Microsoft.Playwright": "1.57.0",
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": "10.0.0",
@@ -130,7 +124,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.102/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -408,34 +402,28 @@
         }
       }
     },
-    "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj": {
+    "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Domain/OazaDlaAutyzmu.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj",
+        "projectUniqueName": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Domain/OazaDlaAutyzmu.Domain.csproj",
         "projectName": "OazaDlaAutyzmu.Domain",
-        "projectPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj",
-        "packagesPath": "C:\\Users\\marty\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\obj\\",
+        "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Domain/OazaDlaAutyzmu.Domain.csproj",
+        "packagesPath": "/Users/marcingantkowski/.nuget/packages/",
+        "outputPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Domain/obj/",
         "projectStyle": "PackageReference",
         "centralPackageVersionsManagementEnabled": true,
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\marty\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/marcingantkowski/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -450,11 +438,10 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
@@ -483,6 +470,7 @@
             "Microsoft.EntityFrameworkCore.Sqlite": "10.0.2",
             "Microsoft.EntityFrameworkCore.Tools": "10.0.2",
             "Microsoft.Extensions.Logging.Debug": "10.0.2",
+            "Microsoft.Maui.Controls": "10.0.2",
             "Microsoft.NET.Test.Sdk": "17.14.1",
             "Microsoft.Playwright": "1.57.0",
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": "10.0.0",
@@ -512,7 +500,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.102/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -790,38 +778,32 @@
         }
       }
     },
-    "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj": {
+    "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj",
+        "projectUniqueName": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj",
         "projectName": "OazaDlaAutyzmu.Infrastructure",
-        "projectPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\marty\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\obj\\",
+        "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj",
+        "packagesPath": "/Users/marcingantkowski/.nuget/packages/",
+        "outputPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Infrastructure/obj/",
         "projectStyle": "PackageReference",
         "centralPackageVersionsManagementEnabled": true,
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\marty\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/marcingantkowski/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj": {
-                "projectPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Domain\\OazaDlaAutyzmu.Domain.csproj"
+              "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Domain/OazaDlaAutyzmu.Domain.csproj": {
+                "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Domain/OazaDlaAutyzmu.Domain.csproj"
               }
             }
           }
@@ -836,11 +818,10 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
@@ -891,6 +872,7 @@
             "Microsoft.EntityFrameworkCore.Sqlite": "10.0.2",
             "Microsoft.EntityFrameworkCore.Tools": "10.0.2",
             "Microsoft.Extensions.Logging.Debug": "10.0.2",
+            "Microsoft.Maui.Controls": "10.0.2",
             "Microsoft.NET.Test.Sdk": "17.14.1",
             "Microsoft.Playwright": "1.57.0",
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": "10.0.0",
@@ -920,7 +902,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.102/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
@@ -1198,41 +1180,35 @@
         }
       }
     },
-    "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj": {
+    "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Web/OazaDlaAutyzmu.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
+        "projectUniqueName": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Web/OazaDlaAutyzmu.Web.csproj",
         "projectName": "OazaDlaAutyzmu.Web",
-        "projectPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\OazaDlaAutyzmu.Web.csproj",
-        "packagesPath": "C:\\Users\\marty\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Web\\obj\\",
+        "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Web/OazaDlaAutyzmu.Web.csproj",
+        "packagesPath": "/Users/marcingantkowski/.nuget/packages/",
+        "outputPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Web/obj/",
         "projectStyle": "PackageReference",
         "centralPackageVersionsManagementEnabled": true,
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\marty\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/marcingantkowski/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
-            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj": {
-                "projectPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Application\\OazaDlaAutyzmu.Application.csproj"
+              "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Application/OazaDlaAutyzmu.Application.csproj": {
+                "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Application/OazaDlaAutyzmu.Application.csproj"
               },
-              "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\marty\\source\\oaza-dla-autyzmu-dotnet\\src\\OazaDlaAutyzmu.Infrastructure\\OazaDlaAutyzmu.Infrastructure.csproj"
+              "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj": {
+                "projectPath": "/Users/marcingantkowski/Documents/oaza-dla-autyzmu-dotnet-1/src/OazaDlaAutyzmu.Infrastructure/OazaDlaAutyzmu.Infrastructure.csproj"
               }
             }
           }
@@ -1247,11 +1223,10 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "AspNetCoreRateLimit": {
@@ -1352,6 +1327,7 @@
             "Microsoft.EntityFrameworkCore.Sqlite": "10.0.2",
             "Microsoft.EntityFrameworkCore.Tools": "10.0.2",
             "Microsoft.Extensions.Logging.Debug": "10.0.2",
+            "Microsoft.Maui.Controls": "10.0.2",
             "Microsoft.NET.Test.Sdk": "17.14.1",
             "Microsoft.Playwright": "1.57.0",
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": "10.0.0",
@@ -1384,7 +1360,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.301/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.102/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

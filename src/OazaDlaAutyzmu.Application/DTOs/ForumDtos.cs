@@ -23,6 +23,7 @@ public class ForumTopicDto
     public int ViewCount { get; set; }
     public int PostCount { get; set; }
     public DateTime CreatedAt { get; set; }
+    public DateTime LastPostAt { get; set; }
     public ForumPostDto? LatestPost { get; set; }
 }
 

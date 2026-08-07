@@ -39,6 +39,7 @@ public class FacilitiesController : ControllerBase
         {
             SearchTerm = search,
             City = city,
+            Type = string.IsNullOrEmpty(type) ? null : Enum.TryParse<OazaDlaAutyzmu.Domain.Entities.FacilityType>(type, true, out var parsedType) ? parsedType : null,
             PageNumber = page,
             PageSize = pageSize
         };

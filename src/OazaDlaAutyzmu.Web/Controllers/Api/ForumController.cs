@@ -57,7 +57,20 @@ public class ForumController : ControllerBase
             return NotFound(new { message = $"Topic with ID {topicId} not found" });
         }
 
-        return Ok(new { data = topic });
+        var postsQuery = new GetPostsByTopicQuery { TopicId = topicId };
+        var posts = await _mediator.Send(postsQuery);
+
+        return Ok(new
+        {
+            data = new
+            {
+                topic = topic,
+                posts = new
+                {
+                    data = posts
+                }
+            }
+        });
     }
 
     /// <summary>

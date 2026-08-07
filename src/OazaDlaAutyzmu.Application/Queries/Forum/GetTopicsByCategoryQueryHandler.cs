@@ -37,6 +37,7 @@ public class GetTopicsByCategoryQueryHandler : IRequestHandler<GetTopicsByCatego
             ViewCount = t.ViewCount,
             PostCount = t.Posts?.Count ?? 0,
             CreatedAt = t.CreatedAt,
+            LastPostAt = t.Posts?.OrderByDescending(p => p.CreatedAt).Select(p => p.CreatedAt).FirstOrDefault() ?? t.CreatedAt,
             LatestPost = t.Posts?
                 .OrderByDescending(p => p.CreatedAt)
                 .Select(p => new ForumPostDto

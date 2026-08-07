@@ -41,7 +41,8 @@ public class GetTopicByIdQueryHandler : IRequestHandler<GetTopicByIdQuery, Forum
             IsPinned = topic.IsPinned,
             ViewCount = topic.ViewCount,
             PostCount = topic.Posts?.Count ?? 0,
-            CreatedAt = topic.CreatedAt
+            CreatedAt = topic.CreatedAt,
+            LastPostAt = topic.Posts?.OrderByDescending(p => p.CreatedAt).Select(p => p.CreatedAt).FirstOrDefault() ?? topic.CreatedAt
         };
     }
 }
